@@ -119,4 +119,4 @@ Branch: `feat/final-perf-a11y-deploy`
 - [x] Accessibility pass: semantic landmarks/headings, real alt text everywhere, visible focus states, full keyboard nav (nav bar + case-study links), verify `prefers-reduced-motion` disables/shortens every animation.
 - [x] Confirm single dark theme only, no light/dark toggle.
 - [x] Add `@vercel/analytics` (`<Analytics />` in `app/layout.tsx`, one line) — simple pageview tracking via Vercel's own dashboard, not a custom-built analytics feature on the site, so it doesn't conflict with the spec's "no analytics dashboard" exclusion. Approved by Amar.
-- [ ] Deploy to Vercel; verify the production build and both case-study routes.
+- [x] Deploy to Vercel; verify the production build and both case-study routes.
