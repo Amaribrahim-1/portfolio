@@ -104,7 +104,7 @@ _(must come last — depends on all of Phase 1 and Phase 2)_
 Branch: `feat/final-content-swapin`
 
 - [x] Place `Amar-Ibrahim-CV.pdf` at `public/cv/Amar-Ibrahim-CV.pdf`.
-- [x] Swap real Exam.io screenshot into the existing frame components (landing). Areej screenshots still waiting on Amar.
+- [x] Swap real Exam.io and Areej screenshots into the existing frame components.
 - [x] Add real URLs: Exam.io live demo (`exam-platform-7r4y.vercel.app`), GitHub repos for Exam.io (`exam_platform`) and Areej (`areej-store`). Areej stays without a live URL (in development).
 - [x] Swap in the profile photo (Hero + About) from the GitHub portrait; duotone/glow is CSS on `PortraitFrame`.
 - [x] Online Bookstore added as a homepage-only card (no case-study page), last in the list — Amar requested it until stronger projects replace it.

@@ -77,7 +77,12 @@ export const projects: Project[] = [
     ],
     liveUrl: null,
     repoUrl: "https://github.com/Amaribrahim-1/areej-store",
-    screenshots: [],
+    screenshots: [
+      {
+        src: "/images/projects/areej/home.png",
+        alt: "Areej storefront hero with Arabic navigation, perfume product photography, and a shop-products call to action.",
+      },
+    ],
   },
   {
     slug: "online-bookstore",
