@@ -1,4 +1,5 @@
 import { profile } from "@/content/profile";
+import { cn, focusRingClassName } from "@/lib/utils";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -13,7 +14,10 @@ export function Footer() {
           <li>
             <a
               href={`mailto:${profile.email}`}
-              className="font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none"
+              className={cn(
+                "font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase transition-colors hover:text-accent",
+                focusRingClassName,
+              )}
             >
               Email
             </a>
@@ -24,9 +28,13 @@ export function Footer() {
                 href={social.href}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none"
+                className={cn(
+                  "font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase transition-colors hover:text-accent",
+                  focusRingClassName,
+                )}
               >
                 {social.label}
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </li>
           ))}

@@ -24,6 +24,7 @@ export function PortraitFrame({
         alt={profile.photo.alt}
         fill
         sizes="(max-width: 768px) 208px, (max-width: 1024px) 224px, 288px"
+        placeholder="blur"
         priority={priority}
         className="photo-frame-media object-top"
       />

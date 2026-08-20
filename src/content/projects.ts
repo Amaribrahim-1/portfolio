@@ -1,7 +1,13 @@
+import type { StaticImageData } from "next/image";
+
+import areejHome from "../../public/images/projects/areej/home.png";
+import bookstoreHome from "../../public/images/projects/bookstore/home.jpg";
+import examIoLanding from "../../public/images/projects/exam-io/landing.png";
+
 export type ProjectStatus = "live" | "in-development";
 
 export type ProjectScreenshot = {
-  src: string;
+  src: StaticImageData;
   alt: string;
 };
 
@@ -47,7 +53,7 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/Amaribrahim-1/exam_platform",
     screenshots: [
       {
-        src: "/images/projects/exam-io/landing.png",
+        src: examIoLanding,
         alt: "Exam.io landing page with the digital exam platform hero, role badges, and product preview.",
       },
     ],
@@ -79,7 +85,7 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/Amaribrahim-1/areej-store",
     screenshots: [
       {
-        src: "/images/projects/areej/home.png",
+        src: areejHome,
         alt: "Areej storefront hero with Arabic navigation, perfume product photography, and a shop-products call to action.",
       },
     ],
@@ -111,7 +117,7 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/Amaribrahim-1/Book-Store",
     screenshots: [
       {
-        src: "/images/projects/bookstore/home.jpg",
+        src: bookstoreHome,
         alt: "Online Bookstore home page with featured books and storefront navigation.",
       },
     ],

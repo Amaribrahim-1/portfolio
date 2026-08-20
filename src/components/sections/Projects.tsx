@@ -64,7 +64,11 @@ function ProjectCard({ project }: { project: Project }) {
 
   if (project.hasCaseStudy) {
     return (
-      <Link href={`/projects/${project.slug}`} className={className}>
+      <Link
+        href={`/projects/${project.slug}`}
+        aria-label={`${project.name} case study`}
+        className={className}
+      >
         <ProjectCardBody project={project} />
       </Link>
     );

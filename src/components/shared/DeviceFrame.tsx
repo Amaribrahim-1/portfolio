@@ -7,6 +7,7 @@ type DeviceFrameProps = {
   label: string;
   screenshot?: ProjectScreenshot;
   priority?: boolean;
+  sizes?: string;
   className?: string;
 };
 
@@ -14,6 +15,7 @@ export function DeviceFrame({
   label,
   screenshot,
   priority = false,
+  sizes = "(max-width: 40rem) 100vw, (max-width: 64rem) 50vw, 32rem",
   className,
 }: DeviceFrameProps) {
   return (
@@ -38,7 +40,8 @@ export function DeviceFrame({
             src={screenshot.src}
             alt={screenshot.alt}
             fill
-            sizes="(max-width: 64rem) 100vw, 64rem"
+            sizes={sizes}
+            placeholder="blur"
             priority={priority}
             className="object-cover object-top"
           />
