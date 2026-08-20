@@ -1,3 +1,4 @@
+import { PortraitFrame } from "@/components/shared/PortraitFrame";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { profile } from "@/content/profile";
 
@@ -23,13 +24,7 @@ export function About() {
 
       <div className="mt-10 flex flex-col items-center gap-10 md:flex-row md:items-start md:gap-16">
         <ScrollReveal>
-          {/* Placeholder until the real portrait is supplied; frame treatment is CSS. */}
-          <div
-            aria-hidden="true"
-            className="photo-frame photo-frame-duotone aspect-3/4 w-44 shrink-0 sm:w-52 md:w-56 lg:w-64"
-          >
-            <div className="photo-frame-media bg-secondary" />
-          </div>
+          <PortraitFrame className="lg:w-64" />
         </ScrollReveal>
 
         <div className="flex max-w-2xl flex-col gap-6">

@@ -203,6 +203,7 @@ export function CaseStudy({ project }: { project: Project }) {
           <DeviceFrame
             label={project.name}
             screenshot={heroScreenshot}
+            priority
             className="rounded-xl ring-1 ring-foreground/10"
           />
         </ScrollReveal>

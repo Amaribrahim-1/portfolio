@@ -39,6 +39,7 @@ function ProjectCard({ project }: { project: Project }) {
         <DeviceFrame
           label={project.name}
           screenshot={project.screenshots[0]}
+          className="rounded-t-xl"
         />
         <CardHeader className="gap-2">
           <div className="flex flex-wrap items-start justify-between gap-2">

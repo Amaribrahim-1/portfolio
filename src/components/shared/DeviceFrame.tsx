@@ -6,12 +6,14 @@ import { cn } from "@/lib/utils";
 type DeviceFrameProps = {
   label: string;
   screenshot?: ProjectScreenshot;
+  priority?: boolean;
   className?: string;
 };
 
 export function DeviceFrame({
   label,
   screenshot,
+  priority = false,
   className,
 }: DeviceFrameProps) {
   return (
@@ -37,7 +39,8 @@ export function DeviceFrame({
             alt={screenshot.alt}
             fill
             sizes="(max-width: 64rem) 100vw, 64rem"
-            className="object-cover"
+            priority={priority}
+            className="object-cover object-top"
           />
         </div>
       ) : (
