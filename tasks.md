@@ -55,9 +55,9 @@ _(independent of each other — safe to build in any order or in parallel; each 
 
 Branch: `feat/section-hero`
 
-- `components/sections/Hero.tsx`: tagline, "My CV" CTA linking to `public/cv/Amar-Ibrahim-CV.pdf`, contact CTA, profile photo frame (grayscale/duotone filter + `#00E6A0` glow border — styled placeholder box until Task 3.1 supplies the real photo).
-- Apply `ParallaxLayer` so the background/name layer moves at a different speed than the foreground CTA.
-- Content sourced only from `content/profile.ts`.
+- [x] `components/sections/Hero.tsx`: tagline, "My CV" CTA linking to `public/cv/Amar-Ibrahim-CV.pdf`, contact CTA, profile photo frame (grayscale/duotone filter + `#00E6A0` glow border — styled placeholder box until Task 3.1 supplies the real photo).
+- [x] Apply `ParallaxLayer` so the background/name layer moves at a different speed than the foreground CTA.
+- [x] Content sourced only from `content/profile.ts`.
 
 ### Task 2.2 — About section
 
