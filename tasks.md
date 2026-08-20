@@ -63,8 +63,8 @@ Branch: `feat/section-hero`
 
 Branch: `feat/section-about`
 
-- `components/sections/About.tsx`: real About paragraph, split into rows using `ScrollReveal` with alternating `direction` (odd from right, even from left).
-- Photo duotone treatment reuses the same frame styling as Hero (no new component).
+- [x] `components/sections/About.tsx`: real About paragraph, split into rows using `ScrollReveal` with alternating `direction` (odd from right, even from left).
+- [x] Photo duotone treatment reuses the same frame styling as Hero (no new component).
 
 ### Task 2.3 — Tech Stack + CV/Resume + Contact sections
 
