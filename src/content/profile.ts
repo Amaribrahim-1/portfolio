@@ -8,18 +8,27 @@ export type Profile = {
   role: string;
   tagline: string;
   about: string;
+  aboutRows: readonly string[];
   email: string;
   cvHref: string;
   socials: SocialLink[];
 };
+
+const aboutRows = [
+  "I'm Amar, a frontend developer and final-year Computer Science student based in Egypt.",
+  "I specialize in React and Next.js, and I care as much about how a product is built as how it looks — clear architecture, real security, and code that holds up in production, not just a nice UI.",
+  "My strongest project so far is Exam.io, a full-stack exam platform with a custom anti-cheat engine and multi-role dashboards.",
+  "Right now I'm building Areej, a real e-commerce store for a paying client, from database security to the storefront UI.",
+  "I'm currently taking on freelance frontend work.",
+] as const;
 
 export const profile: Profile = {
   name: "Amar Ibrahim Fawzy",
   role: "Frontend Developer",
   tagline:
     "Frontend Developer building real, production-ready products — not tutorials.",
-  about:
-    "I'm Amar, a frontend developer and final-year Computer Science student based in Egypt. I specialize in React and Next.js, and I care as much about how a product is built as how it looks — clear architecture, real security, and code that holds up in production, not just a nice UI. My strongest project so far is Exam.io, a full-stack exam platform with a custom anti-cheat engine and multi-role dashboards. Right now I'm building Areej, a real e-commerce store for a paying client, from database security to the storefront UI. I'm currently taking on freelance frontend work.",
+  about: aboutRows.join(" "),
+  aboutRows,
   email: "amaribrahimforwork1@gmail.com",
   cvHref: "/cv/Amar-Ibrahim-CV.pdf",
   socials: [
