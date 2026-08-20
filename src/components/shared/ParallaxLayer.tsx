@@ -37,8 +37,8 @@ export function ParallaxLayer({
   const y = useTransform(scrollYProgress, [0, 1], [0, offset]);
 
   return (
-    <div ref={ref} className={cn(className)}>
-      <motion.div style={prefersReducedMotion ? undefined : { y }}>
+    <div ref={ref} className={cn("h-full", className)}>
+      <motion.div className="h-full" style={prefersReducedMotion ? undefined : { y }}>
         {children}
       </motion.div>
     </div>

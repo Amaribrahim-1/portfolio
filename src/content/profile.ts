@@ -9,6 +9,7 @@ export type Profile = {
   tagline: string;
   about: string;
   email: string;
+  cvHref: string;
   socials: SocialLink[];
 };
 
@@ -20,6 +21,7 @@ export const profile: Profile = {
   about:
     "I'm Amar, a frontend developer and final-year Computer Science student based in Egypt. I specialize in React and Next.js, and I care as much about how a product is built as how it looks — clear architecture, real security, and code that holds up in production, not just a nice UI. My strongest project so far is Exam.io, a full-stack exam platform with a custom anti-cheat engine and multi-role dashboards. Right now I'm building Areej, a real e-commerce store for a paying client, from database security to the storefront UI. I'm currently taking on freelance frontend work.",
   email: "amaribrahimforwork1@gmail.com",
+  cvHref: "/cv/Amar-Ibrahim-CV.pdf",
   socials: [
     {
       label: "LinkedIn",
