@@ -6,7 +6,7 @@ import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Navbar } from "@/components/shared/Navbar";
 import { Footer } from "@/components/shared/Footer";
 import { SkipToContent } from "@/components/shared/SkipToContent";
-import { profile } from "@/content/profile";
+import { navLinks, profile } from "@/content/profile";
 import { getSiteUrl } from "@/lib/site";
 
 const geistSans = Geist({
@@ -65,7 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="bg-grain flex min-h-full flex-col">
         <SmoothScroll>
           <SkipToContent />
-          <Navbar />
+          <Navbar name={profile.name} links={navLinks} />
           <main id="main" tabIndex={-1} className="flex flex-1 flex-col outline-none">
             {children}
           </main>
