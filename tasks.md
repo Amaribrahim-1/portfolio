@@ -201,10 +201,10 @@ Branch: `feat/cinematic-hero`
 
 Depends on 4.2 and 4.3. This is the first “wow” section — do not touch About/Projects.
 
-- [ ] Rewrite `src/components/shared/ParallaxLayer.tsx` (or move to `src/components/motion/ParallaxLayer.tsx`) on GSAP ScrollTrigger scrub. Multiple offset speeds. Reduced-motion → static.
-- [ ] Restyle `src/components/sections/Hero.tsx`: full-viewport, Fraunces headline (already SplitHeadline), one mustard italic accent taken from the existing tagline (no new copy).
-- [ ] 4–5 parallax layers, back to front: giant name (low opacity) → Exam.io screenshot → Areej screenshot → portrait → CTAs in the foreground (My CV + jump to `#work`). Screenshots from `content/projects.ts` / `profile.photo` — `next/image`.
-- [ ] Scroll-scrub the layers and fade/rise the headline. No Spline, no stock mountains.
+- [x] Rewrite `src/components/shared/ParallaxLayer.tsx` (or move to `src/components/motion/ParallaxLayer.tsx`) on GSAP ScrollTrigger scrub. Multiple offset speeds. Reduced-motion → static.
+- [x] Restyle `src/components/sections/Hero.tsx`: full-viewport, Fraunces headline (already SplitHeadline), one mustard italic accent taken from the existing tagline (no new copy).
+- [x] 4–5 parallax layers, back to front: giant name (low opacity) → Exam.io screenshot → Areej screenshot → portrait → CTAs in the foreground (My CV + jump to `#work`). Screenshots from `content/projects.ts` / `profile.photo` — `next/image`.
+- [x] Scroll-scrub the layers and fade/rise the headline. No Spline, no stock mountains.
 
 ---
 
