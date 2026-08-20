@@ -41,9 +41,14 @@ export const projects: Project[] = [
       "Framer Motion",
       "Vercel",
     ],
-    liveUrl: null,
-    repoUrl: null,
-    screenshots: [],
+    liveUrl: "https://exam-platform-7r4y.vercel.app",
+    repoUrl: "https://github.com/Amaribrahim-1/exam_platform",
+    screenshots: [
+      {
+        src: "/images/projects/exam-io/landing.png",
+        alt: "Exam.io landing page with the digital exam platform hero, role badges, and product preview.",
+      },
+    ],
   },
   {
     slug: "areej",
@@ -68,7 +73,7 @@ export const projects: Project[] = [
       "Cursor",
     ],
     liveUrl: null,
-    repoUrl: null,
+    repoUrl: "https://github.com/Amaribrahim-1/areej-store",
     screenshots: [],
   },
 ];

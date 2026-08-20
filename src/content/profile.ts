@@ -3,6 +3,11 @@ export type SocialLink = {
   href: string;
 };
 
+export type ProfilePhoto = {
+  src: string;
+  alt: string;
+};
+
 export type Profile = {
   name: string;
   role: string;
@@ -11,6 +16,7 @@ export type Profile = {
   aboutRows: readonly string[];
   email: string;
   cvHref: string;
+  photo: ProfilePhoto;
   socials: SocialLink[];
 };
 
@@ -31,6 +37,10 @@ export const profile: Profile = {
   aboutRows,
   email: "amaribrahimforwork1@gmail.com",
   cvHref: "/cv/Amar-Ibrahim-CV.pdf",
+  photo: {
+    src: "/images/amar.jpg",
+    alt: "Portrait of Amar Ibrahim Fawzy",
+  },
   socials: [
     {
       label: "LinkedIn",
