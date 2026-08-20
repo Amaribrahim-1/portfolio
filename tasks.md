@@ -130,7 +130,7 @@ Generated from the cinematic restyle plan. **Sequential only** — do **one task
 
 Why this is strict: each task is sized for one context window. Combining a later section with an earlier primitive will blow the window and produce half-finished motion.
 
-Build order: **4.1 → 4.2 → 4.3 → … → 4.12**. No skipping.
+Build order: **4.1 → 4.2 → 4.3 → … → 4.12 → 4.13**. No skipping. Task 4.13 is a parked Hero polish (Amar) — do not start it until 4.12 is done.
 
 Visual rules (apply in every Phase 4 task, do not re-litigate):
 
@@ -214,10 +214,10 @@ Branch: `feat/cinematic-about`
 
 Depends on 4.2. First consumer of the stack pattern — **build `StickyStack` in this task**, not earlier.
 
-- [ ] `src/components/motion/StickyStack.tsx`: children as `position: sticky` cards; previous card scales ~1 → 0.85 as the next covers it. Transforms only. Reduced-motion → stacked static cards, no scale.
-- [ ] Restyle `src/components/sections/About.tsx`: each `profile.aboutRows` item becomes a large numbered card (01–05), alternating forest / cream / sage. Portrait peeks on the first card.
-- [ ] Cream section surface. Remove the old alternating `ScrollReveal` paragraph layout.
-- [ ] Do not invent About copy.
+- [x] `src/components/motion/StickyStack.tsx`: children as `position: sticky` cards; previous card scales ~1 → 0.85 as the next covers it. Transforms only. Reduced-motion → stacked static cards, no scale.
+- [x] Restyle `src/components/sections/About.tsx`: each `profile.aboutRows` item becomes a large numbered card (01–05), alternating forest / cream / sage. Portrait peeks on the first card.
+- [x] Cream section surface. Remove the old alternating `ScrollReveal` paragraph layout.
+- [x] Do not invent About copy.
 
 ---
 
@@ -287,10 +287,24 @@ Depends on 4.1 and 4.3. Do **not** reuse homepage `StickyStack` (would repeat th
 
 Branch: `feat/cinematic-a11y-perf`
 
-Depends on 4.5–4.11. Last Phase 4 task.
+Depends on 4.5–4.11. Last restyle/cleanup task before the parked Hero polish (4.13).
 
 - [ ] Audit every GSAP/Lenis instance against `prefers-reduced-motion` (kill tweens, no Lenis, final layout visible).
 - [ ] Mobile: word-split not letter-split; no full-page path; sticky cards still readable without scale.
 - [ ] Remove unused `motion` imports/primitives (`ScrollReveal` etc.) if nothing left consumes them; uninstall `motion` only if the tree is clean.
 - [ ] Images still `next/image`. Hover/tap 150–300ms CSS or GSAP, not layout thrash.
 - [ ] Smoke-check homepage + both case-study routes + keyboard nav + skip link.
+
+---
+
+### Task 4.13 — Hero: keep the headline off the work layers
+
+Branch: `fix/cinematic-hero-overlap`
+
+Depends on 4.12. Parked by Amar after 4.5 so the rest of Phase 4 can finish first.
+
+The collage is the right idea; the bug is copy sitting on top of Exam.io UI (`Get started free` and other in-screenshot text). Headline + CTAs must stay readable.
+
+- [ ] In `src/components/sections/Hero.tsx`, shift the Exam.io / Areej screenshot layers so they do not sit under the headline or CTAs. Copy stays in a clear left column; collage stays on the right (and stacked above the copy on mobile, behind the existing forest scrim).
+- [ ] Keep the 4–5 parallax layers, real screenshots from `content/projects.ts` / `profile.photo`, `next/image`, and reduced-motion static.
+- [ ] Do not invent copy. Do not restyle About/Projects.
