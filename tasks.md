@@ -177,9 +177,9 @@ Branch: `feat/cinematic-split-text`
 
 Depends on 4.2. Do not apply split-text across the whole site yet — ship the primitive and prove it on **one** existing heading (e.g. the Hero `h1`), then stop.
 
-- [ ] `src/lib/split-text.ts`: split an element into word spans (default) or letter spans (opt-in). No Club GSAP plugin.
-- [ ] `src/components/motion/SplitHeadline.tsx`: one-shot intro (max ~800ms) via GSAP. Letters only on desktop headings; words on mobile. Reduced-motion → render plain text, no spans animation.
-- [ ] Swap the existing Hero `h1` to `SplitHeadline` as the smoke test. Do not rebuild Hero layout or parallax here.
+- [x] `src/lib/split-text.ts`: split an element into word spans (default) or letter spans (opt-in). No Club GSAP plugin.
+- [x] `src/components/motion/SplitHeadline.tsx`: one-shot intro (max ~800ms) via GSAP. Letters only on desktop headings; words on mobile. Reduced-motion → render plain text, no spans animation.
+- [x] Swap the existing Hero `h1` to `SplitHeadline` as the smoke test. Do not rebuild Hero layout or parallax here.
 
 ---
 
