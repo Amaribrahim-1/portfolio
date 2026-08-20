@@ -79,8 +79,8 @@ Branch: `feat/sections-techstack-cv-contact`
 
 Branch: `feat/section-projects`
 
-- `components/sections/Projects.tsx`: 2 cards (Exam.io, Areej) from `content/projects.ts` — tagline, status badge (`Live` / `In active development`), tech tags, screenshot-frame placeholder, link into `/projects/[slug]`.
-- Uses shadcn `card` / `badge`; `ScrollReveal` on entry.
+- [x] `components/sections/Projects.tsx`: 2 cards (Exam.io, Areej) from `content/projects.ts` — tagline, status badge (`Live` / `In active development`), tech tags, screenshot-frame placeholder, link into `/projects/[slug]`.
+- [x] Uses shadcn `card` / `badge`; `ScrollReveal` on entry.
 
 ### Task 2.5 — Case study pages (Areej + Exam.io)
 
