@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Fraunces, Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Navbar } from "@/components/shared/Navbar";
 import { Footer } from "@/components/shared/Footer";
 import { SkipToContent } from "@/components/shared/SkipToContent";
@@ -62,12 +63,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`dark ${geistSans.variable} ${fraunces.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="bg-grain flex min-h-full flex-col">
-        <SkipToContent />
-        <Navbar />
-        <main id="main" tabIndex={-1} className="flex flex-1 flex-col outline-none">
-          {children}
-        </main>
-        <Footer />
+        <SmoothScroll>
+          <SkipToContent />
+          <Navbar />
+          <main id="main" tabIndex={-1} className="flex flex-1 flex-col outline-none">
+            {children}
+          </main>
+          <Footer />
+        </SmoothScroll>
         <Analytics />
       </body>
     </html>
