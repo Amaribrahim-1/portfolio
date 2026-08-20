@@ -1,0 +1,107 @@
+import Link from "next/link";
+
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
+import { projects, type Project, type ProjectStatus } from "@/content/projects";
+
+function statusBadgeVariant(status: ProjectStatus) {
+  return status === "live" ? "default" : "outline";
+}
+
+function ScreenshotFrame({ label }: { label: string }) {
+  return (
+    <div aria-hidden="true" className="bg-secondary">
+      <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
+        <span className="size-1.5 rounded-full bg-muted-foreground/40" />
+        <span className="size-1.5 rounded-full bg-muted-foreground/40" />
+        <span className="size-1.5 rounded-full bg-muted-foreground/40" />
+        <span className="ml-2 truncate font-mono text-[10px] tracking-wide text-muted-foreground">
+          {label}
+        </span>
+      </div>
+      <div className="aspect-video bg-muted" />
+    </div>
+  );
+}
+
+function ProjectTechTags({ tech }: { tech: readonly string[] }) {
+  return (
+    <ul className="flex flex-wrap gap-2">
+      {tech.map((name) => (
+        <li key={name}>
+          <Badge variant="outline" className="font-mono">
+            {name}
+          </Badge>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <Link
+      href={`/projects/${project.slug}`}
+      className="group block h-full rounded-xl focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+    >
+      <Card className="h-full pt-0 transition-[box-shadow] duration-200 group-hover:ring-accent/40">
+        {/* Placeholder until Task 3.1 supplies real screenshots. */}
+        <ScreenshotFrame label={project.name} />
+        <CardHeader className="gap-2">
+          <div className="flex flex-wrap items-start justify-between gap-2">
+            <h3 className="font-display text-lg font-semibold tracking-tight">
+              {project.name}
+            </h3>
+            <Badge
+              variant={statusBadgeVariant(project.status)}
+              className="font-mono"
+            >
+              {project.statusLabel}
+            </Badge>
+          </div>
+          <CardDescription>{project.tagline}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ProjectTechTags tech={project.tech} />
+        </CardContent>
+      </Card>
+    </Link>
+  );
+}
+
+export function Projects() {
+  return (
+    <section
+      id="work"
+      aria-labelledby="work-heading"
+      className="mx-auto max-w-5xl px-gutter py-section-lg"
+    >
+      <ScrollReveal>
+        <h2
+          id="work-heading"
+          className="font-mono text-xs tracking-[0.2em] text-accent uppercase"
+        >
+          Projects
+        </h2>
+      </ScrollReveal>
+
+      <div className="mt-10 grid gap-4 sm:grid-cols-2">
+        {projects.map((project, index) => (
+          <ScrollReveal
+            key={project.slug}
+            delay={index * 0.08}
+            className="h-full"
+          >
+            <ProjectCard project={project} />
+          </ScrollReveal>
+        ))}
+      </div>
+    </section>
+  );
+}
