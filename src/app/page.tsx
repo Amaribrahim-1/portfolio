@@ -1,3 +1,4 @@
+import { About } from "@/components/sections/About";
 import { Hero } from "@/components/sections/Hero";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { profile } from "@/content/profile";
@@ -8,18 +9,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-
-      <section
-        id="about"
-        className="mx-auto max-w-3xl px-gutter py-section-lg"
-      >
-        <ScrollReveal>
-          <p className="font-mono text-xs tracking-[0.2em] text-accent uppercase">
-            About
-          </p>
-          <p className="mt-4 text-lg text-foreground">{profile.about}</p>
-        </ScrollReveal>
-      </section>
+      <About />
 
       <section
         id="stack"
