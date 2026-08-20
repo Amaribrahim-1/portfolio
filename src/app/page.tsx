@@ -1,3 +1,4 @@
+import { Hero } from "@/components/sections/Hero";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
@@ -6,21 +7,7 @@ import { skillGroups } from "@/content/skills";
 export default function Home() {
   return (
     <>
-      <section
-        id="hero"
-        className="flex min-h-[80vh] flex-col items-center justify-center gap-4 px-gutter py-section text-center"
-      >
-        <p className="font-mono text-xs tracking-[0.2em] text-accent uppercase">
-          {profile.role}
-        </p>
-        <h1 className="max-w-2xl font-display text-4xl font-semibold text-foreground sm:text-6xl">
-          {profile.tagline}
-        </h1>
-        <p className="max-w-md text-sm text-muted-foreground">
-          Hero section lands in Phase 2 — layout, fonts, and motion primitives
-          are wired end-to-end.
-        </p>
-      </section>
+      <Hero />
 
       <section
         id="about"
