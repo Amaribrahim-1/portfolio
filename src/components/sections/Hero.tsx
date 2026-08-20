@@ -1,3 +1,4 @@
+import { SplitHeadline } from "@/components/motion/SplitHeadline";
 import { ParallaxLayer } from "@/components/shared/ParallaxLayer";
 import { PortraitFrame } from "@/components/shared/PortraitFrame";
 import { buttonVariants } from "@/components/ui/button";
@@ -31,12 +32,12 @@ export function Hero() {
           <p className="font-mono text-xs tracking-[0.2em] text-accent uppercase">
             {profile.role}
           </p>
-          <h1
+          <SplitHeadline
             id="hero-heading"
             className="mt-4 font-display text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl lg:text-6xl"
           >
             {profile.tagline}
-          </h1>
+          </SplitHeadline>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 md:justify-start">
             <a
               href={profile.cvHref}
