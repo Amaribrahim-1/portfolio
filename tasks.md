@@ -164,10 +164,10 @@ Branch: `feat/cinematic-smooth-scroll`
 
 Depends on 4.1. No section restyles.
 
-- [ ] `src/lib/gsap.ts`: register `ScrollTrigger` once; export a `prefersReducedMotion()` helper.
-- [ ] `src/components/motion/SmoothScroll.tsx`: Lenis on `html`, synced to `gsap.ticker` + `ScrollTrigger.update`. If reduced-motion, do not start Lenis and do not register scroll-driven tweens.
-- [ ] Mount `SmoothScroll` from `src/app/layout.tsx` (client boundary only around this provider).
-- [ ] Confirm native scroll still works with JS disabled / reduced-motion.
+- [x] `src/lib/gsap.ts`: register `ScrollTrigger` once; export a `prefersReducedMotion()` helper.
+- [x] `src/components/motion/SmoothScroll.tsx`: Lenis on `html`, synced to `gsap.ticker` + `ScrollTrigger.update`. If reduced-motion, do not start Lenis and do not register scroll-driven tweens.
+- [x] Mount `SmoothScroll` from `src/app/layout.tsx` (client boundary only around this provider).
+- [x] Confirm native scroll still works with JS disabled / reduced-motion.
 
 ---
 
