@@ -3,11 +3,11 @@ import Link from "next/link";
 import { profile } from "@/content/profile";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#stack", label: "Stack" },
-  { href: "#work", label: "Work" },
-  { href: "#cv", label: "CV" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#stack", label: "Stack" },
+  { href: "/#work", label: "Work" },
+  { href: "/#cv", label: "CV" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Navbar() {
@@ -26,12 +26,12 @@ export function Navbar() {
         <ul className="flex items-center gap-5 sm:gap-6">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <a
+              <Link
                 href={link.href}
                 className="font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none"
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
