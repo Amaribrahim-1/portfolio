@@ -11,6 +11,10 @@
   --font-mono: var(--font-mono);
   --font-display: var(--font-display);
   --font-heading: var(--font-display);
+  --color-forest: var(--forest);
+  --color-cream: var(--cream);
+  --color-mustard: var(--mustard);
+  --color-sage: var(--sage);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -57,45 +61,50 @@
 
 :root {
   color-scheme: dark;
-  /* Off-black / off-white base, single dark theme (no light variant, no toggle) */
-  --background: #0a0a0b;
-  --foreground: #ededec;
-  --card: #131316;
-  --card-foreground: #ededec;
-  --popover: #131316;
-  --popover-foreground: #ededec;
+  /* Cinematic palette. Single theme, no light/dark toggle — later sections
+     alternate forest / cream surfaces via these named tokens. */
+  --forest: #0e2a26;
+  --cream: #f3eee4;
+  --mustard: #e4b52a;
+  --sage: #9bb3a0;
 
-  /* Signature accent */
-  --primary: #00e6a0;
-  --primary-foreground: #06140f;
-  --accent: #00e6a0;
-  --accent-foreground: #06140f;
+  --background: var(--forest);
+  --foreground: var(--cream);
+  --card: color-mix(in oklab, var(--forest) 88%, var(--cream));
+  --card-foreground: var(--cream);
+  --popover: color-mix(in oklab, var(--forest) 88%, var(--cream));
+  --popover-foreground: var(--cream);
 
-  --secondary: #1a1a1d;
-  --secondary-foreground: #ededec;
-  --muted: #1a1a1d;
-  --muted-foreground: #9a9aa2;
+  --primary: var(--mustard);
+  --primary-foreground: var(--forest);
+  --accent: var(--mustard);
+  --accent-foreground: var(--forest);
 
-  --destructive: #f26363;
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: #00e6a0;
+  --secondary: color-mix(in oklab, var(--forest) 82%, var(--sage));
+  --secondary-foreground: var(--cream);
+  --muted: color-mix(in oklab, var(--forest) 82%, var(--sage));
+  --muted-foreground: var(--sage);
 
-  --chart-1: #00e6a0;
-  --chart-2: #9a9aa2;
-  --chart-3: #6d6d74;
-  --chart-4: #4a4a50;
-  --chart-5: #2a2a2e;
+  --destructive: #d96b5c;
+  --border: color-mix(in oklab, var(--cream) 14%, transparent);
+  --input: color-mix(in oklab, var(--cream) 16%, transparent);
+  --ring: var(--mustard);
+
+  --chart-1: var(--mustard);
+  --chart-2: var(--sage);
+  --chart-3: var(--cream);
+  --chart-4: color-mix(in oklab, var(--sage) 55%, var(--forest));
+  --chart-5: color-mix(in oklab, var(--forest) 70%, var(--cream));
   --radius: 0.625rem;
 
-  --sidebar: #131316;
-  --sidebar-foreground: #ededec;
-  --sidebar-primary: #00e6a0;
-  --sidebar-primary-foreground: #06140f;
-  --sidebar-accent: #1a1a1d;
-  --sidebar-accent-foreground: #ededec;
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: #00e6a0;
+  --sidebar: color-mix(in oklab, var(--forest) 88%, var(--cream));
+  --sidebar-foreground: var(--cream);
+  --sidebar-primary: var(--mustard);
+  --sidebar-primary-foreground: var(--forest);
+  --sidebar-accent: color-mix(in oklab, var(--forest) 82%, var(--sage));
+  --sidebar-accent-foreground: var(--cream);
+  --sidebar-border: color-mix(in oklab, var(--cream) 14%, transparent);
+  --sidebar-ring: var(--mustard);
 }
 
 @layer base {
@@ -165,8 +174,8 @@
 }
 
 /* Global safety net: shorten/disable any non-motion CSS transitions & animations
-   for users who prefer reduced motion. The `motion` library's own primitives
-   (ScrollReveal, ParallaxLayer) additionally check `useReducedMotion()` directly. */
+   for users who prefer reduced motion. GSAP/Lenis primitives additionally
+   check prefers-reduced-motion and skip Lenis + ScrollTrigger when reduced. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

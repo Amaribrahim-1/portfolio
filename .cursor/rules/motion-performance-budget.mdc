@@ -3,30 +3,37 @@ description: Non-negotiable motion and performance budget for the portfolio proj
 alwaysApply: true
 ---
 
-# Approved Motion Patterns (the only 3 allowed — nothing else without asking first)
+# Motion stack (do not add another library)
 
-1. **`ScrollReveal`** (default — use everywhere) — one-time fade + 8–12px rise as an element enters the viewport, via `motion`'s `whileInView`. Stagger slightly for groups of elements. Never loops, never re-triggers on scroll-up.
-2. **Parallax (Hero section ONLY)** — background/name layer moves at a different speed than the foreground CTA as the user scrolls, via `motion`'s `useScroll` + `useTransform`. Do not use this pattern anywhere else on the site — it's a Hero-only signature moment, not a general-purpose effect.
-3. **Alternating Reveal Rows (About section + case-study pages ONLY)** — same as `ScrollReveal`, but each row alternates `direction: 'left' | 'right'` (odd rows from the right, even rows from the left). This is a prop on the shared reveal wrapper, not a new component.
+Lenis + GSAP 3 + ScrollTrigger + `@gsap/react`. Custom split-text helper — no Club GSAP SplitText plugin. `motion` stays installed until Task 4.12 cleanup; do not add new `motion` usage.
 
-`motion` is imported in exactly these primitives and nowhere else without asking first.
+GSAP / Lenis live in `src/lib/gsap.ts`, `src/lib/split-text.ts`, and `src/components/motion/` primitives. Sections consume those primitives — they do not register plugins or start Lenis themselves.
 
-# Explicitly Rejected for v1
-- **Horizontal scroll-driven card galleries** (scroll-jacking a vertical scroll into horizontal card movement, `position: sticky` + pinned sections). Too much complexity and UX/accessibility risk for a 2-project portfolio. Revisit only if the project count grows significantly, post-launch.
-- **GSAP or any animation library beyond `motion`** — no GSAP, no Three.js, no Lottie, no particle.js.
+# Allowed patterns
 
-# Banned Outright (regardless of library)
-Parallax layers beyond the Hero, particle backgrounds, cursor-follow effects, autoplay video/GIF loops, infinite/looping animations, skeleton "shimmer" beyond a real loading state.
+1. **Smooth scroll (Lenis)** — `html` only, synced to `gsap.ticker` + `ScrollTrigger.update`.
+2. **ScrollTrigger scrub** — pin/scrub `transform` and `opacity` only.
+3. **Sticky stack + scale** — `position: sticky` cards; previous card scales ~1 → 0.85 as the next covers it.
+4. **Hero multi-layer parallax** — Hero only. Real work layers (name, screenshots, portrait), not stock landscapes.
+5. **Split-word / split-letter headings** — words by default; letters only on desktop headings. One-shot intro ≤ 800ms.
+6. **SVG path dash** — one mustard dashed path on the homepage; scrub `stroke-dashoffset`. Hide the long path on mobile.
+7. **Hover / tap** — 150–300ms, CSS or GSAP, `transform` / `opacity` only.
 
-# Timing & Accessibility
-- Animation duration: 150–400ms for hover/tap feedback; up to 800ms for the one-time hero intro only.
-- Every animation must respect `prefers-reduced-motion: reduce` — disable or drastically shorten it.
-- Stagger, don't flood: don't animate every element on screen at once during a single scroll event.
+# Banned
+
+Spline / Three.js / Lottie / particles, cursor-follow, autoplay video/GIF, infinite/looping animations, skeleton shimmer beyond a real loading state, horizontal scroll-jacking (`position: sticky` + pinned horizontal galleries).
+
+# Reduced motion (mandatory)
+
+`prefers-reduced-motion: reduce` kills Lenis and ScrollTrigger and shows the final static state. No tweening into view; layout must already be readable.
 
 # Performance
+
+- Animate `transform` / `opacity` only (`stroke-dashoffset` for the path).
 - Every image goes through `next/image`.
 - Target: Lighthouse performance ≥ 90 on mobile.
-- Prefer server components; the 3 motion primitives above are the deliberate exception, not the default.
+- Prefer server components; motion primitives are the client exception.
 
 # Scope Guard
+
 If a task starts drifting into: a CMS, a light/dark toggle, multi-language, a full contact-form backend, an analytics dashboard, or a 3rd project case study — stop and flag it instead of building it. These are explicitly out of scope for v1 (`portfolio-spec.md`).

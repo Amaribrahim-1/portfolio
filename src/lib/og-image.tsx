@@ -25,8 +25,8 @@ export function renderOgImage({
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "#0a0a0b",
-          color: "#ededec",
+          background: "#0E2A26",
+          color: "#F3EEE4",
           fontFamily: "sans-serif",
         }}
       >
@@ -36,7 +36,7 @@ export function renderOgImage({
             fontSize: 28,
             letterSpacing: 4,
             textTransform: "uppercase",
-            color: "#00e6a0",
+            color: "#E4B52A",
             marginBottom: 28,
           }}
         >
@@ -49,7 +49,7 @@ export function renderOgImage({
           style={{
             display: "flex",
             fontSize: 32,
-            color: "#9a9aa2",
+            color: "#9BB3A0",
             marginTop: 32,
             maxWidth: 980,
           }}
