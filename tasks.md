@@ -70,10 +70,10 @@ Branch: `feat/section-about`
 
 Branch: `feat/sections-techstack-cv-contact`
 
-- `components/sections/TechStack.tsx`: renders the 4 grouped skill lists from `content/skills.ts` with `ScrollReveal`.
-- `components/sections/Cv.tsx`: CV/Resume section linking to the same PDF as the Hero CTA.
-- `components/sections/Contact.tsx`: mailto + social links from `content/profile.ts` — no form, no backend.
-- Grouped into one task: each is a single-purpose, low-motion (`ScrollReveal` only), content-driven block of comparable size.
+- [x] `components/sections/TechStack.tsx`: renders the 4 grouped skill lists from `content/skills.ts` with `ScrollReveal`.
+- [x] `components/sections/Cv.tsx`: CV/Resume section linking to the same PDF as the Hero CTA.
+- [x] `components/sections/Contact.tsx`: mailto + social links from `content/profile.ts` — no form, no backend.
+- [x] Grouped into one task: each is a single-purpose, low-motion (`ScrollReveal` only), content-driven block of comparable size.
 
 ### Task 2.4 — Projects section (homepage)
 
