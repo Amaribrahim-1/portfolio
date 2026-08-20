@@ -1,0 +1,41 @@
+---
+description: Confirmed tech stack, folder structure, and naming conventions for the portfolio project.
+alwaysApply: true
+---
+
+# Stack Decisions (do not re-litigate)
+- Next.js (App Router) + TypeScript. Tailwind CSS. shadcn/ui — minimal set only (button, card, badge, separator).
+- Motion: `motion` library, imported ONLY in the 3 primitives defined in `motion-performance-budget.mdc`. No other animation library.
+- Content lives in local TypeScript files under `content/` — no CMS, no database, no auth. Real content comes from `portfolio-spec.md`, not invented.
+- Contact: mailto/social links by default; no backend unless explicitly requested.
+- Deploy target: Vercel.
+
+# Folder Structure
+```
+src/
+  app/
+    page.tsx              → the one-page homepage, composes section components
+    projects/[slug]/page.tsx  → case study route (areej, exam-io)
+  components/
+    sections/               → Hero, About, TechStack, Projects, Cv, Contact
+    shared/                  → Navbar, Footer, ScrollReveal, ParallaxLayer, primitives
+    ui/                      → shadcn primitives, untouched/generated
+  content/
+    profile.ts                → bio, tagline, contact links
+    skills.ts                  → tech stack groups
+    projects.ts                 → project + case-study data (Areej, Exam.io)
+  lib/                        → utils
+public/
+  cv/                          → Amar-Ibrahim-CV.pdf
+```
+Route files in `app/` stay thin — they compose section components, no content or business logic inline.
+
+# Naming Conventions
+- Folders: kebab-case. Component files: PascalCase.tsx. Hooks: camelCase.ts, prefixed `use`.
+- Types: PascalCase, no `I` prefix.
+
+# Clean Code
+- No prop drilling past 2 levels.
+- One component = one responsibility.
+- No `any` — use `unknown` + narrowing, or fix the type.
+- No hardcoded copy inside components — all real content comes from `content/*.ts`.

@@ -1,0 +1,32 @@
+---
+description: Non-negotiable motion and performance budget for the portfolio project. Read before adding ANY animation.
+alwaysApply: true
+---
+
+# Approved Motion Patterns (the only 3 allowed — nothing else without asking first)
+
+1. **`ScrollReveal`** (default — use everywhere) — one-time fade + 8–12px rise as an element enters the viewport, via `motion`'s `whileInView`. Stagger slightly for groups of elements. Never loops, never re-triggers on scroll-up.
+2. **Parallax (Hero section ONLY)** — background/name layer moves at a different speed than the foreground CTA as the user scrolls, via `motion`'s `useScroll` + `useTransform`. Do not use this pattern anywhere else on the site — it's a Hero-only signature moment, not a general-purpose effect.
+3. **Alternating Reveal Rows (About section + case-study pages ONLY)** — same as `ScrollReveal`, but each row alternates `direction: 'left' | 'right'` (odd rows from the right, even rows from the left). This is a prop on the shared reveal wrapper, not a new component.
+
+`motion` is imported in exactly these primitives and nowhere else without asking first.
+
+# Explicitly Rejected for v1
+- **Horizontal scroll-driven card galleries** (scroll-jacking a vertical scroll into horizontal card movement, `position: sticky` + pinned sections). Too much complexity and UX/accessibility risk for a 2-project portfolio. Revisit only if the project count grows significantly, post-launch.
+- **GSAP or any animation library beyond `motion`** — no GSAP, no Three.js, no Lottie, no particle.js.
+
+# Banned Outright (regardless of library)
+Parallax layers beyond the Hero, particle backgrounds, cursor-follow effects, autoplay video/GIF loops, infinite/looping animations, skeleton "shimmer" beyond a real loading state.
+
+# Timing & Accessibility
+- Animation duration: 150–400ms for hover/tap feedback; up to 800ms for the one-time hero intro only.
+- Every animation must respect `prefers-reduced-motion: reduce` — disable or drastically shorten it.
+- Stagger, don't flood: don't animate every element on screen at once during a single scroll event.
+
+# Performance
+- Every image goes through `next/image`.
+- Target: Lighthouse performance ≥ 90 on mobile.
+- Prefer server components; the 3 motion primitives above are the deliberate exception, not the default.
+
+# Scope Guard
+If a task starts drifting into: a CMS, a light/dark toggle, multi-language, a full contact-form backend, an analytics dashboard, or a 3rd project case study — stop and flag it instead of building it. These are explicitly out of scope for v1 (`portfolio-spec.md`).
