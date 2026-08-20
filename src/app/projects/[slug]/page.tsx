@@ -3,14 +3,16 @@ import { notFound } from "next/navigation";
 
 import { CaseStudy } from "@/components/sections/CaseStudy";
 import { profile } from "@/content/profile";
-import { getProjectBySlug, projects } from "@/content/projects";
+import { getCaseStudyProjects, getProjectBySlug } from "@/content/projects";
 
 type CaseStudyPageProps = {
   params: Promise<{ slug: string }>;
 };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+  return getCaseStudyProjects().map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({

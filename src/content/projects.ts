@@ -11,6 +11,7 @@ export type Project = {
   tagline: string;
   status: ProjectStatus;
   statusLabel: string;
+  hasCaseStudy: boolean;
   bullets: string[];
   tech: string[];
   liveUrl: string | null;
@@ -25,6 +26,7 @@ export const projects: Project[] = [
     tagline: "Full-stack exam platform with real-time anti-cheat, built solo.",
     status: "live",
     statusLabel: "Live",
+    hasCaseStudy: true,
     bullets: [
       "Multi-role platform: Student / Instructor / Admin dashboards.",
       "Custom useAntiCheat hook — detects tab switches, dev-tools access, and blocked shortcuts; auto-submits after 3 violations.",
@@ -56,6 +58,7 @@ export const projects: Project[] = [
     tagline: "Real e-commerce store for a paying client — in active development.",
     status: "in-development",
     statusLabel: "In active development",
+    hasCaseStudy: true,
     bullets: [
       "Normalized 7-table PostgreSQL schema on Supabase across 8 migrations.",
       "Row-level security with role-scoped policies (guest / customer / admin).",
@@ -76,8 +79,44 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/Amaribrahim-1/areej-store",
     screenshots: [],
   },
+  {
+    slug: "online-bookstore",
+    name: "Online Bookstore",
+    tagline:
+      "E-commerce storefront with role-based access, search, category filtering, and pagination.",
+    status: "live",
+    statusLabel: "Live",
+    hasCaseStudy: false,
+    bullets: [
+      "Full e-commerce storefront with role-based access (User & Admin), search, category filtering, and pagination.",
+      "Cart and wishlist system with quantity management and stock enforcement, persisted across sessions via localStorage using custom hooks.",
+      "Rendering performance with React.memo, useMemo, and useCallback, plus route-level lazy loading.",
+      "REST API endpoints via Axios with async state handling, loading skeletons, and error boundaries.",
+    ],
+    tech: [
+      "React",
+      "Vite",
+      "React Router",
+      "Context API",
+      "Axios",
+      "React Hook Form",
+      "CSS",
+    ],
+    liveUrl: "https://book-store-bay-phi.vercel.app",
+    repoUrl: "https://github.com/Amaribrahim-1/Book-Store",
+    screenshots: [
+      {
+        src: "/images/projects/bookstore/home.jpg",
+        alt: "Online Bookstore home page with featured books and storefront navigation.",
+      },
+    ],
+  },
 ];
 
+export function getCaseStudyProjects(): Project[] {
+  return projects.filter((project) => project.hasCaseStudy);
+}
+
 export function getProjectBySlug(slug: string): Project | undefined {
-  return projects.find((project) => project.slug === slug);
+  return getCaseStudyProjects().find((project) => project.slug === slug);
 }
