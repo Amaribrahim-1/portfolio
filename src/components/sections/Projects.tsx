@@ -29,36 +29,65 @@ function ProjectTechTags({ tech }: { tech: readonly string[] }) {
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCardBody({ project }: { project: Project }) {
   return (
-    <Link
-      href={`/projects/${project.slug}`}
-      className="group block h-full rounded-xl focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+    <Card className="h-full pt-0 transition-[box-shadow] duration-200 group-hover:ring-accent/40">
+      <DeviceFrame
+        label={project.name}
+        screenshot={project.screenshots[0]}
+        className="rounded-t-xl"
+      />
+      <CardHeader className="gap-2">
+        <div className="flex flex-wrap items-start justify-between gap-2">
+          <h3 className="font-display text-lg font-semibold tracking-tight">
+            {project.name}
+          </h3>
+          <Badge
+            variant={statusBadgeVariant(project.status)}
+            className="font-mono"
+          >
+            {project.statusLabel}
+          </Badge>
+        </div>
+        <CardDescription>{project.tagline}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ProjectTechTags tech={project.tech} />
+      </CardContent>
+    </Card>
+  );
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  const className =
+    "group block h-full rounded-xl focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none";
+
+  if (project.hasCaseStudy) {
+    return (
+      <Link href={`/projects/${project.slug}`} className={className}>
+        <ProjectCardBody project={project} />
+      </Link>
+    );
+  }
+
+  const href = project.liveUrl ?? project.repoUrl;
+
+  if (!href) {
+    return <ProjectCardBody project={project} />;
+  }
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={className}
     >
-      <Card className="h-full pt-0 transition-[box-shadow] duration-200 group-hover:ring-accent/40">
-        <DeviceFrame
-          label={project.name}
-          screenshot={project.screenshots[0]}
-        />
-        <CardHeader className="gap-2">
-          <div className="flex flex-wrap items-start justify-between gap-2">
-            <h3 className="font-display text-lg font-semibold tracking-tight">
-              {project.name}
-            </h3>
-            <Badge
-              variant={statusBadgeVariant(project.status)}
-              className="font-mono"
-            >
-              {project.statusLabel}
-            </Badge>
-          </div>
-          <CardDescription>{project.tagline}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ProjectTechTags tech={project.tech} />
-        </CardContent>
-      </Card>
-    </Link>
+      <span className="sr-only">
+        {project.name} live demo (opens in a new tab)
+      </span>
+      <ProjectCardBody project={project} />
+    </a>
   );
 }
 

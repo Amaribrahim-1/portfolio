@@ -1,4 +1,5 @@
 import { ParallaxLayer } from "@/components/shared/ParallaxLayer";
+import { PortraitFrame } from "@/components/shared/PortraitFrame";
 import { buttonVariants } from "@/components/ui/button";
 import { profile } from "@/content/profile";
 
@@ -57,13 +58,7 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Placeholder until the real portrait is supplied; frame treatment is CSS. */}
-        <div
-          aria-hidden="true"
-          className="photo-frame photo-frame-duotone aspect-3/4 w-44 shrink-0 sm:w-52 md:w-56 lg:w-72"
-        >
-          <div className="photo-frame-media bg-secondary" />
-        </div>
+        <PortraitFrame priority className="lg:w-72" />
       </div>
     </section>
   );

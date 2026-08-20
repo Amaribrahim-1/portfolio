@@ -1,12 +1,12 @@
 import { ogImageSize, renderOgImage } from "@/lib/og-image";
-import { getProjectBySlug, projects } from "@/content/projects";
+import { getCaseStudyProjects, getProjectBySlug } from "@/content/projects";
 
 export const alt = "Project case study";
 export const size = ogImageSize;
 export const contentType = "image/png";
 
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+  return getCaseStudyProjects().map((project) => ({ slug: project.slug }));
 }
 
 type OgImageProps = {
