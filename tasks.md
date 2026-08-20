@@ -189,9 +189,9 @@ Branch: `feat/cinematic-navbar`
 
 Depends on 4.1 (tokens). Motion primitives not required.
 
-- [ ] Restyle `src/components/shared/Navbar.tsx` into a floating rounded island (TO TOP bar feel): forest surface, mustard hover, existing links from `content/profile.ts`.
-- [ ] Keep keyboard access, skip-link, and current hash targets (`/#about`, `/#stack`, `/#work`, `/#cv`, `/#contact`).
-- [ ] Mobile: wrap or collapse links without introducing a new animation library. No mega-menu.
+- [x] Restyle `src/components/shared/Navbar.tsx` into a floating rounded island (TO TOP bar feel): forest surface, mustard hover, existing links from `content/profile.ts`.
+- [x] Keep keyboard access, skip-link, and current hash targets (`/#about`, `/#stack`, `/#work`, `/#cv`, `/#contact`).
+- [x] Mobile: wrap or collapse links without introducing a new animation library. No mega-menu.
 
 ---
 
