@@ -37,13 +37,13 @@ Branch: `feat/foundation-content`
 
 Branch: `feat/foundation-layout-motion`
 
-- `app/layout.tsx`: metadata, font wiring, global styles, semantic landmarks (`header` / `main` / `footer`).
-- Base SEO metadata in `app/layout.tsx`: title/description + `openGraph` and `twitter` (summary_large_image) so sharing the site link on LinkedIn/Twitter shows a proper preview card. Default `og:image` can be a static asset for now.
-- `components/shared/Navbar.tsx` and `Footer.tsx`, sourcing links from `content/profile.ts`.
-- `components/shared/ScrollReveal.tsx`: one-time fade + 8–12px rise via `whileInView`, optional `direction: 'left' | 'right'` prop for alternating rows, slight stagger for groups, respects `prefers-reduced-motion`.
-- `components/shared/ParallaxLayer.tsx`: `useScroll` + `useTransform` wrapper, reserved for Hero-only use in Phase 2.
-- `lib/utils.ts` (e.g. `cn` helper).
-- Minimal `app/page.tsx` wired to the layout (empty/placeholder sections) to confirm the shell renders end-to-end.
+- [x] `app/layout.tsx`: metadata, font wiring, global styles, semantic landmarks (`header` / `main` / `footer`).
+- [x] Base SEO metadata in `app/layout.tsx`: title/description + `openGraph` and `twitter` (summary_large_image) so sharing the site link on LinkedIn/Twitter shows a proper preview card. Default `og:image` can be a static asset for now.
+- [x] `components/shared/Navbar.tsx` and `Footer.tsx`, sourcing links from `content/profile.ts`.
+- [x] `components/shared/ScrollReveal.tsx`: one-time fade + 8–12px rise via `whileInView`, optional `direction: 'left' | 'right'` prop for alternating rows, slight stagger for groups, respects `prefers-reduced-motion`.
+- [x] `components/shared/ParallaxLayer.tsx`: `useScroll` + `useTransform` wrapper, reserved for Hero-only use in Phase 2.
+- [x] `lib/utils.ts` (e.g. `cn` helper).
+- [x] Minimal `app/page.tsx` wired to the layout (empty/placeholder sections) to confirm the shell renders end-to-end.
 
 ---
 
