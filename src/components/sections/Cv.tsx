@@ -38,6 +38,7 @@ export function Cv() {
             })}
           >
             My CV
+            <span className="sr-only"> (PDF, opens in a new tab)</span>
           </a>
         </div>
       </ScrollReveal>

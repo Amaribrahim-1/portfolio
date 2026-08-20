@@ -9,6 +9,7 @@ export function Hero() {
   return (
     <section
       id="hero"
+      aria-labelledby="hero-heading"
       className="relative overflow-hidden px-gutter py-section"
     >
       <ParallaxLayer
@@ -30,7 +31,10 @@ export function Hero() {
           <p className="font-mono text-xs tracking-[0.2em] text-accent uppercase">
             {profile.role}
           </p>
-          <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl lg:text-6xl">
+          <h1
+            id="hero-heading"
+            className="mt-4 font-display text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl lg:text-6xl"
+          >
             {profile.tagline}
           </h1>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 md:justify-start">
@@ -44,6 +48,7 @@ export function Hero() {
               })}
             >
               My CV
+              <span className="sr-only"> (PDF, opens in a new tab)</span>
             </a>
             <a
               href={`mailto:${profile.email}`}

@@ -101,12 +101,13 @@ function CaseStudyGallery({
     <div className="mt-10 flex flex-col gap-8">
       {screenshots.map((screenshot, index) => (
         <ScrollReveal
-          key={screenshot.src}
+          key={screenshot.src.src}
           direction={alternatingRowDirection(index)}
         >
           <DeviceFrame
             label={projectName}
             screenshot={screenshot}
+            sizes="(max-width: 64rem) 100vw, 64rem"
             className="rounded-xl ring-1 ring-foreground/10"
           />
         </ScrollReveal>
@@ -167,6 +168,7 @@ function CaseStudyLinks({
               })}
             >
               Live demo
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
           </li>
         ) : null}
@@ -183,6 +185,7 @@ function CaseStudyLinks({
               })}
             >
               GitHub
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
           </li>
         ) : null}
@@ -204,6 +207,7 @@ export function CaseStudy({ project }: { project: Project }) {
             label={project.name}
             screenshot={heroScreenshot}
             priority
+            sizes="(max-width: 64rem) 100vw, 64rem"
             className="rounded-xl ring-1 ring-foreground/10"
           />
         </ScrollReveal>

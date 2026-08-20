@@ -1,10 +1,14 @@
+import type { StaticImageData } from "next/image";
+
+import portrait from "../../public/images/amar.jpg";
+
 export type SocialLink = {
   label: string;
   href: string;
 };
 
 export type ProfilePhoto = {
-  src: string;
+  src: StaticImageData;
   alt: string;
 };
 
@@ -38,7 +42,7 @@ export const profile: Profile = {
   email: "amaribrahimforwork1@gmail.com",
   cvHref: "/cv/Amar-Ibrahim-CV.pdf",
   photo: {
-    src: "/images/amar.jpg",
+    src: portrait,
     alt: "Portrait of Amar Ibrahim Fawzy",
   },
   socials: [
