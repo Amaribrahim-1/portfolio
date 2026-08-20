@@ -1,3 +1,4 @@
+import { ParallaxLayer } from "@/components/shared/ParallaxLayer";
 import { buttonVariants } from "@/components/ui/button";
 import { profile } from "@/content/profile";
 
@@ -7,16 +8,23 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative isolate overflow-hidden px-gutter py-section"
+      className="relative overflow-hidden px-gutter py-section"
     >
-      <p
-        aria-hidden="true"
-        className="pointer-events-none absolute top-[18%] left-1/2 -z-10 max-w-none -translate-x-1/2 font-display text-[18vw] leading-none font-semibold tracking-tighter whitespace-nowrap text-foreground/6 select-none"
+      <ParallaxLayer
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        offset={120}
       >
-        {profile.name}
-      </p>
+        <div className="flex h-full items-center justify-center">
+          <p
+            aria-hidden="true"
+            className="max-w-none font-display text-[18vw] leading-none font-semibold tracking-tighter whitespace-nowrap text-foreground/10 select-none"
+          >
+            {profile.name}
+          </p>
+        </div>
+      </ParallaxLayer>
 
-      <div className="relative mx-auto flex min-h-[calc(100svh-6rem)] max-w-5xl flex-col items-center justify-center gap-12 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
+      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-6rem)] max-w-5xl flex-col items-center justify-center gap-12 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
         <div className="flex max-w-2xl flex-col items-center text-center lg:items-start lg:text-left">
           <p className="font-mono text-xs tracking-[0.2em] text-accent uppercase">
             {profile.role}
