@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { DeviceFrame } from "@/components/shared/DeviceFrame";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -12,22 +13,6 @@ import { projects, type Project, type ProjectStatus } from "@/content/projects";
 
 function statusBadgeVariant(status: ProjectStatus) {
   return status === "live" ? "default" : "outline";
-}
-
-function ScreenshotFrame({ label }: { label: string }) {
-  return (
-    <div aria-hidden="true" className="bg-secondary">
-      <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
-        <span className="size-1.5 rounded-full bg-muted-foreground/40" />
-        <span className="size-1.5 rounded-full bg-muted-foreground/40" />
-        <span className="size-1.5 rounded-full bg-muted-foreground/40" />
-        <span className="ml-2 truncate font-mono text-[10px] tracking-wide text-muted-foreground">
-          {label}
-        </span>
-      </div>
-      <div className="aspect-video bg-muted" />
-    </div>
-  );
 }
 
 function ProjectTechTags({ tech }: { tech: readonly string[] }) {
@@ -51,8 +36,10 @@ function ProjectCard({ project }: { project: Project }) {
       className="group block h-full rounded-xl focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
     >
       <Card className="h-full pt-0 transition-[box-shadow] duration-200 group-hover:ring-accent/40">
-        {/* Placeholder until Task 3.1 supplies real screenshots. */}
-        <ScreenshotFrame label={project.name} />
+        <DeviceFrame
+          label={project.name}
+          screenshot={project.screenshots[0]}
+        />
         <CardHeader className="gap-2">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <h3 className="font-display text-lg font-semibold tracking-tight">

@@ -86,12 +86,12 @@ Branch: `feat/section-projects`
 
 Branch: `feat/case-study-pages`
 
-- `app/projects/[slug]/page.tsx` with `generateStaticParams` for `areej` and `exam-io`.
-- Shared case-study building blocks: image/device frame component, alternating `ScrollReveal` rows (same rule as About).
-- Wire in full Exam.io content (anti-cheat hook, wizard, performance stats, tech stack, live status) and full Areej content (schema/RLS/RPC details, AI-assisted workflow note, in-development status) from `content/projects.ts`.
-- Per-case-study SEO: `generateMetadata` in `app/projects/[slug]/page.tsx` so each project gets its own `title`/`description`/`openGraph` (distinct preview card per project when shared).
-- `app/projects/[slug]/not-found.tsx`: custom 404 (on-brand, not the Next.js default) for any slug other than `areej`/`exam-io`.
-- Both slugs built together as one task since they share the same template — natural single unit of work, still independent of every other Phase 2 task.
+- [x] `app/projects/[slug]/page.tsx` with `generateStaticParams` for `areej` and `exam-io`.
+- [x] Shared case-study building blocks: image/device frame component, alternating `ScrollReveal` rows (same rule as About).
+- [x] Wire in full Exam.io content (anti-cheat hook, wizard, performance stats, tech stack, live status) and full Areej content (schema/RLS/RPC details, AI-assisted workflow note, in-development status) from `content/projects.ts`.
+- [x] Per-case-study SEO: `generateMetadata` in `app/projects/[slug]/page.tsx` so each project gets its own `title`/`description`/`openGraph` (distinct preview card per project when shared).
+- [x] `app/projects/[slug]/not-found.tsx`: custom 404 (on-brand, not the Next.js default) for any slug other than `areej`/`exam-io`.
+- [x] Both slugs built together as one task since they share the same template — natural single unit of work, still independent of every other Phase 2 task.
 
 ---
 

@@ -4,7 +4,17 @@ import { profile } from "@/content/profile";
 
 export const ogImageSize = { width: 1200, height: 630 };
 
-export function renderOgImage() {
+type OgImageCopy = {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+};
+
+export function renderOgImage({
+  eyebrow = profile.role,
+  title = profile.name,
+  description = profile.tagline,
+}: OgImageCopy = {}) {
   return new ImageResponse(
     (
       <div
@@ -30,10 +40,10 @@ export function renderOgImage() {
             marginBottom: 28,
           }}
         >
-          {profile.role}
+          {eyebrow}
         </div>
         <div style={{ display: "flex", fontSize: 72, fontWeight: 700 }}>
-          {profile.name}
+          {title}
         </div>
         <div
           style={{
@@ -44,7 +54,7 @@ export function renderOgImage() {
             maxWidth: 980,
           }}
         >
-          {profile.tagline}
+          {description}
         </div>
       </div>
     ),
