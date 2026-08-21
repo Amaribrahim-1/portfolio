@@ -305,6 +305,6 @@ Depends on 4.12. Parked by Amar after 4.5 so the rest of Phase 4 can finish firs
 
 The collage is the right idea; the bug is copy sitting on top of Exam.io UI (`Get started free` and other in-screenshot text). Headline + CTAs must stay readable.
 
-- [ ] In `src/components/sections/Hero.tsx`, shift the Exam.io / Areej screenshot layers so they do not sit under the headline or CTAs. Copy stays in a clear left column; collage stays on the right (and stacked above the copy on mobile, behind the existing forest scrim).
-- [ ] Keep the 4–5 parallax layers, real screenshots from `content/projects.ts` / `profile.photo`, `next/image`, and reduced-motion static.
-- [ ] Do not invent copy. Do not restyle About/Projects.
+- [x] In `src/components/sections/Hero.tsx`, shift the Exam.io / Areej screenshot layers so they do not sit under the headline or CTAs. Copy stays in a clear left column; collage stays on the right (and stacked above the copy on mobile, behind the existing forest scrim).
+- [x] Keep the 4–5 parallax layers, real screenshots from `content/projects.ts` / `profile.photo`, `next/image`, and reduced-motion static.
+- [x] Do not invent copy. Do not restyle About/Projects.
