@@ -475,10 +475,10 @@ Branch: `fix/fraunces-font-payload`
 
 Branch: none (measurement after 6.1–6.4 are merged into `main` and deployed)
 
-- [ ] Wait for the Vercel production deploy of 6.1–6.4.
-- [ ] Run Lighthouse **mobile** against the real production URL (not localhost). Record Performance / Accessibility / Best Practices / SEO.
-- [ ] If Performance is still below 90, start Task 6.6. If SEO is still below 90, list the remaining Lighthouse SEO audits before writing more code.
-- [ ] Do not start 6.6 "just in case".
+- [x] Waited for the Vercel production deploy of 6.1–6.4 (pushed `main` 2026-08-21, confirmed live: canonical tag + `Person` JSON-LD present in the served HTML).
+- [x] Ran Lighthouse **mobile** against `https://portfolio-amaribrahim-1s-projects.vercel.app` (not localhost). Result 2026-08-21: **Performance 76**, **Accessibility 100**, **Best Practices 100**, **SEO 69**.
+- [x] Performance still below 90 → Task 6.6 is unblocked but **not started** (needs explicit go-ahead). SEO still below 90 → remaining Lighthouse SEO audit: `is-crawlable` ("Page is blocked from indexing") caused by response header `x-robots-tag: noindex` on the production URL. This header is added by the **Vercel platform/project settings**, not by app code (`robots.ts` / metadata already look correct) — likely the "Protect... / prevent indexing" deployment setting or default `*.vercel.app` domain behavior. Fixing it means a Vercel dashboard setting change, not new code.
+- [x] Did not start 6.6 "just in case" — flagged only.
 
 ### Task 6.6 — Motion main-thread budget (only if 6.5 fails)
 
