@@ -265,7 +265,7 @@ Branch: `feat/cinematic-scroll-path`
 Depends on 4.5–4.9 so section anchors exist. Build and wire the path in this same task (no unused primitive sitting around).
 
 - [x] `src/components/motion/ScrollPath.tsx`: one mustard dashed SVG along the homepage, `stroke-dashoffset` scrubbed to scroll progress. `transform`/`stroke-dashoffset` only.
-- [x] Mount from `src/app/page.tsx` (homepage only, not case-study routes).
+- [x] Mount from `src/app/page.tsx` (homepage only, not case-study routes). Unmounted 2026-08-21 during lag check; remount decision is Task 5.4.
 - [x] Desktop: full path from Hero toward Contact. Mobile: hide the long path; optional small mustard dots — do not run a heavy SVG scrub on small screens.
 - [x] Reduced-motion → no dash animation (static path or hidden).
 
@@ -315,7 +315,7 @@ The collage is the right idea; the bug is copy sitting on top of Exam.io UI (`Ge
 
 Generated from the plan approved 2026-08-21. **Sequential, one task at a time**, per `.cursor/rules/git-conventions.mdc`: new branch off `main` per task, commit only when explicitly told, merge `--no-ff` into `main` when a task is confirmed done. Task 5.0 must run first (it is the safety checkpoint). Tasks 5.7–5.9 must run last (they depend on everything else being merged into `main`).
 
-Build order: **5.0 → 5.1 → 5.2 → 5.3 → 5.4 → 5.5 → 5.6 → 5.7 → 5.8 → 5.9**.
+Build order: **5.0 → 5.1 → 5.3 → 5.4 → 5.5 → 5.6 → 5.7 → 5.8 → 5.9**. Task 5.2 is dropped (see below).
 
 ### Task 5.0 — Safety checkpoint: merge pending work into `main`
 
@@ -335,27 +335,22 @@ Branch: `feat/techstack-icon-strip`
 - [ ] Reduced-motion → static row, no scrub.
 - [ ] Mount inside `src/components/sections/TechStack.tsx` as an addition alongside the existing 4 group cards (data stays `content/skills.ts`, nothing invented).
 
-### Task 5.2 — Work section: horizontal sticky-stack on desktop only
+### Task 5.2 — Work section: horizontal sticky-stack on desktop only — DROPPED
 
-Branch: `feat/work-horizontal-scroll`
+Dropped 2026-08-21 after desktop lag. Horizontal pin was heavier than the vertical `StickyStack`; Amar asked to keep the original stack and skip this task. Homepage `ScrollPath` remount is Task 5.4, not this one.
 
-- [ ] `src/components/motion/HorizontalStickyStack.tsx` — new primitive, separate from `StickyStack.tsx` (About stays untouched).
-- [ ] Gate the horizontal-pin behavior behind `gsap.matchMedia()` on `MOTION_MQ.desktop` **and** `MOTION_MQ.allow` (no-preference). Every other case (mobile, or reduced-motion) falls back to the existing vertical `StickyStack` behavior, unchanged.
-- [ ] Pin the section container on desktop; scrub each card's `translateX` (transform-only, same scrub philosophy as `StickyStack`'s `scale`).
-- [ ] Wire `src/components/sections/Projects.tsx` to the new component (media-query branching lives inside the component, not duplicated in the section).
-- [ ] Update `.cursor/rules/motion-performance-budget.mdc`: note the one narrow exception — horizontal scroll allowed only in the Work/Projects section, desktop-only via matchMedia, full vertical fallback on mobile and reduced-motion.
-- [ ] Manual test on desktop (wheel + trackpad) for conflicts with Lenis. If it feels janky or fights the smooth scroll, revert Projects to plain `StickyStack` instead of forcing it — per Amar's explicit call.
+- [ ] Cancelled — do not build `HorizontalStickyStack`. Work stays on vertical `StickyStack`.
 
 ### Task 5.3 — Extra polish (pick 2–3)
 
 Branch: `feat/extra-polish`
 
-Confirm with Amar which of these to build before starting (default suggestion: back-to-top + scroll progress, since they're the cheapest and lowest-risk):
+Picked 2026-08-21: back-to-top, scroll progress, and favicon (the default cheap pair plus icon polish). Tilt/magnetic hover skipped — higher risk, not a global cursor-follow we want to add this pass.
 
-- [ ] Tilt/magnetic hover on project screenshots (Desktop, CSS `transform` only, scoped to the hovered element — not a global cursor-follow).
-- [ ] Floating "back to top" button, appears after first scroll, smooth-scrolls via existing Lenis instance.
-- [ ] Thin mustard scroll-progress indicator bound to overall page scroll.
-- [ ] Custom favicon / app icon polish (`src/app/icon.png` or `.ico`) to match the forest/mustard identity — `opengraph-image.tsx`/`twitter-image.tsx` already exist.
+- [ ] Tilt/magnetic hover on project screenshots (Desktop, CSS `transform` only, scoped to the hovered element — not a global cursor-follow). Skipped this task.
+- [x] Floating "back to top" button, appears after first scroll, smooth-scrolls via existing Lenis instance.
+- [x] Thin mustard scroll-progress indicator bound to overall page scroll.
+- [x] Custom favicon / app icon polish (`src/app/icon.tsx` + `apple-icon.tsx`) to match the forest/mustard identity — `opengraph-image.tsx`/`twitter-image.tsx` already exist.
 
 ### Task 5.4 — Performance pass
 
@@ -363,9 +358,10 @@ Branch: `feat/perf-pass`
 
 - [ ] Swap in the WebP versions of `public/images/**` (Amar is converting these) and update any `content/*.ts` imports if filenames change.
 - [ ] Re-check every `next/image` `sizes` prop against the actual rendered max-width per breakpoint.
-- [ ] Audit `ScrollTrigger` instance count (`StickyStack`, `HorizontalStickyStack`, `ScrollPath`, `ParallaxLayer`) for redundant triggers or missed `invalidateOnRefresh`.
+- [ ] Audit `ScrollTrigger` instance count (`StickyStack`, `ScrollPath`, `ParallaxLayer`) for redundant triggers or missed `invalidateOnRefresh`.
 - [ ] Confirm no long main-thread tasks on mobile emulation (Chrome DevTools performance trace) during initial load and during Hero parallax scroll.
 - [ ] After Task 5.8 (Vercel deploy) ships, run Lighthouse (mobile) against the real production URL — this is the authoritative number, not localhost. Fix whatever is left to hit ≥ 90.
+- [ ] Last: remount homepage `ScrollPath` (parked since the 5.2 lag check). Cheapen if needed (no `ResizeObserver` → `ScrollTrigger.refresh` loop). Keep it only if scroll still feels smooth; otherwise leave it unmounted.
 
 ### Task 5.5 — Custom scrollbar
 

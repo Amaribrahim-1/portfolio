@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Fraunces, Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
-import { Navbar } from "@/components/shared/Navbar";
+import { BackToTop } from "@/components/shared/BackToTop";
 import { Footer } from "@/components/shared/Footer";
+import { Navbar } from "@/components/shared/Navbar";
 import { SkipToContent } from "@/components/shared/SkipToContent";
 import { navLinks, profile } from "@/content/profile";
 import { getSiteUrl } from "@/lib/site";
@@ -65,11 +67,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="bg-grain flex min-h-full flex-col">
         <SmoothScroll>
           <SkipToContent />
+          <ScrollProgress />
           <Navbar name={profile.name} links={navLinks} />
           <main id="main" tabIndex={-1} className="flex flex-1 flex-col outline-none">
             {children}
           </main>
           <Footer />
+          <BackToTop />
         </SmoothScroll>
         <Analytics />
       </body>
