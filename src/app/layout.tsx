@@ -44,6 +44,9 @@ export const metadata: Metadata = {
     template: `%s — ${profile.name}`,
   },
   description,
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
     title,
     description,
@@ -58,6 +61,26 @@ export const metadata: Metadata = {
   },
 };
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.role,
+  description: profile.tagline,
+  email: `mailto:${profile.email}`,
+  image: `${siteUrl}${profile.photo.src.src}`,
+  url: siteUrl,
+  sameAs: profile.socials.map((social) => social.href),
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: profile.name,
+  description: profile.tagline,
+  url: siteUrl,
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -65,6 +88,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`dark ${geistSans.variable} ${fraunces.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="bg-grain flex min-h-full flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
         <SmoothScroll>
           <SkipToContent />
           <ScrollProgress />
