@@ -8,7 +8,7 @@ import {
 } from "react";
 import { useGSAP } from "@gsap/react";
 
-import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, MOTION_MQ } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 
 type StickyStackProps = {
@@ -58,7 +58,8 @@ function scrubPreviousCards(root: HTMLElement): void {
 /**
  * Stacks children as sticky cards. As the next card covers the previous one,
  * the previous scales 1 → 0.85 (transform only). Reduced-motion skips both
- * sticky positioning and the scale scrub.
+ * sticky positioning and the scale scrub so every card stays readable at
+ * full size.
  */
 export function StickyStack({ children, className }: StickyStackProps) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -67,11 +68,14 @@ export function StickyStack({ children, className }: StickyStackProps) {
   useGSAP(
     () => {
       const root = rootRef.current;
-      if (!root || prefersReducedMotion()) {
+      if (!root) {
         return;
       }
 
-      scrubPreviousCards(root);
+      const media = gsap.matchMedia();
+      media.add(MOTION_MQ.allow, () => {
+        scrubPreviousCards(root);
+      });
     },
     { dependencies: [items.length], revertOnUpdate: true },
   );

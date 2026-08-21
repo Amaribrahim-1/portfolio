@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 
-import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, MOTION_MQ } from "@/lib/gsap";
 import { splitText, type SplitTextMode } from "@/lib/split-text";
 
 type SplitHeadlineProps = {
@@ -18,14 +18,9 @@ type SplitHeadlineProps = {
 const ACCENT_CLASS_NAME = "italic text-mustard";
 const ACCENT_CLASS_NAMES = ACCENT_CLASS_NAME.split(" ");
 
-const DESKTOP_HEADING_MQ = "(min-width: 48rem)";
 const INTRO_TWEEN_S = 0.5;
 const INTRO_MAX_S = 0.8;
 const INTRO_RISE_PX = 12;
-
-function headingSplitMode(): SplitTextMode {
-  return window.matchMedia(DESKTOP_HEADING_MQ).matches ? "letters" : "words";
-}
 
 function introStagger(targetCount: number): number {
   if (targetCount <= 1) {
@@ -99,11 +94,11 @@ function HeadlineCopy({ text, accent }: { text: string; accent?: string }) {
 function animateSplitHeading(
   heading: HTMLElement,
   text: string,
-  accent?: string,
+  accent: string | undefined,
+  mode: SplitTextMode,
 ): () => void {
   heading.setAttribute("aria-label", text);
 
-  const mode = headingSplitMode();
   const split = splitText(heading, { mode });
   if (accent) {
     markAccentWords(split.words, accent);
@@ -128,11 +123,27 @@ export function SplitHeadline({
   useGSAP(
     () => {
       const heading = headingRef.current;
-      if (!heading || prefersReducedMotion()) {
+      if (!heading) {
         return;
       }
 
-      return animateSplitHeading(heading, children, accent);
+      const media = gsap.matchMedia();
+      media.add(
+        {
+          allowMotion: MOTION_MQ.allow,
+          isDesktop: MOTION_MQ.desktop,
+        },
+        (context) => {
+          if (!context.conditions?.allowMotion) {
+            return;
+          }
+
+          const mode: SplitTextMode = context.conditions.isDesktop
+            ? "letters"
+            : "words";
+          return animateSplitHeading(heading, children, accent, mode);
+        },
+      );
     },
     { dependencies: [children, accent], revertOnUpdate: true },
   );

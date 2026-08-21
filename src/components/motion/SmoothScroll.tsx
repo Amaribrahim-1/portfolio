@@ -4,7 +4,7 @@ import { useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
-import { gsap, prefersReducedMotion, ScrollTrigger } from "@/lib/gsap";
+import { gsap, ScrollTrigger, subscribeReducedMotion } from "@/lib/gsap";
 
 type SmoothScrollProps = {
   children: ReactNode;
@@ -37,11 +37,17 @@ function startSyncedLenis() {
 
 export function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
-    if (prefersReducedMotion()) {
-      return;
-    }
+    let stopLenis: (() => void) | undefined;
 
-    return startSyncedLenis();
+    const unsubscribe = subscribeReducedMotion((reduced) => {
+      stopLenis?.();
+      stopLenis = reduced ? undefined : startSyncedLenis();
+    });
+
+    return () => {
+      unsubscribe();
+      stopLenis?.();
+    };
   }, []);
 
   return children;

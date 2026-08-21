@@ -3,7 +3,7 @@
 import { useRef, type ReactNode } from "react";
 import { useGSAP } from "@gsap/react";
 
-import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, MOTION_MQ } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 
 type ParallaxLayerProps = {
@@ -18,7 +18,8 @@ type ParallaxLayerProps = {
 /**
  * Hero-only signature moment: scrubs transform (and optional opacity) as the
  * user scrolls past the nearest `[data-parallax-root]`. Do not reuse outside
- * the Hero per motion-performance-budget.mdc.
+ * the Hero per motion-performance-budget.mdc. Reduced-motion keeps the
+ * readable layout (no offset, no fade) instead of the scrub end state.
  */
 export function ParallaxLayer({
   children,
@@ -33,30 +34,33 @@ export function ParallaxLayer({
   useGSAP(
     () => {
       const layer = layerRef.current;
-      if (!layer || prefersReducedMotion()) {
+      if (!layer) {
         return;
       }
 
-      const trigger = layer.closest("[data-parallax-root]") ?? layer;
-      const from: gsap.TweenVars = { y: 0 };
-      const to: gsap.TweenVars = {
-        y: offset,
-        ease: "none",
-        scrollTrigger: {
-          trigger,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      };
+      const media = gsap.matchMedia();
+      media.add(MOTION_MQ.allow, () => {
+        const trigger = layer.closest("[data-parallax-root]") ?? layer;
+        const from: gsap.TweenVars = { y: 0 };
+        const to: gsap.TweenVars = {
+          y: offset,
+          ease: "none",
+          scrollTrigger: {
+            trigger,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        };
 
-      if (opacityFrom !== undefined && opacityTo !== undefined) {
-        from.opacity = opacityFrom;
-        to.opacity = opacityTo;
-      }
+        if (opacityFrom !== undefined && opacityTo !== undefined) {
+          from.opacity = opacityFrom;
+          to.opacity = opacityTo;
+        }
 
-      gsap.fromTo(layer, from, to);
+        gsap.fromTo(layer, from, to);
+      });
     },
     { dependencies: [offset, opacityFrom, opacityTo], revertOnUpdate: true },
   );

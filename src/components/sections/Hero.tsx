@@ -9,7 +9,7 @@ import { profile } from "@/content/profile";
 import { getProjectBySlug, type ProjectScreenshot } from "@/content/projects";
 
 const TAGLINE_ACCENT = "not tutorials";
-const CTA_CLASS_NAME = "h-11 px-5";
+const CTA_CLASS_NAME = "h-11 px-5 duration-200";
 const HERO_SCREENSHOT_FRAME =
   "overflow-hidden rounded-xl border border-cream/15 shadow-[0_24px_60px_color-mix(in_oklab,black_35%,transparent)]";
 

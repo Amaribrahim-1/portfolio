@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Motion stack (do not add another library)
 
-Lenis + GSAP 3 + ScrollTrigger + `@gsap/react`. Custom split-text helper — no Club GSAP SplitText plugin. `motion` stays installed until Task 4.12 cleanup; do not add new `motion` usage.
+Lenis + GSAP 3 + ScrollTrigger + `@gsap/react`. Custom split-text helper — no Club GSAP SplitText plugin. Do not add `motion`, Framer Motion, or a fourth animation library.
 
 GSAP / Lenis live in `src/lib/gsap.ts`, `src/lib/split-text.ts`, and `src/components/motion/` primitives. Sections consume those primitives — they do not register plugins or start Lenis themselves.
 

@@ -3,9 +3,8 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 
-import { gsap, prefersReducedMotion, ScrollTrigger } from "@/lib/gsap";
+import { gsap, MOTION_MQ, ScrollTrigger } from "@/lib/gsap";
 
-const DESKTOP_MQ = "(min-width: 48rem)";
 const MASK_ID = "homepage-scroll-path-mask";
 const MOBILE_DOT_COUNT = 6;
 const DASH_ARRAY = "10 14";
@@ -82,42 +81,49 @@ function layoutPath(root: HTMLElement, elements: PathElements): void {
   applyPathGeometry(elements, width, height);
 }
 
-function scrubPathReveal(
+function mountDesktopPath(
   root: HTMLElement,
   elements: PathElements,
-): (() => void) | void {
-  layoutPath(root, elements);
+): () => void {
+  const relayout = () => {
+    layoutPath(root, elements);
+  };
+
+  relayout();
   elements.svg.classList.remove("invisible");
 
-  if (prefersReducedMotion()) {
-    gsap.set(elements.revealPath, { attr: { "stroke-dashoffset": 0 } });
-    return;
-  }
-
-  gsap.fromTo(
-    elements.revealPath,
-    { attr: { "stroke-dashoffset": 1 } },
-    {
-      attr: { "stroke-dashoffset": 0 },
-      ease: "none",
-      scrollTrigger: {
-        trigger: root,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: true,
-        invalidateOnRefresh: true,
-      },
-    },
-  );
-
   const resizeObserver = new ResizeObserver(() => {
-    layoutPath(root, elements);
+    relayout();
     ScrollTrigger.refresh();
   });
   resizeObserver.observe(root);
 
+  const motion = gsap.matchMedia();
+  motion.add(MOTION_MQ.reduce, () => {
+    gsap.set(elements.revealPath, { attr: { "stroke-dashoffset": 0 } });
+  });
+  motion.add(MOTION_MQ.allow, () => {
+    gsap.fromTo(
+      elements.revealPath,
+      { attr: { "stroke-dashoffset": 1 } },
+      {
+        attr: { "stroke-dashoffset": 0 },
+        ease: "none",
+        scrollTrigger: {
+          trigger: root,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      },
+    );
+  });
+
   return () => {
     resizeObserver.disconnect();
+    motion.revert();
+    elements.svg.classList.add("invisible");
   };
 }
 
@@ -162,8 +168,14 @@ export function ScrollPath() {
       }
 
       const media = gsap.matchMedia();
-      media.add(DESKTOP_MQ, () =>
-        scrubPathReveal(root, { svg, revealPath, dashPath, startDot, endDot }),
+      media.add(MOTION_MQ.desktop, () =>
+        mountDesktopPath(root, {
+          svg,
+          revealPath,
+          dashPath,
+          startDot,
+          endDot,
+        }),
       );
     },
     { revertOnUpdate: true },

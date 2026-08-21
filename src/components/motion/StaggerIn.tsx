@@ -8,7 +8,7 @@ import {
 } from "react";
 import { useGSAP } from "@gsap/react";
 
-import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, MOTION_MQ } from "@/lib/gsap";
 
 type StaggerInProps = {
   children: ReactNode;
@@ -56,11 +56,14 @@ export function StaggerIn({ children, className }: StaggerInProps) {
   useGSAP(
     () => {
       const root = rootRef.current;
-      if (!root || prefersReducedMotion()) {
+      if (!root) {
         return;
       }
 
-      playStagger(root);
+      const media = gsap.matchMedia();
+      media.add(MOTION_MQ.allow, () => {
+        playStagger(root);
+      });
     },
     { dependencies: [items.length], revertOnUpdate: true },
   );

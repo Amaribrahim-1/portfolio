@@ -196,7 +196,7 @@ export function CaseStudy({ project }: { project: Project }) {
       <div className="bg-cream text-forest">
         <div className="mx-auto max-w-5xl px-gutter py-section md:py-section-lg">
           <div className="grid items-start gap-12 md:grid-cols-2 md:gap-12 lg:gap-16">
-            <figure className="md:sticky md:top-24">
+            <figure className="md:sticky md:top-24 md:motion-reduce:relative md:motion-reduce:top-auto">
               <DeviceFrame
                 label={project.name}
                 screenshot={heroScreenshot}

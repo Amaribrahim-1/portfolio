@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Stack Decisions (do not re-litigate)
 - Next.js (App Router) + TypeScript. Tailwind CSS. shadcn/ui — minimal set only (button, card, badge, separator).
-- Motion: GSAP 3 + ScrollTrigger + `@gsap/react` + Lenis. Custom split-text helper — no Club GSAP plugin. `motion` stays until Task 4.12 cleanup; do not add a fourth animation library.
+- Motion: GSAP 3 + ScrollTrigger + `@gsap/react` + Lenis. Custom split-text helper — no Club GSAP plugin. Do not add `motion`, Framer Motion, or a fourth animation library.
 - Palette: forest `#0E2A26`, cream `#F3EEE4`, mustard `#E4B52A`, sage `#9BB3A0`. Display font: Fraunces. Body: Geist. Tags: JetBrains Mono.
 - Content lives in local TypeScript files under `content/` — no CMS, no database, no auth. Real content comes from `portfolio-spec.md`, not invented.
 - Contact: mailto/social links by default; no backend unless explicitly requested.
@@ -20,7 +20,7 @@ src/
   components/
     sections/               → Hero, About, TechStack, Projects, Cv, Contact
     shared/                 → Navbar, Footer, and non-motion primitives
-    motion/                 → SmoothScroll, SplitHeadline, StickyStack, ScrollPath, ParallaxLayer
+    motion/                 → SmoothScroll, SplitHeadline, StickyStack, ScrollPath, ParallaxLayer, StaggerIn
     ui/                     → shadcn primitives, untouched/generated
   content/
     profile.ts                → bio, tagline, contact links
