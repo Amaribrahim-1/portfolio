@@ -13,6 +13,7 @@ type SmoothScrollProps = {
 
 const GSAP_LAG_SMOOTHING_THRESHOLD_MS = 500;
 const GSAP_LAG_SMOOTHING_ADJUSTED_MS = 33;
+const IDLE_START_TIMEOUT_MS = 200;
 
 function startSyncedLenis() {
   const lenis = new Lenis({ anchors: true });
@@ -38,17 +39,64 @@ function startSyncedLenis() {
   };
 }
 
+/**
+ * Lenis/GSAP ticker init competes with hydration for main-thread time right
+ * after load. Deferring it to idle (falling back to a short timeout) keeps
+ * that cost off the critical path without delaying it long enough for a
+ * user to notice un-smoothed scroll.
+ */
+function startSyncedLenisWhenIdle(
+  onStart: (stop: () => void) => void,
+): () => void {
+  let cancelled = false;
+  let stopLenis: (() => void) | undefined;
+
+  const run = () => {
+    if (cancelled) {
+      return;
+    }
+    stopLenis = startSyncedLenis();
+    onStart(stopLenis);
+  };
+
+  if (typeof window.requestIdleCallback === "function") {
+    const handle = window.requestIdleCallback(run, {
+      timeout: IDLE_START_TIMEOUT_MS,
+    });
+    return () => {
+      cancelled = true;
+      window.cancelIdleCallback(handle);
+      stopLenis?.();
+    };
+  }
+
+  const timeoutId = window.setTimeout(run, IDLE_START_TIMEOUT_MS);
+  return () => {
+    cancelled = true;
+    window.clearTimeout(timeoutId);
+    stopLenis?.();
+  };
+}
+
 export function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
     let stopLenis: (() => void) | undefined;
+    let cancelStart: (() => void) | undefined;
 
     const unsubscribe = subscribeReducedMotion((reduced) => {
+      cancelStart?.();
       stopLenis?.();
-      stopLenis = reduced ? undefined : startSyncedLenis();
+      stopLenis = undefined;
+      cancelStart = reduced
+        ? undefined
+        : startSyncedLenisWhenIdle((stop) => {
+            stopLenis = stop;
+          });
     });
 
     return () => {
       unsubscribe();
+      cancelStart?.();
       stopLenis?.();
     };
   }, []);
