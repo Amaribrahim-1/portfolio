@@ -367,8 +367,8 @@ Branch: `feat/perf-pass`
 
 Branch: `feat/custom-scrollbar`
 
-- [ ] `src/app/globals.css`: `scrollbar-color` (Firefox) + `::-webkit-scrollbar` / `-thumb` / `-track` (Chromium) — forest track, mustard thumb with rounded corners, thin width, subtle hover state.
-- [ ] Verify it doesn't fight the existing `.bg-grain` overlay or Lenis smooth scroll.
+- [x] `src/app/globals.css`: `scrollbar-color` (Firefox) + `::-webkit-scrollbar` / `-thumb` / `-track` (Chromium) — forest track, mustard thumb with rounded corners, thin width, subtle hover state.
+- [x] Verify it doesn't fight the existing `.bg-grain` overlay or Lenis smooth scroll.
 
 ### Task 5.6 — Branch cleanup
 
