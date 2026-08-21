@@ -5,6 +5,7 @@ import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
 import { gsap, ScrollTrigger, subscribeReducedMotion } from "@/lib/gsap";
+import { setLenisInstance } from "@/lib/lenis-instance";
 
 type SmoothScrollProps = {
   children: ReactNode;
@@ -15,6 +16,7 @@ const GSAP_LAG_SMOOTHING_ADJUSTED_MS = 33;
 
 function startSyncedLenis() {
   const lenis = new Lenis({ anchors: true });
+  setLenisInstance(lenis);
 
   lenis.on("scroll", ScrollTrigger.update);
 
@@ -27,6 +29,7 @@ function startSyncedLenis() {
 
   return () => {
     gsap.ticker.remove(syncLenisToTicker);
+    setLenisInstance(null);
     gsap.ticker.lagSmoothing(
       GSAP_LAG_SMOOTHING_THRESHOLD_MS,
       GSAP_LAG_SMOOTHING_ADJUSTED_MS,
