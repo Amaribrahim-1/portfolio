@@ -118,7 +118,7 @@
     @apply font-sans;
   }
   :is(section, [id]) {
-    scroll-margin-top: 5.5rem;
+    scroll-margin-top: 6rem;
   }
 }
 
@@ -175,7 +175,8 @@
 
 /* Global safety net: shorten/disable any non-motion CSS transitions & animations
    for users who prefer reduced motion. GSAP/Lenis primitives additionally
-   check prefers-reduced-motion and skip Lenis + ScrollTrigger when reduced. */
+   bind to (prefers-reduced-motion: reduce) via matchMedia so Lenis and
+   ScrollTrigger revert when the OS preference is on or later toggled. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

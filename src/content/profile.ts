@@ -7,6 +7,11 @@ export type SocialLink = {
   href: string;
 };
 
+export type NavLink = {
+  href: string;
+  label: string;
+};
+
 export type ProfilePhoto = {
   src: StaticImageData;
   alt: string;
@@ -31,6 +36,16 @@ const aboutRows = [
   "Right now I'm building Areej, a real e-commerce store for a paying client, from database security to the storefront UI.",
   "I'm currently taking on freelance frontend work.",
 ] as const;
+
+export const contactIntent = aboutRows[4];
+
+export const navLinks: readonly NavLink[] = [
+  { href: "/#about", label: "About" },
+  { href: "/#stack", label: "Stack" },
+  { href: "/#work", label: "Work" },
+  { href: "/#cv", label: "CV" },
+  { href: "/#contact", label: "Contact" },
+];
 
 export const profile: Profile = {
   name: "Amar Ibrahim Fawzy",

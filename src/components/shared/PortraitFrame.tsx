@@ -6,11 +6,16 @@ import { cn } from "@/lib/utils";
 type PortraitFrameProps = {
   className?: string;
   priority?: boolean;
+  sizes?: string;
 };
+
+const DEFAULT_SIZES =
+  "(max-width: 768px) 208px, (max-width: 1024px) 224px, 288px";
 
 export function PortraitFrame({
   className,
   priority = false,
+  sizes = DEFAULT_SIZES,
 }: PortraitFrameProps) {
   return (
     <div
@@ -23,7 +28,7 @@ export function PortraitFrame({
         src={profile.photo.src}
         alt={profile.photo.alt}
         fill
-        sizes="(max-width: 768px) 208px, (max-width: 1024px) 224px, 288px"
+        sizes={sizes}
         placeholder="blur"
         priority={priority}
         className="photo-frame-media object-top"

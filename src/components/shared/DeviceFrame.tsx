@@ -21,16 +21,19 @@ export function DeviceFrame({
   return (
     <div
       aria-hidden={screenshot ? undefined : true}
-      className={cn("overflow-hidden bg-secondary", className)}
+      className={cn(
+        "overflow-hidden bg-[color-mix(in_oklab,var(--cream)_92%,var(--forest))]",
+        className,
+      )}
     >
       <div
         aria-hidden="true"
-        className="flex items-center gap-1.5 border-b border-border px-3 py-2"
+        className="flex items-center gap-1.5 border-b border-forest/10 px-3 py-2"
       >
-        <span className="size-1.5 rounded-full bg-muted-foreground/40" />
-        <span className="size-1.5 rounded-full bg-muted-foreground/40" />
-        <span className="size-1.5 rounded-full bg-muted-foreground/40" />
-        <span className="ml-2 truncate font-mono text-[10px] tracking-wide text-muted-foreground">
+        <span className="size-1.5 rounded-full bg-forest/30" />
+        <span className="size-1.5 rounded-full bg-forest/30" />
+        <span className="size-1.5 rounded-full bg-forest/30" />
+        <span className="ml-2 truncate font-mono text-[10px] tracking-wide text-forest/50">
           {label}
         </span>
       </div>
@@ -47,7 +50,7 @@ export function DeviceFrame({
           />
         </div>
       ) : (
-        <div className="aspect-video bg-muted" />
+        <div className="aspect-video bg-sage/35" />
       )}
     </div>
   );

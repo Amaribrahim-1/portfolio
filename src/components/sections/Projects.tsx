@@ -1,97 +1,160 @@
+import Image from "next/image";
 import Link from "next/link";
 
-import { DeviceFrame } from "@/components/shared/DeviceFrame";
-import { ScrollReveal } from "@/components/shared/ScrollReveal";
-import { Badge } from "@/components/ui/badge";
+import { StickyStack } from "@/components/motion/StickyStack";
+import { buttonVariants } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-} from "@/components/ui/card";
-import { projects, type Project, type ProjectStatus } from "@/content/projects";
+  projects,
+  type Project,
+  type ProjectScreenshot,
+} from "@/content/projects";
+import { cn } from "@/lib/utils";
 
-function statusBadgeVariant(status: ProjectStatus) {
-  return status === "live" ? "default" : "outline";
+const CTA_CLASS_NAME = "h-11 px-5 duration-200";
+const PRIMARY_CTA_CLASS_NAME = buttonVariants({
+  size: "lg",
+  className: CTA_CLASS_NAME,
+});
+const SECONDARY_CTA_CLASS_NAME = cn(
+  buttonVariants({
+    variant: "outline",
+    size: "lg",
+    className: CTA_CLASS_NAME,
+  }),
+  "border-current/45 bg-transparent text-inherit hover:bg-current/10 hover:text-inherit",
+);
+
+const PROJECT_CARD_TONES = [
+  "bg-cream text-forest shadow-[0_24px_60px_color-mix(in_oklab,black_22%,transparent)]",
+  "bg-sage text-forest shadow-[0_24px_60px_color-mix(in_oklab,black_16%,transparent)]",
+  "bg-[color-mix(in_oklab,var(--forest)_72%,var(--cream))] text-cream ring-1 ring-cream/15 shadow-[0_24px_60px_color-mix(in_oklab,black_28%,transparent)]",
+] as const;
+
+const PEAK_ROTATIONS = ["rotate-3", "-rotate-2", "rotate-2"] as const;
+
+function cardIndexLabel(index: number): string {
+  return String(index + 1).padStart(2, "0");
 }
 
-function ProjectTechTags({ tech }: { tech: readonly string[] }) {
+function ProjectLinks({ project }: { project: Project }) {
+  const caseStudyHref = project.hasCaseStudy
+    ? `/projects/${project.slug}`
+    : null;
+  const primaryIsCaseStudy = caseStudyHref != null;
+
   return (
-    <ul className="flex flex-wrap gap-2">
-      {tech.map((name) => (
-        <li key={name}>
-          <Badge variant="outline" className="font-mono">
-            {name}
-          </Badge>
+    <ul className="mt-8 flex flex-wrap gap-3">
+      {caseStudyHref ? (
+        <li>
+          <Link href={caseStudyHref} className={PRIMARY_CTA_CLASS_NAME}>
+            Case study
+          </Link>
         </li>
-      ))}
+      ) : null}
+      {project.liveUrl ? (
+        <li>
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={
+              primaryIsCaseStudy
+                ? SECONDARY_CTA_CLASS_NAME
+                : PRIMARY_CTA_CLASS_NAME
+            }
+          >
+            Live demo
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        </li>
+      ) : null}
+      {project.repoUrl ? (
+        <li>
+          <a
+            href={project.repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={SECONDARY_CTA_CLASS_NAME}
+          >
+            GitHub
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        </li>
+      ) : null}
     </ul>
   );
 }
 
-function ProjectCardBody({ project }: { project: Project }) {
+function ProjectPeak({
+  screenshot,
+  rotateClassName,
+}: {
+  screenshot: ProjectScreenshot;
+  rotateClassName: string;
+}) {
   return (
-    <Card className="h-full pt-0 transition-[box-shadow] duration-200 group-hover:ring-accent/40">
-      <DeviceFrame
-        label={project.name}
-        screenshot={project.screenshots[0]}
-        className="rounded-t-xl"
-      />
-      <CardHeader className="gap-2">
-        <div className="flex flex-wrap items-start justify-between gap-2">
-          <h3 className="font-display text-lg font-semibold tracking-tight">
-            {project.name}
-          </h3>
-          <Badge
-            variant={statusBadgeVariant(project.status)}
-            className="font-mono"
-          >
-            {project.statusLabel}
-          </Badge>
-        </div>
-        <CardDescription>{project.tagline}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ProjectTechTags tech={project.tech} />
-      </CardContent>
-    </Card>
+    <div
+      className={cn(
+        "pointer-events-none relative mt-10 w-[92%] max-w-xl self-end overflow-hidden rounded-xl border border-black/10 shadow-[0_24px_60px_color-mix(in_oklab,black_28%,transparent)] md:absolute md:-right-6 md:top-[22%] md:mt-0 md:w-[56%] md:max-w-none",
+        rotateClassName,
+      )}
+    >
+      <div className="relative aspect-[16/10]">
+        <Image
+          src={screenshot.src}
+          alt={screenshot.alt}
+          fill
+          sizes="(max-width: 48rem) 92vw, (max-width: 80rem) 56vw, 40rem"
+          placeholder="blur"
+          className="object-cover object-top"
+        />
+      </div>
+    </div>
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
-  const className =
-    "group block h-full rounded-xl focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none";
-
-  if (project.hasCaseStudy) {
-    return (
-      <Link
-        href={`/projects/${project.slug}`}
-        aria-label={`${project.name} case study`}
-        className={className}
-      >
-        <ProjectCardBody project={project} />
-      </Link>
-    );
-  }
-
-  const href = project.liveUrl ?? project.repoUrl;
-
-  if (!href) {
-    return <ProjectCardBody project={project} />;
-  }
+function ProjectCard({
+  project,
+  index,
+}: {
+  project: Project;
+  index: number;
+}) {
+  const screenshot = project.screenshots[0];
 
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={className}
+    <article
+      className={cn(
+        "relative flex min-h-[70svh] flex-col justify-start overflow-visible rounded-[1.75rem] p-8 md:min-h-[78svh] md:p-12 lg:p-16",
+        PROJECT_CARD_TONES[index % PROJECT_CARD_TONES.length],
+      )}
     >
-      <span className="sr-only">
-        {project.name} live demo (opens in a new tab)
-      </span>
-      <ProjectCardBody project={project} />
-    </a>
+      <div className="relative z-10 md:max-w-[42%]">
+        <p
+          aria-hidden="true"
+          className="font-display text-5xl font-semibold tracking-tight text-mustard md:text-7xl"
+        >
+          {cardIndexLabel(index)}
+        </p>
+        <h3 className="mt-6 font-display text-3xl font-semibold tracking-tight text-pretty md:text-5xl lg:text-6xl">
+          {project.name}
+        </h3>
+        <p className="mt-3 font-mono text-xs tracking-[0.2em] text-mustard uppercase">
+          {project.statusLabel}
+        </p>
+        <p className="mt-6 max-w-md text-lg text-pretty text-current/75 md:text-xl">
+          {project.tagline}
+        </p>
+        <ProjectLinks project={project} />
+      </div>
+
+      {screenshot ? (
+        <ProjectPeak
+          screenshot={screenshot}
+          rotateClassName={PEAK_ROTATIONS[index % PEAK_ROTATIONS.length]}
+        />
+      ) : null}
+    </article>
   );
 }
 
@@ -100,27 +163,25 @@ export function Projects() {
     <section
       id="work"
       aria-labelledby="work-heading"
-      className="mx-auto max-w-5xl px-gutter py-section-lg"
+      className="bg-forest text-cream"
     >
-      <ScrollReveal>
+      <div className="mx-auto max-w-5xl px-gutter py-section-lg">
         <h2
           id="work-heading"
-          className="font-mono text-xs tracking-[0.2em] text-accent uppercase"
+          className="font-mono text-xs tracking-[0.2em] text-mustard uppercase"
         >
           Projects
         </h2>
-      </ScrollReveal>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2">
-        {projects.map((project, index) => (
-          <ScrollReveal
-            key={project.slug}
-            delay={index * 0.08}
-            className="h-full"
-          >
-            <ProjectCard project={project} />
-          </ScrollReveal>
-        ))}
+        <StickyStack className="mt-10">
+          {projects.map((project, index) => (
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              index={index}
+            />
+          ))}
+        </StickyStack>
       </div>
     </section>
   );
