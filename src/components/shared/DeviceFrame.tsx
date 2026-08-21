@@ -15,7 +15,7 @@ export function DeviceFrame({
   label,
   screenshot,
   priority = false,
-  sizes = "(max-width: 40rem) 100vw, (max-width: 64rem) 50vw, 32rem",
+  sizes = "(max-width: 48rem) 100vw, (max-width: 64rem) 50vw, 29rem",
   className,
 }: DeviceFrameProps) {
   return (
