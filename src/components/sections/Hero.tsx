@@ -6,7 +6,12 @@ import { SplitHeadline } from "@/components/motion/SplitHeadline";
 import { PortraitFrame } from "@/components/shared/PortraitFrame";
 import { buttonVariants } from "@/components/ui/button";
 import { profile } from "@/content/profile";
-import { getProjectBySlug, type ProjectScreenshot } from "@/content/projects";
+import {
+  examIoCollageScreenshot,
+  getProjectBySlug,
+  type ProjectScreenshot,
+} from "@/content/projects";
+import { cn } from "@/lib/utils";
 
 const TAGLINE_ACCENT = "not tutorials";
 const CTA_CLASS_NAME = "h-11 px-5 duration-200";
@@ -21,21 +26,24 @@ function screenshotFor(slug: string): ProjectScreenshot {
   return screenshot;
 }
 
-const examIoScreenshot = screenshotFor("exam-io");
 const areejScreenshot = screenshotFor("areej");
 
 function HeroScreenshot({
   screenshot,
   sizes,
   priority = false,
+  frameClassName = "aspect-video",
+  imageClassName = "object-cover object-top",
 }: {
   screenshot: ProjectScreenshot;
   sizes: string;
   priority?: boolean;
+  frameClassName?: string;
+  imageClassName?: string;
 }) {
   return (
     <div className={HERO_SCREENSHOT_FRAME}>
-      <div className="relative aspect-video">
+      <div className={cn("relative", frameClassName)}>
         <Image
           src={screenshot.src}
           alt={screenshot.alt}
@@ -43,7 +51,7 @@ function HeroScreenshot({
           sizes={sizes}
           placeholder="blur"
           priority={priority}
-          className="object-cover object-top"
+          className={imageClassName}
         />
       </div>
     </div>
@@ -97,43 +105,41 @@ function HeroCopy() {
 
 function HeroCollage() {
   return (
-    <div className="relative z-10 order-1 h-[42svh] min-h-52 pt-20 md:order-2 md:h-auto md:min-h-svh md:pt-0">
-      <ParallaxLayer
-        offset={96}
-        className="absolute top-[22%] left-[2%] z-10 w-[82%] max-w-sm md:top-[22%] md:left-0 md:w-[92%] md:max-w-lg"
-      >
-        <div className="-rotate-3">
-          <HeroScreenshot
-            screenshot={examIoScreenshot}
-            sizes="(max-width: 768px) 82vw, 36vw"
-            priority
-          />
-        </div>
-      </ParallaxLayer>
+    <div className="relative z-10 order-1 h-[42svh] min-h-56 pt-24 md:order-2 md:h-svh md:pt-20">
+      <div className="pointer-events-none relative h-full">
+        <ParallaxLayer
+          offset={96}
+          className="absolute top-[16%] left-[2%] z-10 w-[54%] max-w-[13.5rem] sm:max-w-[15rem] md:top-[22%] md:left-[4%] md:w-[56%] md:max-w-xs"
+        >
+          <div className="-rotate-6">
+            <HeroScreenshot
+              screenshot={examIoCollageScreenshot}
+              sizes="(max-width: 768px) 54vw, 20vw"
+              priority
+              imageClassName="object-cover object-center"
+            />
+          </div>
+        </ParallaxLayer>
 
-      <ParallaxLayer
-        offset={140}
-        className="absolute top-[8%] right-[2%] z-20 w-[42%] max-w-[11rem] sm:max-w-[13rem] md:top-[12%] md:right-0 md:w-[48%] md:max-w-[17rem]"
-      >
-        <div className="rotate-6">
-          <HeroScreenshot
-            screenshot={areejScreenshot}
-            sizes="(max-width: 768px) 42vw, 18vw"
-          />
-        </div>
-      </ParallaxLayer>
+        <ParallaxLayer
+          offset={140}
+          className="absolute top-[10%] right-[2%] z-20 w-[50%] max-w-[12.5rem] sm:max-w-[14rem] md:top-[16%] md:right-[2%] md:w-[52%] md:max-w-xs"
+        >
+          <div className="rotate-6">
+            <HeroScreenshot
+              screenshot={areejScreenshot}
+              sizes="(max-width: 768px) 50vw, 18vw"
+            />
+          </div>
+        </ParallaxLayer>
 
-      <ParallaxLayer
-        offset={188}
-        className="absolute right-[8%] bottom-[4%] z-30 md:right-[6%] md:bottom-[12%]"
-      >
-        <PortraitFrame priority className="w-28 sm:w-36 md:w-44 lg:w-52" />
-      </ParallaxLayer>
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-linear-to-b from-transparent to-forest md:hidden"
-      />
+        <ParallaxLayer
+          offset={188}
+          className="absolute bottom-[6%] left-[30%] z-30 md:bottom-[18%] md:left-[28%]"
+        >
+          <PortraitFrame priority className="w-32 sm:w-40 md:w-44 lg:w-52" />
+        </ParallaxLayer>
+      </div>
     </div>
   );
 }

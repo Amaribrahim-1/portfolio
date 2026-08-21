@@ -3,6 +3,7 @@ import type { StaticImageData } from "next/image";
 import areejHome from "../../public/images/projects/areej/home.png";
 import bookstoreHome from "../../public/images/projects/bookstore/home.jpg";
 import examIoLanding from "../../public/images/projects/exam-io/landing.png";
+import examIoPreview from "../../public/images/projects/exam-io/preview.png";
 
 export type ProjectStatus = "live" | "in-development";
 
@@ -131,3 +132,8 @@ export function getCaseStudyProjects(): Project[] {
 export function getProjectBySlug(slug: string): Project | undefined {
   return getCaseStudyProjects().find((project) => project.slug === slug);
 }
+
+export const examIoCollageScreenshot: ProjectScreenshot = {
+  src: examIoPreview,
+  alt: "Exam.io product preview with the exam interface, 92 score card, and completion checklist.",
+};
