@@ -1,27 +1,41 @@
 import Link from "next/link";
 
+import { SplitHeadline } from "@/components/motion/SplitHeadline";
 import { DeviceFrame } from "@/components/shared/DeviceFrame";
-import { ScrollReveal } from "@/components/shared/ScrollReveal";
-import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
-import type { Project, ProjectScreenshot, ProjectStatus } from "@/content/projects";
+import type { Project, ProjectScreenshot } from "@/content/projects";
+import { cn, focusRingClassName } from "@/lib/utils";
 
-const ctaClassName = "h-11 px-5";
+const CTA_CLASS_NAME = "h-11 px-5 duration-200";
+const PRIMARY_CTA_CLASS_NAME = buttonVariants({
+  size: "lg",
+  className: CTA_CLASS_NAME,
+});
+const SECONDARY_CTA_CLASS_NAME = cn(
+  buttonVariants({
+    variant: "outline",
+    size: "lg",
+    className: CTA_CLASS_NAME,
+  }),
+  "border-forest/45 bg-transparent text-forest hover:bg-forest/10 hover:text-forest dark:border-forest/45 dark:bg-transparent dark:text-forest dark:hover:bg-forest/10 dark:hover:text-forest",
+);
+const SCREENSHOT_FRAME_CLASS_NAME =
+  "rounded-xl shadow-[0_24px_60px_color-mix(in_oklab,black_16%,transparent)] ring-1 ring-forest/10";
 
-function alternatingRowDirection(index: number): "left" | "right" {
-  return index % 2 === 0 ? "right" : "left";
-}
-
-function statusBadgeVariant(status: ProjectStatus) {
-  return status === "live" ? "default" : "outline";
+function cardIndexLabel(index: number): string {
+  return String(index + 1).padStart(2, "0");
 }
 
 function CaseStudyBackLink() {
   return (
-    <nav aria-label="Breadcrumb" className="mb-10">
+    <nav aria-label="Breadcrumb">
       <Link
         href="/#work"
-        className="font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase transition-colors hover:text-accent focus-visible:rounded-sm focus-visible:text-accent focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+        className={cn(
+          "font-mono text-xs tracking-[0.15em] text-sage uppercase transition-colors duration-200 hover:text-mustard",
+          focusRingClassName,
+          "focus-visible:text-mustard",
+        )}
       >
         Projects
       </Link>
@@ -31,57 +45,50 @@ function CaseStudyBackLink() {
 
 function CaseStudyHeader({ project }: { project: Project }) {
   return (
-    <header className="mb-10">
-      <ScrollReveal>
-        <p className="font-mono text-xs tracking-[0.2em] text-accent uppercase">
+    <header className="bg-forest text-cream">
+      <div className="mx-auto max-w-5xl px-gutter pt-28 pb-16 md:pb-20">
+        <CaseStudyBackLink />
+        <p className="mt-10 font-mono text-xs tracking-[0.2em] text-mustard uppercase">
           Case study
         </p>
-      </ScrollReveal>
-      <ScrollReveal delay={0.08}>
-        <div className="mt-4 flex flex-wrap items-center gap-3">
-          <h1 className="font-display text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-            {project.name}
-          </h1>
-          <Badge
-            variant={statusBadgeVariant(project.status)}
-            className="font-mono"
-          >
-            {project.statusLabel}
-          </Badge>
-        </div>
-        <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
+        <SplitHeadline className="mt-4 font-display text-4xl font-semibold tracking-tight text-pretty md:text-6xl lg:text-7xl">
+          {project.name}
+        </SplitHeadline>
+        <p className="mt-4 font-mono text-xs tracking-[0.2em] text-mustard uppercase">
+          {project.statusLabel}
+        </p>
+        <p className="mt-6 max-w-2xl text-lg text-pretty text-cream/75 md:text-xl">
           {project.tagline}
         </p>
-      </ScrollReveal>
+      </div>
     </header>
   );
 }
 
 function CaseStudyHighlights({ bullets }: { bullets: readonly string[] }) {
   return (
-    <section aria-labelledby="overview-heading" className="mt-16">
-      <ScrollReveal>
-        <h2
-          id="overview-heading"
-          className="font-mono text-xs tracking-[0.2em] text-accent uppercase"
-        >
-          Overview
-        </h2>
-      </ScrollReveal>
-      <ul className="mt-8 flex flex-col gap-6">
+    <section aria-labelledby="overview-heading">
+      <h2
+        id="overview-heading"
+        className="font-mono text-xs tracking-[0.2em] text-mustard uppercase"
+      >
+        Overview
+      </h2>
+      <ol className="mt-8 flex list-none flex-col gap-10">
         {bullets.map((bullet, index) => (
           <li key={bullet}>
-            <ScrollReveal
-              direction={alternatingRowDirection(index)}
-              delay={index * 0.08}
+            <p
+              aria-hidden="true"
+              className="font-display text-3xl font-semibold tracking-tight text-mustard md:text-4xl"
             >
-              <p className="max-w-2xl text-lg leading-relaxed text-foreground">
-                {bullet}
-              </p>
-            </ScrollReveal>
+              {cardIndexLabel(index)}
+            </p>
+            <p className="mt-3 max-w-xl text-lg leading-relaxed text-pretty">
+              {bullet}
+            </p>
           </li>
         ))}
-      </ul>
+      </ol>
     </section>
   );
 }
@@ -98,46 +105,40 @@ function CaseStudyGallery({
   }
 
   return (
-    <div className="mt-10 flex flex-col gap-8">
-      {screenshots.map((screenshot, index) => (
-        <ScrollReveal
-          key={screenshot.src.src}
-          direction={alternatingRowDirection(index)}
-        >
+    <ul className="flex flex-col gap-8">
+      {screenshots.map((screenshot) => (
+        <li key={screenshot.src.src}>
           <DeviceFrame
             label={projectName}
             screenshot={screenshot}
-            sizes="(max-width: 64rem) 100vw, 64rem"
-            className="rounded-xl ring-1 ring-foreground/10"
+            sizes="(max-width: 64rem) 100vw, 32rem"
+            className={SCREENSHOT_FRAME_CLASS_NAME}
           />
-        </ScrollReveal>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
 function CaseStudyTech({ tech }: { tech: readonly string[] }) {
   return (
-    <section aria-labelledby="stack-heading" className="mt-16">
-      <ScrollReveal>
-        <h2
-          id="stack-heading"
-          className="font-mono text-xs tracking-[0.2em] text-accent uppercase"
-        >
-          Stack
-        </h2>
-      </ScrollReveal>
-      <ScrollReveal delay={0.08}>
-        <ul className="mt-8 flex flex-wrap gap-2">
-          {tech.map((name) => (
-            <li key={name}>
-              <Badge variant="outline" className="font-mono">
-                {name}
-              </Badge>
-            </li>
-          ))}
-        </ul>
-      </ScrollReveal>
+    <section aria-labelledby="stack-heading">
+      <h2
+        id="stack-heading"
+        className="font-mono text-xs tracking-[0.2em] text-mustard uppercase"
+      >
+        Stack
+      </h2>
+      <ul className="mt-8 flex flex-wrap gap-2">
+        {tech.map((name) => (
+          <li
+            key={name}
+            className="rounded-md border border-forest/20 px-2.5 py-1 font-mono text-xs tracking-wide text-forest/75"
+          >
+            {name}
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
@@ -154,43 +155,34 @@ function CaseStudyLinks({
   }
 
   return (
-    <ScrollReveal>
-      <ul className="mt-12 flex flex-wrap gap-3">
-        {liveUrl ? (
-          <li>
-            <a
-              href={liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={buttonVariants({
-                size: "lg",
-                className: ctaClassName,
-              })}
-            >
-              Live demo
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          </li>
-        ) : null}
-        {repoUrl ? (
-          <li>
-            <a
-              href={repoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={buttonVariants({
-                variant: "outline",
-                size: "lg",
-                className: ctaClassName,
-              })}
-            >
-              GitHub
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          </li>
-        ) : null}
-      </ul>
-    </ScrollReveal>
+    <ul className="flex flex-wrap gap-3">
+      {liveUrl ? (
+        <li>
+          <a
+            href={liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={PRIMARY_CTA_CLASS_NAME}
+          >
+            Live demo
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        </li>
+      ) : null}
+      {repoUrl ? (
+        <li>
+          <a
+            href={repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={liveUrl ? SECONDARY_CTA_CLASS_NAME : PRIMARY_CTA_CLASS_NAME}
+          >
+            GitHub
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        </li>
+      ) : null}
+    </ul>
   );
 }
 
@@ -198,27 +190,37 @@ export function CaseStudy({ project }: { project: Project }) {
   const [heroScreenshot, ...galleryScreenshots] = project.screenshots;
 
   return (
-    <div className="mx-auto max-w-5xl px-gutter py-section-lg">
-      <CaseStudyBackLink />
-      <article>
-        <CaseStudyHeader project={project} />
-        <ScrollReveal>
-          <DeviceFrame
-            label={project.name}
-            screenshot={heroScreenshot}
-            priority
-            sizes="(max-width: 64rem) 100vw, 64rem"
-            className="rounded-xl ring-1 ring-foreground/10"
-          />
-        </ScrollReveal>
-        <CaseStudyHighlights bullets={project.bullets} />
-        <CaseStudyGallery
-          projectName={project.name}
-          screenshots={galleryScreenshots}
-        />
-        <CaseStudyTech tech={project.tech} />
-        <CaseStudyLinks liveUrl={project.liveUrl} repoUrl={project.repoUrl} />
-      </article>
-    </div>
+    <article>
+      <CaseStudyHeader project={project} />
+
+      <div className="bg-cream text-forest">
+        <div className="mx-auto max-w-5xl px-gutter py-section md:py-section-lg">
+          <div className="grid items-start gap-12 md:grid-cols-2 md:gap-12 lg:gap-16">
+            <figure className="md:sticky md:top-24">
+              <DeviceFrame
+                label={project.name}
+                screenshot={heroScreenshot}
+                priority
+                sizes="(max-width: 64rem) 100vw, 32rem"
+                className={SCREENSHOT_FRAME_CLASS_NAME}
+              />
+            </figure>
+
+            <div className="flex flex-col gap-16">
+              <CaseStudyHighlights bullets={project.bullets} />
+              <CaseStudyGallery
+                projectName={project.name}
+                screenshots={galleryScreenshots}
+              />
+              <CaseStudyTech tech={project.tech} />
+              <CaseStudyLinks
+                liveUrl={project.liveUrl}
+                repoUrl={project.repoUrl}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
   );
 }
