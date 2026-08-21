@@ -1,5 +1,7 @@
+import { IconStrip } from "@/components/motion/IconStrip";
 import { SplitHeadline } from "@/components/motion/SplitHeadline";
 import { StaggerIn } from "@/components/motion/StaggerIn";
+import { skillBrandIcons } from "@/content/skill-icons";
 import { skillGroups, type SkillGroup } from "@/content/skills";
 import { cn } from "@/lib/utils";
 
@@ -69,6 +71,8 @@ export function TechStack() {
         >
           Tech Stack
         </SplitHeadline>
+
+        <IconStrip icons={skillBrandIcons} className="mt-10" />
 
         <StaggerIn className="mt-10 grid gap-4 sm:grid-cols-2 lg:gap-6">
           {skillGroups.map((group, index) => (
