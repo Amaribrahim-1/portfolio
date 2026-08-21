@@ -457,9 +457,9 @@ Branch: `fix/back-to-top-scroll`
 
 `src/components/shared/BackToTop.tsx` attaches a raw `scroll` listener that `setState`s on every event. That is a cheap TBT/INP win.
 
-- [ ] Replace the raw `scroll` + `setState` loop with an `IntersectionObserver` on a hero sentinel, or a `requestAnimationFrame`-throttled handler. No new library. GSAP/ScrollTrigger is already allowed if that is cleaner.
-- [ ] Keep current behavior: hidden until the user has left the first screen (~50vh), Lenis `scrollTo(0)` on click, `aria-hidden` / `inert` when hidden, reduced-motion still uses native scroll.
-- [ ] Do not restyle the button. Do not add a JS cursor-follow.
+- [x] Replace the raw `scroll` + `setState` loop with an `IntersectionObserver` on a hero sentinel, or a `requestAnimationFrame`-throttled handler. No new library. GSAP/ScrollTrigger is already allowed if that is cleaner.
+- [x] Keep current behavior: hidden until the user has left the first screen (~50vh), Lenis `scrollTo(0)` on click, `aria-hidden` / `inert` when hidden, reduced-motion still uses native scroll.
+- [x] Do not restyle the button. Do not add a JS cursor-follow.
 
 ### Task 6.4 — Trim unused Fraunces axes
 
