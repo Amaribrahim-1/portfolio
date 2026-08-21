@@ -52,7 +52,7 @@ function HeroScreenshot({
 
 function HeroCopy() {
   return (
-    <div className="relative z-40 mt-auto w-full pt-28 pb-12 md:mt-0 md:flex md:min-h-svh md:w-1/2 md:flex-col md:justify-center md:pr-10 md:pb-24">
+    <div className="relative z-40 order-2 bg-forest pt-6 pb-12 md:order-1 md:flex md:min-h-svh md:flex-col md:justify-center md:bg-transparent md:pt-28 md:pr-10 md:pb-24">
       <div className="max-w-xl">
         <p className="font-mono text-xs tracking-[0.2em] text-mustard uppercase">
           {profile.role}
@@ -97,15 +97,15 @@ function HeroCopy() {
 
 function HeroCollage() {
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 h-[58%] md:relative md:inset-auto md:h-auto md:min-h-svh md:w-1/2">
+    <div className="relative z-10 order-1 h-[42svh] min-h-52 pt-20 md:order-2 md:h-auto md:min-h-svh md:pt-0">
       <ParallaxLayer
         offset={96}
-        className="absolute top-[16%] left-[4%] z-10 w-[64%] max-w-[16rem] sm:max-w-xs md:top-[24%] md:left-[6%] md:w-[78%] md:max-w-md"
+        className="absolute top-[22%] left-[2%] z-10 w-[82%] max-w-sm md:top-[22%] md:left-0 md:w-[92%] md:max-w-lg"
       >
-        <div className="-rotate-6">
+        <div className="-rotate-3">
           <HeroScreenshot
             screenshot={examIoScreenshot}
-            sizes="(max-width: 768px) 64vw, 28vw"
+            sizes="(max-width: 768px) 82vw, 36vw"
             priority
           />
         </div>
@@ -113,22 +113,27 @@ function HeroCollage() {
 
       <ParallaxLayer
         offset={140}
-        className="absolute top-[8%] right-[3%] z-20 w-[54%] max-w-[14rem] sm:max-w-[18rem] md:top-[14%] md:right-0 md:w-[68%] md:max-w-sm"
+        className="absolute top-[8%] right-[2%] z-20 w-[42%] max-w-[11rem] sm:max-w-[13rem] md:top-[12%] md:right-0 md:w-[48%] md:max-w-[17rem]"
       >
         <div className="rotate-6">
           <HeroScreenshot
             screenshot={areejScreenshot}
-            sizes="(max-width: 768px) 54vw, 24vw"
+            sizes="(max-width: 768px) 42vw, 18vw"
           />
         </div>
       </ParallaxLayer>
 
       <ParallaxLayer
         offset={188}
-        className="absolute bottom-[8%] left-[30%] z-30 md:bottom-[16%] md:left-[24%]"
+        className="absolute right-[8%] bottom-[4%] z-30 md:right-[6%] md:bottom-[12%]"
       >
-        <PortraitFrame priority className="w-36 sm:w-44 md:w-52 lg:w-60" />
+        <PortraitFrame priority className="w-28 sm:w-36 md:w-44 lg:w-52" />
       </ParallaxLayer>
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-linear-to-b from-transparent to-forest md:hidden"
+      />
     </div>
   );
 }
@@ -153,15 +158,10 @@ export function Hero() {
         </p>
       </ParallaxLayer>
 
-      <div className="relative z-10 mx-auto flex min-h-svh max-w-6xl flex-col md:flex-row md:items-center">
+      <div className="relative mx-auto grid min-h-svh max-w-6xl grid-cols-1 md:grid-cols-2 md:items-center">
         <HeroCopy />
         <HeroCollage />
       </div>
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-[35] h-[42%] bg-forest md:hidden"
-      />
     </section>
   );
 }
