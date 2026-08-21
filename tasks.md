@@ -289,11 +289,11 @@ Branch: `feat/cinematic-a11y-perf`
 
 Depends on 4.5–4.11. Last restyle/cleanup task before the parked Hero polish (4.13).
 
-- [ ] Audit every GSAP/Lenis instance against `prefers-reduced-motion` (kill tweens, no Lenis, final layout visible).
-- [ ] Mobile: word-split not letter-split; no full-page path; sticky cards still readable without scale.
-- [ ] Remove unused `motion` imports/primitives (`ScrollReveal` etc.) if nothing left consumes them; uninstall `motion` only if the tree is clean.
-- [ ] Images still `next/image`. Hover/tap 150–300ms CSS or GSAP, not layout thrash.
-- [ ] Smoke-check homepage + both case-study routes + keyboard nav + skip link.
+- [x] Audit every GSAP/Lenis instance against `prefers-reduced-motion` (kill tweens, no Lenis, final layout visible).
+- [x] Mobile: word-split not letter-split; no full-page path; sticky cards still readable without scale.
+- [x] Remove unused `motion` imports/primitives (`ScrollReveal` etc.) if nothing left consumes them; uninstall `motion` only if the tree is clean.
+- [x] Images still `next/image`. Hover/tap 150–300ms CSS or GSAP, not layout thrash.
+- [x] Smoke-check homepage + both case-study routes + keyboard nav + skip link.
 
 ---
 
