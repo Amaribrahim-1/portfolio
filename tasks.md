@@ -330,10 +330,10 @@ Branch: none (direct, git-history operation only — no code changes)
 
 Branch: `feat/techstack-icon-strip`
 
-- [ ] Add a lightweight brand-icon source (e.g. `simple-icons` SVG paths — no new animation/UI library) and a small mapping from `content/skills.ts` skill names to an icon.
-- [ ] `src/components/motion/IconStrip.tsx`: one row of real tech logos, horizontal `translateX` scrubbed to the Tech Stack section's own scroll progress (`ScrollTrigger` scrub, bounded to the section) — one pass, no autoplay, no infinite loop.
-- [ ] Reduced-motion → static row, no scrub.
-- [ ] Mount inside `src/components/sections/TechStack.tsx` as an addition alongside the existing 4 group cards (data stays `content/skills.ts`, nothing invented).
+- [x] Add a lightweight brand-icon source (e.g. `simple-icons` SVG paths — no new animation/UI library) and a small mapping from `content/skills.ts` skill names to an icon.
+- [x] `src/components/motion/IconStrip.tsx`: one row of real tech logos, horizontal `translateX` scrubbed to the Tech Stack section's own scroll progress (`ScrollTrigger` scrub, bounded to the section) — one pass, no autoplay, no infinite loop.
+- [x] Reduced-motion → static row, no scrub.
+- [x] Mount inside `src/components/sections/TechStack.tsx` as an addition alongside the existing 4 group cards (data stays `content/skills.ts`, nothing invented).
 
 ### Task 5.2 — Work section: horizontal sticky-stack on desktop only — DROPPED
 

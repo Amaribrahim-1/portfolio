@@ -20,7 +20,7 @@ src/
   components/
     sections/               → Hero, About, TechStack, Projects, Cv, Contact
     shared/                 → Navbar, Footer, and non-motion primitives
-    motion/                 → SmoothScroll, SplitHeadline, StickyStack, ScrollPath, ParallaxLayer, StaggerIn
+    motion/                 → SmoothScroll, SplitHeadline, StickyStack, ScrollPath, ParallaxLayer, StaggerIn, IconStrip
     ui/                     → shadcn primitives, untouched/generated
   content/
     profile.ts                → bio, tagline, contact links
