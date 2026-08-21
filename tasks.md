@@ -239,9 +239,9 @@ Branch: `feat/cinematic-techstack`
 
 Depends on 4.3 (SplitHeadline). Quiet section after the projects climax — do not add sticky-stack here.
 
-- [ ] Restyle `src/components/sections/TechStack.tsx` on the cream surface: 4 group cards from `content/skills.ts`.
-- [ ] SplitHeadline on the section heading only. Stagger the four groups, not every skill chip.
-- [ ] Keep the data identical.
+- [x] Restyle `src/components/sections/TechStack.tsx` on the cream surface: 4 group cards from `content/skills.ts`.
+- [x] SplitHeadline on the section heading only. Stagger the four groups, not every skill chip.
+- [x] Keep the data identical.
 
 ---
 
