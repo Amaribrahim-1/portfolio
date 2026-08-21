@@ -277,9 +277,9 @@ Branch: `feat/cinematic-case-studies`
 
 Depends on 4.1 and 4.3. Do **not** reuse homepage `StickyStack` (would repeat the trick).
 
-- [ ] Restyle `src/components/sections/CaseStudy.tsx` (and the `[slug]` page if needed) onto forest/cream tokens and Fraunces headings.
-- [ ] SplitHeadline on the case-study title. Screenshot sticky vs body text while scrolling. Same Exam.io / Areej content from `content/projects.ts`.
-- [ ] Keep `generateMetadata`, `generateStaticParams`, and `not-found.tsx` behavior. No new project.
+- [x] Restyle `src/components/sections/CaseStudy.tsx` (and the `[slug]` page if needed) onto forest/cream tokens and Fraunces headings.
+- [x] SplitHeadline on the case-study title. Screenshot sticky vs body text while scrolling. Same Exam.io / Areej content from `content/projects.ts`.
+- [x] Keep `generateMetadata`, `generateStaticParams`, and `not-found.tsx` behavior. No new project.
 
 ---
 
