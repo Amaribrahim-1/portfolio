@@ -144,6 +144,23 @@
   }
 }
 
+/* Branded PNG cursors. CSS `url()` only — no JS follower.
+   Gated to fine pointers so touch keeps the native cursor. */
+@media (pointer: fine) and (hover: hover) {
+  html {
+    cursor: url("/cursors/default.png") 12 12, auto;
+  }
+
+  a,
+  button,
+  [role="button"],
+  summary,
+  label[for],
+  select {
+    cursor: url("/cursors/pointer.png") 12 12, pointer;
+  }
+}
+
 /* Subtle grain/noise texture overlay — no gradient blobs, no glassmorphism. */
 @layer base {
   .bg-grain {
@@ -207,5 +224,18 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  html {
+    cursor: auto;
+  }
+
+  a,
+  button,
+  [role="button"],
+  summary,
+  label[for],
+  select {
+    cursor: pointer;
   }
 }

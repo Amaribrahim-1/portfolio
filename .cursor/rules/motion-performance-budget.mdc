@@ -18,10 +18,11 @@ GSAP / Lenis live in `src/lib/gsap.ts`, `src/lib/split-text.ts`, and `src/compon
 5. **Split-word / split-letter headings** — words by default; letters only on desktop headings. One-shot intro ≤ 800ms.
 6. **SVG path dash** — one mustard dashed path on the homepage; scrub `stroke-dashoffset`. Hide the long path on mobile.
 7. **Hover / tap** — 150–300ms, CSS or GSAP, `transform` / `opacity` only.
+8. **CSS `cursor: url()`** — branded PNG cursors. JS cursor-follow stays banned.
 
 # Banned
 
-Spline / Three.js / Lottie / particles, cursor-follow, autoplay video/GIF, infinite/looping animations, skeleton shimmer beyond a real loading state, horizontal scroll-jacking (`position: sticky` + pinned horizontal galleries).
+Spline / Three.js / Lottie / particles, JS cursor-follow, autoplay video/GIF, infinite/looping animations, skeleton shimmer beyond a real loading state, horizontal scroll-jacking (`position: sticky` + pinned horizontal galleries).
 
 # Reduced motion (mandatory)
 
