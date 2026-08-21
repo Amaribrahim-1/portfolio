@@ -104,7 +104,7 @@ function ProjectPeak({
           src={screenshot.src}
           alt={screenshot.alt}
           fill
-          sizes="(max-width: 48rem) 92vw, (max-width: 80rem) 56vw, 40rem"
+          sizes="(max-width: 40rem) 92vw, (max-width: 48rem) 36rem, (max-width: 64rem) 50vw, 34rem"
           placeholder="blur"
           className="object-cover object-top"
         />

@@ -21,6 +21,8 @@ const SECONDARY_CTA_CLASS_NAME = cn(
 );
 const SCREENSHOT_FRAME_CLASS_NAME =
   "rounded-xl shadow-[0_24px_60px_color-mix(in_oklab,black_16%,transparent)] ring-1 ring-forest/10";
+const CASE_STUDY_IMAGE_SIZES =
+  "(max-width: 48rem) 100vw, (max-width: 64rem) 50vw, 29rem";
 
 function cardIndexLabel(index: number): string {
   return String(index + 1).padStart(2, "0");
@@ -111,7 +113,7 @@ function CaseStudyGallery({
           <DeviceFrame
             label={projectName}
             screenshot={screenshot}
-            sizes="(max-width: 64rem) 100vw, 32rem"
+            sizes={CASE_STUDY_IMAGE_SIZES}
             className={SCREENSHOT_FRAME_CLASS_NAME}
           />
         </li>
@@ -201,7 +203,7 @@ export function CaseStudy({ project }: { project: Project }) {
                 label={project.name}
                 screenshot={heroScreenshot}
                 priority
-                sizes="(max-width: 64rem) 100vw, 32rem"
+                sizes={CASE_STUDY_IMAGE_SIZES}
                 className={SCREENSHOT_FRAME_CLASS_NAME}
               />
             </figure>

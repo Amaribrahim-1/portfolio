@@ -43,7 +43,10 @@ function AboutCard({
 
       {isFirst ? (
         <div className="mt-10 self-end md:absolute md:-right-6 md:-bottom-8 md:mt-0 lg:-right-8 lg:-bottom-10">
-          <PortraitFrame className="w-36 rotate-2 sm:w-44 md:w-48" />
+          <PortraitFrame
+            className="w-36 rotate-2 sm:w-44 md:w-48"
+            sizes="(max-width: 40rem) 9rem, (max-width: 48rem) 11rem, 12rem"
+          />
         </div>
       ) : null}
     </article>

@@ -1,9 +1,9 @@
 import type { StaticImageData } from "next/image";
 
-import areejHome from "../../public/images/projects/areej/home.png";
-import bookstoreHome from "../../public/images/projects/bookstore/home.jpg";
-import examIoLanding from "../../public/images/projects/exam-io/landing.png";
-import examIoPreview from "../../public/images/projects/exam-io/preview.png";
+import areejHome from "../../public/images/projects/areej/home.webp";
+import bookstoreHome from "../../public/images/projects/bookstore/home.webp";
+import examIoLanding from "../../public/images/projects/exam-io/landing.webp";
+import examIoPreview from "../../public/images/projects/exam-io/preview.webp";
 
 export type ProjectStatus = "live" | "in-development";
 

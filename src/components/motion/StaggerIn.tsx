@@ -37,6 +37,7 @@ function playStagger(root: HTMLElement): void {
       trigger: root,
       start: "top 85%",
       once: true,
+      invalidateOnRefresh: true,
     },
     onComplete() {
       gsap.set(items, { clearProps: "transform,opacity" });

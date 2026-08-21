@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { ParallaxLayer } from "@/components/motion/ParallaxLayer";
+import { ParallaxLayer, ParallaxRoot } from "@/components/motion/ParallaxLayer";
 import { SplitHeadline } from "@/components/motion/SplitHeadline";
 import { PortraitFrame } from "@/components/shared/PortraitFrame";
 import { buttonVariants } from "@/components/ui/button";
@@ -125,7 +125,7 @@ function HeroCollage() {
           <div className="-rotate-8">
             <HeroScreenshot
               screenshot={examIoCollageScreenshot}
-              sizes="(max-width: 768px) 62vw, 28vw"
+              sizes="(max-width: 40rem) 15rem, (max-width: 48rem) 18rem, 22rem"
               priority
               imageClassName="object-cover object-center"
               className={HERO_EXAM_FRAME}
@@ -140,7 +140,7 @@ function HeroCollage() {
           <div className="rotate-8">
             <HeroScreenshot
               screenshot={areejScreenshot}
-              sizes="(max-width: 768px) 56vw, 24vw"
+              sizes="(max-width: 40rem) 14rem, (max-width: 48rem) 16rem, 20rem"
             />
           </div>
         </ParallaxLayer>
@@ -153,7 +153,7 @@ function HeroCollage() {
             <PortraitFrame
               priority
               className="aspect-[4/5] w-52 sm:w-64 md:w-72 lg:w-80"
-              sizes="(max-width: 640px) 208px, (max-width: 768px) 256px, (max-width: 1024px) 288px, 320px"
+              sizes="(max-width: 40rem) 13rem, (max-width: 48rem) 16rem, (max-width: 64rem) 18rem, 20rem"
             />
           </div>
         </ParallaxLayer>
@@ -164,10 +164,9 @@ function HeroCollage() {
 
 export function Hero() {
   return (
-    <section
+    <ParallaxRoot
       id="hero"
       aria-labelledby="hero-heading"
-      data-parallax-root
       className="relative isolate min-h-svh overflow-hidden bg-forest px-gutter"
     >
       <ParallaxLayer
@@ -186,6 +185,6 @@ export function Hero() {
         <HeroCopy />
         <HeroCollage />
       </div>
-    </section>
+    </ParallaxRoot>
   );
 }

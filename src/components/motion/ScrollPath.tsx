@@ -92,11 +92,7 @@ function mountDesktopPath(
   relayout();
   elements.svg.classList.remove("invisible");
 
-  const resizeObserver = new ResizeObserver(() => {
-    relayout();
-    ScrollTrigger.refresh();
-  });
-  resizeObserver.observe(root);
+  ScrollTrigger.addEventListener("refreshInit", relayout);
 
   const motion = gsap.matchMedia();
   motion.add(MOTION_MQ.reduce, () => {
@@ -121,7 +117,7 @@ function mountDesktopPath(
   });
 
   return () => {
-    resizeObserver.disconnect();
+    ScrollTrigger.removeEventListener("refreshInit", relayout);
     motion.revert();
     elements.svg.classList.add("invisible");
   };
@@ -139,8 +135,10 @@ function MobileSpineDots() {
 
 /**
  * Homepage-only mustard spine. Desktop scrubs stroke-dashoffset along one
- * dashed SVG from Hero toward Contact. Mobile hides the long path and keeps
- * small static dots — no SVG scrub. Reduced-motion shows the static path.
+ * dashed SVG from Hero toward Contact. Path geometry relayouts on
+ * ScrollTrigger `refreshInit` (window resize) — no ResizeObserver refresh
+ * loop. Mobile hides the long path and keeps small static dots — no SVG
+ * scrub. Reduced-motion shows the static path.
  */
 export function ScrollPath() {
   const overlayRef = useRef<HTMLDivElement>(null);

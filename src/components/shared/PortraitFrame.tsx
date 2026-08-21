@@ -10,7 +10,7 @@ type PortraitFrameProps = {
 };
 
 const DEFAULT_SIZES =
-  "(max-width: 768px) 208px, (max-width: 1024px) 224px, 288px";
+  "(max-width: 40rem) 11rem, (max-width: 48rem) 13rem, 14rem";
 
 export function PortraitFrame({
   className,

@@ -361,11 +361,12 @@ Confirm with Amar which of these to build before starting (default suggestion: b
 
 Branch: `feat/perf-pass`
 
-- [ ] Swap in the WebP versions of `public/images/**` (Amar is converting these) and update any `content/*.ts` imports if filenames change.
-- [ ] Re-check every `next/image` `sizes` prop against the actual rendered max-width per breakpoint.
-- [ ] Audit `ScrollTrigger` instance count (`StickyStack`, `HorizontalStickyStack`, `ScrollPath`, `ParallaxLayer`) for redundant triggers or missed `invalidateOnRefresh`.
-- [ ] Confirm no long main-thread tasks on mobile emulation (Chrome DevTools performance trace) during initial load and during Hero parallax scroll.
+- [x] Swap in the WebP versions of `public/images/**` (Amar is converting these) and update any `content/*.ts` imports if filenames change.
+- [x] Re-check every `next/image` `sizes` prop against the actual rendered max-width per breakpoint.
+- [x] Audit `ScrollTrigger` instance count (`StickyStack`, `ScrollPath`, `ParallaxLayer`) for redundant triggers or missed `invalidateOnRefresh`.
+- [x] Confirm no long main-thread tasks on mobile emulation (Chrome DevTools performance trace) during initial load and during Hero parallax scroll.
 - [ ] After Task 5.8 (Vercel deploy) ships, run Lighthouse (mobile) against the real production URL — this is the authoritative number, not localhost. Fix whatever is left to hit ≥ 90.
+- [x] Last: remount homepage `ScrollPath` (parked since the 5.2 lag check). Cheapen if needed (no `ResizeObserver` → `ScrollTrigger.refresh` loop). Keep it only if scroll still feels smooth; otherwise leave it unmounted.
 
 ### Task 5.5 — Custom scrollbar
 
