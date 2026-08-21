@@ -227,9 +227,9 @@ Branch: `feat/cinematic-projects`
 
 Depends on 4.6 (`StickyStack` must already exist).
 
-- [ ] Replace the homepage grid in `src/components/sections/Projects.tsx` with 3 full-width sticky cards (Exam.io, Areej, Bookstore) using `StickyStack`.
-- [ ] Per card: number 01/02/03, Fraunces name, tagline, mustard status, screenshot as the card “peak” (`next/image` + overflow). Same links as today (case study / live / repo) from `content/projects.ts`.
-- [ ] Dark/forest section surface. No fourth project. No new copy.
+- [x] Replace the homepage grid in `src/components/sections/Projects.tsx` with 3 full-width sticky cards (Exam.io, Areej, Bookstore) using `StickyStack`.
+- [x] Per card: number 01/02/03, Fraunces name, tagline, mustard status, screenshot as the card “peak” (`next/image` + overflow). Same links as today (case study / live / repo) from `content/projects.ts`.
+- [x] Dark/forest section surface. No fourth project. No new copy.
 
 ---
 
