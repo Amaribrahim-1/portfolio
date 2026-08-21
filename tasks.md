@@ -308,3 +308,101 @@ The collage is the right idea; the bug is copy sitting on top of Exam.io UI (`Ge
 - [x] In `src/components/sections/Hero.tsx`, shift the Exam.io / Areej screenshot layers so they do not sit under the headline or CTAs. Copy stays in a clear left column; collage stays on the right (and stacked above the copy on mobile, behind the existing forest scrim).
 - [x] Keep the 4–5 parallax layers, real screenshots from `content/projects.ts` / `profile.photo`, `next/image`, and reduced-motion static.
 - [x] Do not invent copy. Do not restyle About/Projects.
+
+---
+
+## Phase 5 — Performance pass, extra polish & ship
+
+Generated from the plan approved 2026-08-21. **Sequential, one task at a time**, per `.cursor/rules/git-conventions.mdc`: new branch off `main` per task, commit only when explicitly told, merge `--no-ff` into `main` when a task is confirmed done. Task 5.0 must run first (it is the safety checkpoint). Tasks 5.7–5.9 must run last (they depend on everything else being merged into `main`).
+
+Build order: **5.0 → 5.1 → 5.2 → 5.3 → 5.4 → 5.5 → 5.6 → 5.7 → 5.8 → 5.9**.
+
+### Task 5.0 — Safety checkpoint: merge pending work into `main`
+
+Branch: none (direct, git-history operation only — no code changes)
+
+- [x] Merge `feat/hero-first-impression` into `main` with `--no-ff` (brings in all of Phase 4 + the parked Hero polish, currently unmerged).
+- [x] Tag the resulting `main` commit `checkpoint/pre-improvements` — the safe rollback point before any Phase 5 work starts.
+- [x] Decide on `stash@{0}` (`wip: exam-io screenshot leftover from 4.11`) — drop it if nothing in it is still needed, after a quick diff check.
+- [x] Do not delete any branch yet (that is Task 5.6, after everything below is merged).
+
+### Task 5.1 — Tech Stack: scroll-scrubbed icon strip
+
+Branch: `feat/techstack-icon-strip`
+
+- [ ] Add a lightweight brand-icon source (e.g. `simple-icons` SVG paths — no new animation/UI library) and a small mapping from `content/skills.ts` skill names to an icon.
+- [ ] `src/components/motion/IconStrip.tsx`: one row of real tech logos, horizontal `translateX` scrubbed to the Tech Stack section's own scroll progress (`ScrollTrigger` scrub, bounded to the section) — one pass, no autoplay, no infinite loop.
+- [ ] Reduced-motion → static row, no scrub.
+- [ ] Mount inside `src/components/sections/TechStack.tsx` as an addition alongside the existing 4 group cards (data stays `content/skills.ts`, nothing invented).
+
+### Task 5.2 — Work section: horizontal sticky-stack on desktop only
+
+Branch: `feat/work-horizontal-scroll`
+
+- [ ] `src/components/motion/HorizontalStickyStack.tsx` — new primitive, separate from `StickyStack.tsx` (About stays untouched).
+- [ ] Gate the horizontal-pin behavior behind `gsap.matchMedia()` on `MOTION_MQ.desktop` **and** `MOTION_MQ.allow` (no-preference). Every other case (mobile, or reduced-motion) falls back to the existing vertical `StickyStack` behavior, unchanged.
+- [ ] Pin the section container on desktop; scrub each card's `translateX` (transform-only, same scrub philosophy as `StickyStack`'s `scale`).
+- [ ] Wire `src/components/sections/Projects.tsx` to the new component (media-query branching lives inside the component, not duplicated in the section).
+- [ ] Update `.cursor/rules/motion-performance-budget.mdc`: note the one narrow exception — horizontal scroll allowed only in the Work/Projects section, desktop-only via matchMedia, full vertical fallback on mobile and reduced-motion.
+- [ ] Manual test on desktop (wheel + trackpad) for conflicts with Lenis. If it feels janky or fights the smooth scroll, revert Projects to plain `StickyStack` instead of forcing it — per Amar's explicit call.
+
+### Task 5.3 — Extra polish (pick 2–3)
+
+Branch: `feat/extra-polish`
+
+Confirm with Amar which of these to build before starting (default suggestion: back-to-top + scroll progress, since they're the cheapest and lowest-risk):
+
+- [ ] Tilt/magnetic hover on project screenshots (Desktop, CSS `transform` only, scoped to the hovered element — not a global cursor-follow).
+- [ ] Floating "back to top" button, appears after first scroll, smooth-scrolls via existing Lenis instance.
+- [ ] Thin mustard scroll-progress indicator bound to overall page scroll.
+- [ ] Custom favicon / app icon polish (`src/app/icon.png` or `.ico`) to match the forest/mustard identity — `opengraph-image.tsx`/`twitter-image.tsx` already exist.
+
+### Task 5.4 — Performance pass
+
+Branch: `feat/perf-pass`
+
+- [ ] Swap in the WebP versions of `public/images/**` (Amar is converting these) and update any `content/*.ts` imports if filenames change.
+- [ ] Re-check every `next/image` `sizes` prop against the actual rendered max-width per breakpoint.
+- [ ] Audit `ScrollTrigger` instance count (`StickyStack`, `HorizontalStickyStack`, `ScrollPath`, `ParallaxLayer`) for redundant triggers or missed `invalidateOnRefresh`.
+- [ ] Confirm no long main-thread tasks on mobile emulation (Chrome DevTools performance trace) during initial load and during Hero parallax scroll.
+- [ ] After Task 5.8 (Vercel deploy) ships, run Lighthouse (mobile) against the real production URL — this is the authoritative number, not localhost. Fix whatever is left to hit ≥ 90.
+
+### Task 5.5 — Custom scrollbar
+
+Branch: `feat/custom-scrollbar`
+
+- [ ] `src/app/globals.css`: `scrollbar-color` (Firefox) + `::-webkit-scrollbar` / `-thumb` / `-track` (Chromium) — forest track, mustard thumb with rounded corners, thin width, subtle hover state.
+- [ ] Verify it doesn't fight the existing `.bg-grain` overlay or Lenis smooth scroll.
+
+### Task 5.6 — Branch cleanup
+
+Branch: none (direct git operation, no code changes)
+
+Depends on 5.0–5.5 all being merged into `main` with `--no-ff`.
+
+- [ ] Delete every local branch except `main` (all are either already merged or fully contained in the `checkpoint/pre-improvements` history): `feat/case-study-pages`, `feat/cinematic-*` (all), `feat/final-*` (both), `feat/foundation-*` (all), `feat/section-*` (all), `feat/sections-techstack-cv-contact`, `feat/hero-first-impression`, `fix/cinematic-hero-overlap`, `backup/hero-before-polish`, plus every Phase 5 feature branch once merged.
+- [ ] Confirm nothing is lost: every deleted branch's tip must be reachable from `main` (`git branch --merged main`) before deletion.
+
+### Task 5.7 — Real README + push to GitHub
+
+Branch: none for the push itself; README content can be drafted on a short-lived branch or directly reviewed before pushing `main`
+
+- [ ] Replace the default `create-next-app` `README.md` with a real one: project description, stack (Next.js + TypeScript + Tailwind + GSAP/Lenis), short folder structure, `npm run dev/build/start/lint`, deploy link (added after Task 5.8).
+- [ ] Confirm whether `https://github.com/Amaribrahim-1/portfolio.git` already exists; create it first if not.
+- [ ] Add it as `origin`, push `main` (and the `checkpoint/pre-improvements` tag).
+
+### Task 5.8 — Deploy to Vercel
+
+Branch: none (platform configuration, not a code task)
+
+- [ ] Connect the Vercel account to the `Amaribrahim-1/portfolio` GitHub repo (GitHub integration → auto-deploy on push to `main`, preview URLs on other branches).
+- [ ] Set `NEXT_PUBLIC_SITE_URL` in Vercel Environment Variables to the real production domain, so OG images/sitemap stop falling back to `localhost`.
+- [ ] Verify the production build and both case-study routes on the live URL.
+
+### Task 5.9 — Rebuild template doc
+
+Branch: `docs/rebuild-template`
+
+- [ ] `docs/rebuild-template.md`: a generalized version of `portfolio-spec.md`'s structure with placeholders (`{{PRIMARY_DARK}}`, `{{ACCENT}}`, `{{NAME}}`, `{{PROJECTS}}`, etc.) instead of Amar's real values.
+- [ ] Keep the same "first-session" instructions shape (generate `tasks.md` in the same Foundation → Sections → Final-pass order) so it can be handed to Cursor for a future portfolio with a different palette/content.
+- [ ] Note at the top that it's derived from this project as a living reference.
