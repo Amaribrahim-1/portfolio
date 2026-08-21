@@ -447,9 +447,9 @@ Branch: `feat/lighthouse-images`
 
 Images already go through `next/image` with `sizes` / `priority` / blur. This task only changes what Next serves and deletes unused files.
 
-- [ ] In `next.config.ts`, add `images.formats: ["image/avif", "image/webp"]` so Next can serve AVIF where the browser supports it.
-- [ ] Delete unreferenced legacy files in `public/images/` (code already imports the `.webp` versions only): `amar.jpg`, `projects/areej/home.png`, `projects/exam-io/landing.png`, `projects/exam-io/preview.png`, `projects/bookstore/home.jpg`.
-- [ ] Do not change `next/image` usage, `sizes`, or `priority`. Do not add a CMS or remote image host.
+- [x] In `next.config.ts`, add `images.formats: ["image/avif", "image/webp"]` so Next can serve AVIF where the browser supports it.
+- [x] Delete unreferenced legacy files in `public/images/` (code already imports the `.webp` versions only): `amar.jpg`, `projects/areej/home.png`, `projects/exam-io/landing.png`, `projects/exam-io/preview.png`, `projects/bookstore/home.jpg`. Verified 2026-08-21: these were already removed in a prior commit (`feat(perf): serve WebP images...`) — only the `.webp` versions remain in `public/images/`.
+- [x] Do not change `next/image` usage, `sizes`, or `priority`. Do not add a CMS or remote image host.
 
 ### Task 6.3 — BackToTop: stop scroll-driven re-renders
 
