@@ -467,9 +467,9 @@ Branch: `fix/fraunces-font-payload`
 
 `src/app/layout.tsx` loads Fraunces with `style: ["normal", "italic"]` and `axes: ["opsz", "SOFT", "WONK"]`. Italic is required (`SplitHeadline` mustard accent). `SOFT` / `WONK` are unused in CSS.
 
-- [ ] Drop unused Fraunces axes (`SOFT`, `WONK`). Keep `italic`. Keep `opsz` only if headings still look the same at display sizes after a visual check; otherwise drop it too.
-- [ ] Do not change Geist or JetBrains Mono. JetBrains already has `preload: false`.
-- [ ] Confirm headings (Hero, About, Work, case-study `SplitHeadline`) still match the cinematic look — no layout shift, no missing italic mustard words.
+- [x] Drop unused Fraunces axes (`SOFT`, `WONK`). Keep `italic`. Keep `opsz` only if headings still look the same at display sizes after a visual check; otherwise drop it too.
+- [x] Do not change Geist or JetBrains Mono. JetBrains already has `preload: false`.
+- [x] Confirm headings (Hero, About, Work, case-study `SplitHeadline`) still match the cinematic look — no layout shift, no missing italic mustard words.
 
 ### Task 6.5 — Re-run Lighthouse on production
 
