@@ -264,10 +264,10 @@ Branch: `feat/cinematic-scroll-path`
 
 Depends on 4.5–4.9 so section anchors exist. Build and wire the path in this same task (no unused primitive sitting around).
 
-- [ ] `src/components/motion/ScrollPath.tsx`: one mustard dashed SVG along the homepage, `stroke-dashoffset` scrubbed to scroll progress. `transform`/`stroke-dashoffset` only.
-- [ ] Mount from `src/app/page.tsx` (homepage only, not case-study routes).
-- [ ] Desktop: full path from Hero toward Contact. Mobile: hide the long path; optional small mustard dots — do not run a heavy SVG scrub on small screens.
-- [ ] Reduced-motion → no dash animation (static path or hidden).
+- [x] `src/components/motion/ScrollPath.tsx`: one mustard dashed SVG along the homepage, `stroke-dashoffset` scrubbed to scroll progress. `transform`/`stroke-dashoffset` only.
+- [x] Mount from `src/app/page.tsx` (homepage only, not case-study routes).
+- [x] Desktop: full path from Hero toward Contact. Mobile: hide the long path; optional small mustard dots — do not run a heavy SVG scrub on small screens.
+- [x] Reduced-motion → no dash animation (static path or hidden).
 
 ---
 
