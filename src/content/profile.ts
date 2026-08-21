@@ -37,6 +37,8 @@ const aboutRows = [
   "I'm currently taking on freelance frontend work.",
 ] as const;
 
+export const contactIntent = aboutRows[4];
+
 export const navLinks: readonly NavLink[] = [
   { href: "/#about", label: "About" },
   { href: "/#stack", label: "Stack" },
