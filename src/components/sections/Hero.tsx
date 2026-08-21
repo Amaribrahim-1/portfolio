@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,9 +15,16 @@ import {
 import { cn } from "@/lib/utils";
 
 const TAGLINE_ACCENT = "not tutorials";
-const CTA_CLASS_NAME = "h-11 px-5 duration-200";
+const WATERMARK_NAME = profile.name.split(/\s+/)[0];
+const ARROW_CLASS_NAME = "size-4 transition-transform duration-200";
+const CV_CTA_CLASS_NAME =
+  "h-12 gap-2 px-7 text-base shadow-[0_0_32px_color-mix(in_oklab,var(--mustard)_38%,transparent)] duration-200 hover:-translate-y-px hover:shadow-[0_0_48px_color-mix(in_oklab,var(--mustard)_58%,transparent)]";
+const WORK_LINK_CLASS_NAME =
+  "group/work inline-flex items-center gap-1.5 text-sm font-medium text-cream/85 duration-200 hover:text-mustard focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none";
 const HERO_SCREENSHOT_FRAME =
-  "overflow-hidden rounded-xl border border-cream/15 shadow-[0_24px_60px_color-mix(in_oklab,black_35%,transparent)]";
+  "overflow-hidden rounded-xl border border-cream/20 shadow-[0_28px_70px_color-mix(in_oklab,black_45%,transparent)]";
+const HERO_EXAM_FRAME =
+  "border-mustard/45 shadow-[0_28px_70px_color-mix(in_oklab,black_50%,transparent),0_0_36px_color-mix(in_oklab,var(--mustard)_16%,transparent)]";
 
 function screenshotFor(slug: string): ProjectScreenshot {
   const screenshot = getProjectBySlug(slug)?.screenshots[0];
@@ -34,15 +42,17 @@ function HeroScreenshot({
   priority = false,
   frameClassName = "aspect-video",
   imageClassName = "object-cover object-top",
+  className,
 }: {
   screenshot: ProjectScreenshot;
   sizes: string;
   priority?: boolean;
   frameClassName?: string;
   imageClassName?: string;
+  className?: string;
 }) {
   return (
-    <div className={HERO_SCREENSHOT_FRAME}>
+    <div className={cn(HERO_SCREENSHOT_FRAME, className)}>
       <div className={cn("relative", frameClassName)}>
         <Image
           src={screenshot.src}
@@ -74,28 +84,29 @@ function HeroCopy() {
             {profile.tagline}
           </SplitHeadline>
         </ParallaxLayer>
-        <div className="mt-8 flex flex-wrap items-center gap-3">
+        <div className="mt-8 flex flex-wrap items-center gap-5">
           <a
             href={profile.cvHref}
             target="_blank"
             rel="noopener noreferrer"
             className={buttonVariants({
               size: "lg",
-              className: CTA_CLASS_NAME,
+              className: CV_CTA_CLASS_NAME,
             })}
           >
             My CV
             <span className="sr-only"> (PDF, opens in a new tab)</span>
+            <ArrowRight
+              aria-hidden
+              className={cn(ARROW_CLASS_NAME, "group-hover/button:translate-x-0.5")}
+            />
           </a>
-          <Link
-            href="/#work"
-            className={buttonVariants({
-              variant: "outline",
-              size: "lg",
-              className: CTA_CLASS_NAME,
-            })}
-          >
+          <Link href="/#work" className={WORK_LINK_CLASS_NAME}>
             Work
+            <ArrowRight
+              aria-hidden
+              className={cn(ARROW_CLASS_NAME, "group-hover/work:translate-x-0.5")}
+            />
           </Link>
         </div>
       </div>
@@ -105,39 +116,46 @@ function HeroCopy() {
 
 function HeroCollage() {
   return (
-    <div className="relative z-10 order-1 h-[42svh] min-h-56 pt-24 md:order-2 md:h-svh md:pt-20">
-      <div className="pointer-events-none relative h-full">
+    <div className="relative z-10 order-1 h-[52svh] min-h-64 pt-24 md:order-2 md:flex md:h-svh md:items-center md:pt-28 md:pb-24">
+      <div className="pointer-events-none relative h-full w-full md:h-[30rem] md:translate-y-12 lg:h-[32rem]">
         <ParallaxLayer
           offset={96}
-          className="absolute top-[16%] left-[2%] z-10 w-[54%] max-w-[13.5rem] sm:max-w-[15rem] md:top-[22%] md:left-[4%] md:w-[56%] md:max-w-xs"
+          className="absolute top-[16%] left-[2%] z-10 w-[62%] max-w-[15rem] sm:max-w-[18rem] md:top-[12%] md:left-[0%] md:w-[68%] md:max-w-[22rem]"
         >
-          <div className="-rotate-6">
+          <div className="-rotate-8">
             <HeroScreenshot
               screenshot={examIoCollageScreenshot}
-              sizes="(max-width: 768px) 54vw, 20vw"
+              sizes="(max-width: 768px) 62vw, 28vw"
               priority
               imageClassName="object-cover object-center"
+              className={HERO_EXAM_FRAME}
             />
           </div>
         </ParallaxLayer>
 
         <ParallaxLayer
           offset={140}
-          className="absolute top-[10%] right-[2%] z-20 w-[50%] max-w-[12.5rem] sm:max-w-[14rem] md:top-[16%] md:right-[2%] md:w-[52%] md:max-w-xs"
+          className="absolute top-[8%] right-[2%] z-20 w-[56%] max-w-[14rem] sm:max-w-[16rem] md:top-[4%] md:right-[0%] md:w-[60%] md:max-w-[20rem]"
         >
-          <div className="rotate-6">
+          <div className="rotate-8">
             <HeroScreenshot
               screenshot={areejScreenshot}
-              sizes="(max-width: 768px) 50vw, 18vw"
+              sizes="(max-width: 768px) 56vw, 24vw"
             />
           </div>
         </ParallaxLayer>
 
         <ParallaxLayer
           offset={188}
-          className="absolute bottom-[6%] left-[30%] z-30 md:bottom-[18%] md:left-[28%]"
+          className="absolute inset-x-0 top-[22%] z-30 flex justify-center md:top-[16%]"
         >
-          <PortraitFrame priority className="w-32 sm:w-40 md:w-44 lg:w-52" />
+          <div className="pointer-events-auto origin-center transition-transform duration-200 hover:scale-[1.03]">
+            <PortraitFrame
+              priority
+              className="aspect-[4/5] w-52 sm:w-64 md:w-72 lg:w-80"
+              sizes="(max-width: 640px) 208px, (max-width: 768px) 256px, (max-width: 1024px) 288px, 320px"
+            />
+          </div>
         </ParallaxLayer>
       </div>
     </div>
@@ -154,13 +172,13 @@ export function Hero() {
     >
       <ParallaxLayer
         offset={48}
-        className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden"
+        className="pointer-events-none absolute inset-0 z-0 flex items-center justify-start overflow-hidden pl-[6vw]"
       >
         <p
           aria-hidden="true"
-          className="max-w-none font-display text-[18vw] leading-none font-semibold tracking-tighter whitespace-nowrap text-cream/10 select-none"
+          className="max-w-none font-display text-[28vw] leading-none font-semibold tracking-tighter whitespace-nowrap text-cream/10 select-none md:text-[32vw]"
         >
-          {profile.name}
+          {WATERMARK_NAME}
         </p>
       </ParallaxLayer>
 
