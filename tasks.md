@@ -417,3 +417,75 @@ Branch: `docs/rebuild-template`
 - [ ] `docs/rebuild-template.md`: a generalized version of `portfolio-spec.md`'s structure with placeholders (`{{PRIMARY_DARK}}`, `{{ACCENT}}`, `{{NAME}}`, `{{PROJECTS}}`, etc.) instead of Amar's real values.
 - [ ] Keep the same "first-session" instructions shape (generate `tasks.md` in the same Foundation → Sections → Final-pass order) so it can be handed to Cursor for a future portfolio with a different palette/content.
 - [ ] Note at the top that it's derived from this project as a living reference.
+
+---
+
+## Phase 6 — Lighthouse follow-up (Performance 77 / SEO 66)
+
+Generated from the production Lighthouse screenshot on 2026-08-21 (`portfolio-amaribrahim-1s-projects.vercel.app`): **Performance 77**, Accessibility 100, Best Practices 100, **SEO 66**. This completes the leftover from Task 5.4.
+
+**SEO does not raise the Performance score.** Task 6.1 is still worth doing — it is the cheap fix for the 66, and it helps real search results. Performance is 6.2–6.4. Task 6.5 is the measurement gate. Task 6.6 stays parked unless 6.5 is still below 90.
+
+**Sequential, one task at a time**, per `.cursor/rules/git-conventions.mdc`: new branch off `main` per task, commit only when explicitly told, merge `--no-ff` into `main` when a task is confirmed done.
+
+Build order: **6.1 → 6.2 → 6.3 → 6.4 → 6.5**. Do not start 6.6 unless 6.5 says so.
+
+### Task 6.1 — SEO: canonical URLs + JSON-LD
+
+Branch: `feat/lighthouse-seo`
+
+Cheap metadata gaps. Does not invent copy. Does not change layout or motion.
+
+- [x] Add `alternates.canonical` to root metadata in `src/app/layout.tsx` (`siteUrl` from `getSiteUrl()`).
+- [x] Add `alternates.canonical` in `generateMetadata` in `src/app/projects/[slug]/page.tsx` (`${siteUrl}/projects/${slug}`).
+- [x] Add `Person` + `WebSite` JSON-LD (`<script type="application/ld+json">`) in `layout.tsx`, sourced only from existing `content/profile.ts` (name, role, tagline, email, socials, photo). No new content file.
+- [x] Confirm the live HTML uses the real production host, not `http://localhost:3000`. Task 5.8 already set `NEXT_PUBLIC_SITE_URL` on Vercel — this is a verify step (canonical / OG / sitemap URLs). Fix `src/lib/site.ts` only if the live host is wrong. Verified 2026-08-21: production `og:url` already uses the real Vercel host, no `localhost`; `site.ts` unchanged.
+
+### Task 6.2 — Image delivery: AVIF + dead-asset cleanup
+
+Branch: `feat/lighthouse-images`
+
+Images already go through `next/image` with `sizes` / `priority` / blur. This task only changes what Next serves and deletes unused files.
+
+- [ ] In `next.config.ts`, add `images.formats: ["image/avif", "image/webp"]` so Next can serve AVIF where the browser supports it.
+- [ ] Delete unreferenced legacy files in `public/images/` (code already imports the `.webp` versions only): `amar.jpg`, `projects/areej/home.png`, `projects/exam-io/landing.png`, `projects/exam-io/preview.png`, `projects/bookstore/home.jpg`.
+- [ ] Do not change `next/image` usage, `sizes`, or `priority`. Do not add a CMS or remote image host.
+
+### Task 6.3 — BackToTop: stop scroll-driven re-renders
+
+Branch: `fix/back-to-top-scroll`
+
+`src/components/shared/BackToTop.tsx` attaches a raw `scroll` listener that `setState`s on every event. That is a cheap TBT/INP win.
+
+- [ ] Replace the raw `scroll` + `setState` loop with an `IntersectionObserver` on a hero sentinel, or a `requestAnimationFrame`-throttled handler. No new library. GSAP/ScrollTrigger is already allowed if that is cleaner.
+- [ ] Keep current behavior: hidden until the user has left the first screen (~50vh), Lenis `scrollTo(0)` on click, `aria-hidden` / `inert` when hidden, reduced-motion still uses native scroll.
+- [ ] Do not restyle the button. Do not add a JS cursor-follow.
+
+### Task 6.4 — Trim unused Fraunces axes
+
+Branch: `fix/fraunces-font-payload`
+
+`src/app/layout.tsx` loads Fraunces with `style: ["normal", "italic"]` and `axes: ["opsz", "SOFT", "WONK"]`. Italic is required (`SplitHeadline` mustard accent). `SOFT` / `WONK` are unused in CSS.
+
+- [ ] Drop unused Fraunces axes (`SOFT`, `WONK`). Keep `italic`. Keep `opsz` only if headings still look the same at display sizes after a visual check; otherwise drop it too.
+- [ ] Do not change Geist or JetBrains Mono. JetBrains already has `preload: false`.
+- [ ] Confirm headings (Hero, About, Work, case-study `SplitHeadline`) still match the cinematic look — no layout shift, no missing italic mustard words.
+
+### Task 6.5 — Re-run Lighthouse on production
+
+Branch: none (measurement after 6.1–6.4 are merged into `main` and deployed)
+
+- [ ] Wait for the Vercel production deploy of 6.1–6.4.
+- [ ] Run Lighthouse **mobile** against the real production URL (not localhost). Record Performance / Accessibility / Best Practices / SEO.
+- [ ] If Performance is still below 90, start Task 6.6. If SEO is still below 90, list the remaining Lighthouse SEO audits before writing more code.
+- [ ] Do not start 6.6 "just in case".
+
+### Task 6.6 — Motion main-thread budget (only if 6.5 fails)
+
+Branch: `fix/motion-main-thread`
+
+Parked. Always-on Lenis + multiple `ScrollTrigger` instances can cost TBT on mobile. Invasive. Do not start unless Task 6.5 is still below 90.
+
+- [ ] Profile mobile Chrome (Performance panel) on the live homepage: Lenis `gsap.ticker` loop, `StickyStack` per-card triggers, `ParallaxLayer`, `ScrollPath`, `SplitHeadline` DOM split.
+- [ ] Only then cheapen what the trace names (e.g. fewer triggers, skip Lenis on case-study routes, skip letter-split on smaller headings). Keep `transform` / `opacity` only. Keep reduced-motion static.
+- [ ] Do not add another animation library. Do not rewrite the whole motion stack.
