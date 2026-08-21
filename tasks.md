@@ -251,10 +251,10 @@ Branch: `feat/cinematic-close`
 
 Depends on 4.1 tokens. No sticky-stack. No new form/backend.
 
-- [ ] `src/components/sections/Cv.tsx`: one large Fraunces line + mustard button to the existing PDF.
-- [ ] `src/components/sections/Contact.tsx`: large close headline using existing contact intent (mailto + socials from `content/profile.ts`). Accent word may use Fraunces italic. No invented bio.
-- [ ] `src/components/shared/Footer.tsx`: quieter, matching the new palette.
-- [ ] Section surfaces: CV cream or forest (pick one and stay consistent with the alternating rhythm), Contact as the close.
+- [x] `src/components/sections/Cv.tsx`: one large Fraunces line + mustard button to the existing PDF.
+- [x] `src/components/sections/Contact.tsx`: large close headline using existing contact intent (mailto + socials from `content/profile.ts`). Accent word may use Fraunces italic. No invented bio.
+- [x] `src/components/shared/Footer.tsx`: quieter, matching the new palette.
+- [x] Section surfaces: CV cream or forest (pick one and stay consistent with the alternating rhythm), Contact as the close.
 
 ---
 
