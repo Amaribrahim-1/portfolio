@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { CaseStudy } from "@/components/sections/CaseStudy";
 import { profile } from "@/content/profile";
 import { getCaseStudyProjects, getProjectBySlug } from "@/content/projects";
+import { getSiteUrl } from "@/lib/site";
 
 type CaseStudyPageProps = {
   params: Promise<{ slug: string }>;
@@ -28,10 +29,14 @@ export async function generateMetadata({
   const title = project.name;
   const description = project.tagline;
   const url = `/projects/${project.slug}`;
+  const canonicalUrl = `${getSiteUrl()}/projects/${project.slug}`;
 
   return {
     title,
     description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title,
       description,
