@@ -313,9 +313,9 @@ The collage is the right idea; the bug is copy sitting on top of Exam.io UI (`Ge
 
 ## Phase 5 — Performance pass, extra polish & ship
 
-Generated from the plan approved 2026-08-21. **Sequential, one task at a time**, per `.cursor/rules/git-conventions.mdc`: new branch off `main` per task, commit only when explicitly told, merge `--no-ff` into `main` when a task is confirmed done. Task 5.0 must run first (it is the safety checkpoint). Tasks 5.7–5.9 must run last (they depend on everything else being merged into `main`).
+Generated from the plan approved 2026-08-21. **Sequential, one task at a time**, per `.cursor/rules/git-conventions.mdc`: new branch off `main` per task, commit only when explicitly told, merge `--no-ff` into `main` when a task is confirmed done. Task 5.0 must run first (it is the safety checkpoint). Task 5.61 is a try-and-review cursor pass before shipping. Tasks 5.7–5.9 must run last (they depend on everything else being merged into `main`).
 
-Build order: **5.0 → 5.1 → 5.3 → 5.4 → 5.5 → 5.6 → 5.7 → 5.8 → 5.9**. Task 5.2 is dropped (see below).
+Build order: **5.0 → 5.1 → 5.3 → 5.4 → 5.5 → 5.6 → 5.61 → 5.7 → 5.8 → 5.9**. Task 5.2 is dropped (see below).
 
 ### Task 5.0 — Safety checkpoint: merge pending work into `main`
 
@@ -378,6 +378,21 @@ Depends on 5.0–5.5 all being merged into `main` with `--no-ff`.
 
 - [ ] Delete every local branch except `main` (all are either already merged or fully contained in the `checkpoint/pre-improvements` history): `feat/case-study-pages`, `feat/cinematic-*` (all), `feat/final-*` (both), `feat/foundation-*` (all), `feat/section-*` (all), `feat/sections-techstack-cv-contact`, `feat/hero-first-impression`, `fix/cinematic-hero-overlap`, `backup/hero-before-polish`, plus every Phase 5 feature branch once merged.
 - [ ] Confirm nothing is lost: every deleted branch's tip must be reachable from `main` (`git branch --merged main`) before deletion.
+
+### Task 5.61 — Branded CSS cursor (try before 5.7)
+
+Branch: `feat/branded-cursor`
+
+Parked 2026-08-21 by Amar: distinctive mustard/forest cursor that matches the cinematic brand, **without** a JS mouse-follow (that path hurts performance and is still banned). Ship it for a local try; **do not merge until Amar reviews**.
+
+Handoff: finish Task 5.1 first if `feat/techstack-icon-strip` is still uncommitted — commit when asked, merge `--no-ff` into `main`, then branch this task off `main`. Do not stack this work on the icon-strip branch.
+
+- [x] Add two small PNG cursors (~24×24, hotspot centered) in `public/cursors/`: default (mustard ring or mustard dot) and pointer (slightly clearer ring for links/buttons). PNG, not SVG — Windows Chrome is unreliable with SVG `cursor: url()`. Palette only: mustard `#E4B52A`, forest `#0E2A26`, cream `#F3EEE4` if a fill is needed. No new animation library.
+- [x] Wire in `src/app/globals.css` with `cursor: url(...) 12 12, auto` on `html`, and the pointer asset on `a, button, [role="button"], summary, label[for], select`. Always keep a keyword fallback (`auto` / `pointer`).
+- [x] Gate with `(pointer: fine) and (hover: hover)` so touch devices keep the native cursor. `prefers-reduced-motion: reduce` → native cursor, no custom assets.
+- [x] Do **not** hide the OS cursor (`cursor: none`). Do **not** add a `pointermove` / GSAP follower, lerp blob, mix-blend overlay, or magnetic tilt (tilt stays skipped in 5.3 until Amar asks).
+- [x] One-line exception in `.cursor/rules/motion-performance-budget.mdc`: CSS `cursor: url()` is allowed; JS cursor-follow stays banned.
+- [x] Stop for Amar’s review on desktop Chrome + Firefox. If it feels cheap, laggy, or fights Lenis/scrollbar, revert the branch rather than “fixing” it into a follower.
 
 ### Task 5.7 — Real README + push to GitHub
 
