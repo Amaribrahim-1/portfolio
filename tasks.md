@@ -406,9 +406,9 @@ Branch: none for the push itself; README content can be drafted on a short-lived
 
 Branch: none (platform configuration, not a code task)
 
-- [ ] Connect the Vercel account to the `Amaribrahim-1/portfolio` GitHub repo (GitHub integration → auto-deploy on push to `main`, preview URLs on other branches).
-- [ ] Set `NEXT_PUBLIC_SITE_URL` in Vercel Environment Variables to the real production domain, so OG images/sitemap stop falling back to `localhost`.
-- [ ] Verify the production build and both case-study routes on the live URL.
+- [x] Connect the Vercel account to the `Amaribrahim-1/portfolio` GitHub repo (GitHub integration → auto-deploy on push to `main`, preview URLs on other branches).
+- [x] Set `NEXT_PUBLIC_SITE_URL` in Vercel Environment Variables to the real production domain, so OG images/sitemap stop falling back to `localhost`.
+- [x] Verify the production build and both case-study routes on the live URL.
 
 ### Task 5.9 — Rebuild template doc
 
