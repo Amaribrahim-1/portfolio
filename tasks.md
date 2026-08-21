@@ -398,9 +398,9 @@ Handoff: finish Task 5.1 first if `feat/techstack-icon-strip` is still uncommitt
 
 Branch: none for the push itself; README content can be drafted on a short-lived branch or directly reviewed before pushing `main`
 
-- [ ] Replace the default `create-next-app` `README.md` with a real one: project description, stack (Next.js + TypeScript + Tailwind + GSAP/Lenis), short folder structure, `npm run dev/build/start/lint`, deploy link (added after Task 5.8).
-- [ ] Confirm whether `https://github.com/Amaribrahim-1/portfolio.git` already exists; create it first if not.
-- [ ] Add it as `origin`, push `main` (and the `checkpoint/pre-improvements` tag).
+- [x] Replace the default `create-next-app` `README.md` with a real one: project description, stack (Next.js + TypeScript + Tailwind + GSAP/Lenis), short folder structure, `npm run dev/build/start/lint`, deploy link (added after Task 5.8).
+- [x] Confirm whether `https://github.com/Amaribrahim-1/portfolio.git` already exists; create it first if not.
+- [x] Add it as `origin`, push `main` (and the `checkpoint/pre-improvements` tag).
 
 ### Task 5.8 — Deploy to Vercel
 
