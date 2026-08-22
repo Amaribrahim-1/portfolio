@@ -35,7 +35,7 @@ Personal site for [Amar Ibrahim Fawzy](https://github.com/Amaribrahim-1), a fron
 
 <p align="center">
   <img src="docs/screenshots/work.jpg" alt="Projects section: Exam.io sticky card with live status, case-study link, and product screenshot" width="48%" />
-  <img src="docs/screenshots/exam-io.jpg" alt="Exam.io case-study page with overview and device-framed landing screenshot" width="48%" />
+  <img src="docs/screenshots/areej.jpg" alt="Areej case-study page with overview and device-framed storefront screenshot" width="48%" />
 </p>
 
 | Project | Status | Links |
@@ -47,6 +47,10 @@ Personal site for [Amar Ibrahim Fawzy](https://github.com/Amaribrahim-1), a fron
 Bookstore is homepage-only (no case-study route).
 
 ## Stack
+
+<p align="center">
+  <img src="docs/screenshots/tech-stack.jpg" alt="Tech Stack section: icon strip plus grouped skill cards (Core, Frontend & UI, State/Forms & Data, Tools & Backend)" width="920" />
+</p>
 
 - [Next.js](https://nextjs.org) 16 (App Router) and React 19
 - TypeScript
