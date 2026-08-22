@@ -24,6 +24,13 @@ export type Project = {
   liveUrl: string | null;
   repoUrl: string | null;
   screenshots: ProjectScreenshot[];
+  /** Overrides `screenshots[0]` for the homepage Work section card only. */
+  cardScreenshot?: ProjectScreenshot;
+};
+
+export const examIoCollageScreenshot: ProjectScreenshot = {
+  src: examIoPreview,
+  alt: "Exam.io product preview with the exam interface, 92 score card, and completion checklist.",
 };
 
 export const projects: Project[] = [
@@ -58,6 +65,7 @@ export const projects: Project[] = [
         alt: "Exam.io landing page with the digital exam platform hero, role badges, and product preview.",
       },
     ],
+    cardScreenshot: examIoCollageScreenshot,
   },
   {
     slug: "areej",
@@ -132,8 +140,3 @@ export function getCaseStudyProjects(): Project[] {
 export function getProjectBySlug(slug: string): Project | undefined {
   return getCaseStudyProjects().find((project) => project.slug === slug);
 }
-
-export const examIoCollageScreenshot: ProjectScreenshot = {
-  src: examIoPreview,
-  alt: "Exam.io product preview with the exam interface, 92 score card, and completion checklist.",
-};
