@@ -120,7 +120,7 @@ function ProjectCard({
   project: Project;
   index: number;
 }) {
-  const screenshot = project.screenshots[0];
+  const screenshot = project.cardScreenshot ?? project.screenshots[0];
 
   return (
     <article
