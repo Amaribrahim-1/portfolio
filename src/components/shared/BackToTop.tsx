@@ -3,23 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUp } from "lucide-react";
 
-import { getLenisInstance } from "@/lib/lenis-instance";
+import { scrollPageToTop } from "@/lib/scroll";
 import { cn, focusRingClassName } from "@/lib/utils";
-
-function focusMain(): void {
-  document.getElementById("main")?.focus();
-}
-
-function scrollPageToTop(): void {
-  const lenis = getLenisInstance();
-  if (lenis) {
-    lenis.scrollTo(0, { duration: 1.15, onComplete: focusMain });
-    return;
-  }
-
-  window.scrollTo({ top: 0, behavior: "auto" });
-  focusMain();
-}
 
 const buttonClassName = cn(
   "fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 inline-flex size-11 items-center justify-center rounded-full border border-cream/20 bg-forest text-cream shadow-[0_12px_40px_color-mix(in_oklab,black_28%,transparent)] transition-[opacity,transform,color] duration-200 hover:text-mustard md:right-6",

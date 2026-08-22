@@ -1,9 +1,11 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useState, type MouseEvent } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import type { NavLink } from "@/content/profile";
+import { scrollPageToTop } from "@/lib/scroll";
 import { cn, focusRingClassName } from "@/lib/utils";
 
 const linkClassName = cn(
@@ -19,8 +21,17 @@ type NavbarProps = {
 export function Navbar({ name, links }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const menuId = useId();
+  const pathname = usePathname();
 
   const close = () => setOpen(false);
+
+  const goHome = (event: MouseEvent<HTMLAnchorElement>) => {
+    close();
+    if (pathname === "/") {
+      event.preventDefault();
+      scrollPageToTop();
+    }
+  };
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-20 flex justify-center px-3 pt-3">
@@ -38,7 +49,7 @@ export function Navbar({ name, links }: NavbarProps) {
           <div className="flex items-center justify-between gap-3">
             <Link
               href="/"
-              onClick={close}
+              onClick={goHome}
               className={cn(
                 "font-display truncate text-sm font-semibold tracking-tight text-cream transition-colors duration-200 hover:text-mustard",
                 focusRingClassName,

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Fraunces, Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { RouteScrollReset } from "@/components/motion/RouteScrollReset";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { BackToTop } from "@/components/shared/BackToTop";
@@ -97,6 +98,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <SmoothScroll>
+          <RouteScrollReset />
           <SkipToContent />
           <ScrollProgress />
           <Navbar name={profile.name} links={navLinks} />
