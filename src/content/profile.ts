@@ -1,6 +1,6 @@
 import type { StaticImageData } from "next/image";
 
-import portrait from "../../public/images/amar.webp";
+import portrait from "../../public/images/amar.jpg";
 
 export type SocialLink = {
   label: string;
