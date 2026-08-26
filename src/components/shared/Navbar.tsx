@@ -1,17 +1,27 @@
 "use client";
 
-import { useId, useState, type MouseEvent } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type MouseEvent,
+  type RefObject,
+} from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import type { NavLink } from "@/content/profile";
-import { scrollPageToTop } from "@/lib/scroll";
+import { hashFromHref, scrollPageToTop } from "@/lib/scroll";
 import { cn, focusRingClassName } from "@/lib/utils";
 
 const linkClassName = cn(
   "inline-flex min-h-11 items-center font-mono text-xs tracking-[0.15em] text-sage uppercase transition-colors duration-200 hover:text-mustard md:min-h-0",
   focusRingClassName,
 );
+
+const SECTION_SPY_ROOT_MARGIN = "-28% 0px -68% 0px";
 
 type NavbarProps = {
   name: string;
@@ -22,8 +32,12 @@ export function Navbar({ name, links }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const pathname = usePathname();
+  const navRef = useRef<HTMLElement>(null);
+  const activeHref = useActiveNavHref(pathname, links);
 
-  const close = () => setOpen(false);
+  const close = useCallback(() => setOpen(false), []);
+
+  useCloseOnOutsidePointer(navRef, open, close);
 
   const goHome = (event: MouseEvent<HTMLAnchorElement>) => {
     close();
@@ -36,6 +50,7 @@ export function Navbar({ name, links }: NavbarProps) {
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-20 flex justify-center px-3 pt-3">
       <nav
+        ref={navRef}
         aria-label="Primary"
         className={cn(
           "pointer-events-auto w-full max-w-5xl border border-cream/20 bg-forest px-4 py-2.5 shadow-[0_12px_40px_color-mix(in_oklab,black_28%,transparent)] md:w-auto md:rounded-full md:px-5",
@@ -81,18 +96,126 @@ export function Navbar({ name, links }: NavbarProps) {
               open ? "flex" : "hidden md:flex",
             )}
           >
-            {links.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} onClick={close} className={linkClassName}>
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {links.map((link) => {
+              const isActive = activeHref === link.href;
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={close}
+                    aria-current={isActive ? "true" : undefined}
+                    className={cn(linkClassName, isActive && "text-mustard")}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </nav>
     </header>
   );
+}
+
+function routeActiveHref(pathname: string): string | null {
+  if (pathname === "/projects" || pathname.startsWith("/projects/")) {
+    return "/#work";
+  }
+  if (pathname === "/cv" || pathname.startsWith("/cv/")) {
+    return "/#contact";
+  }
+  return null;
+}
+
+function useActiveNavHref(
+  pathname: string,
+  links: readonly NavLink[],
+): string | null {
+  const routeHref = routeActiveHref(pathname);
+  const sectionId = useActiveSectionId(links, pathname === "/" && !routeHref);
+
+  if (routeHref) return routeHref;
+  if (!sectionId) return null;
+
+  return links.find((link) => hashFromHref(link.href) === `#${sectionId}`)?.href ?? null;
+}
+
+function useActiveSectionId(
+  links: readonly NavLink[],
+  enabled: boolean,
+): string | null {
+  const [activeId, setActiveId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!enabled) {
+      setActiveId(null);
+      return;
+    }
+
+    const elements = spyElements(links);
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const nextEntry = leadingSpyEntry(entries);
+        if (!nextEntry) return;
+        setActiveId(nextEntry.target.id);
+      },
+      { rootMargin: SECTION_SPY_ROOT_MARGIN, threshold: 0 },
+    );
+
+    for (const element of elements) observer.observe(element);
+    return () => observer.disconnect();
+  }, [enabled, links]);
+
+  return enabled ? activeId : null;
+}
+
+function spyElements(links: readonly NavLink[]): HTMLElement[] {
+  const ids = [
+    "hero",
+    ...links.flatMap((link) => {
+      const hash = hashFromHref(link.href);
+      return hash ? [hash.slice(1)] : [];
+    }),
+  ];
+
+  return ids
+    .map((id) => document.getElementById(id))
+    .filter((node): node is HTMLElement => node !== null);
+}
+
+function leadingSpyEntry(
+  entries: IntersectionObserverEntry[],
+): IntersectionObserverEntry | undefined {
+  const visible = entries.filter((entry) => entry.isIntersecting);
+  if (visible.length === 0) return undefined;
+  visible.sort(
+    (left, right) => left.boundingClientRect.top - right.boundingClientRect.top,
+  );
+  return visible[0];
+}
+
+function useCloseOnOutsidePointer(
+  navRef: RefObject<HTMLElement | null>,
+  open: boolean,
+  close: () => void,
+): void {
+  useEffect(() => {
+    if (!open) return;
+
+    const closeIfOutside = (event: PointerEvent) => {
+      const nav = navRef.current;
+      const pointerTarget = event.target;
+      if (!nav || !(pointerTarget instanceof Node)) return;
+      if (nav.contains(pointerTarget)) return;
+      close();
+    };
+
+    document.addEventListener("pointerdown", closeIfOutside);
+    return () => document.removeEventListener("pointerdown", closeIfOutside);
+  }, [close, navRef, open]);
 }
 
 function MenuIcon({ open }: { open: boolean }) {
