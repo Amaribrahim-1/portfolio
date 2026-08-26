@@ -1,11 +1,14 @@
 # Tasks — Amar's Portfolio Build
 
-Generated per `portfolio-spec.md` → "Instructions for Cursor's First Session", then extended with **Phase 4** from the cinematic restyle plan.
+Generated per `portfolio-spec.md` → "Instructions for Cursor's First Session", then extended with **Phase 4** from the cinematic restyle plan, **Phase 5–6** from the ship/Lighthouse plans, and **Phase 7** from the post-Vercel feedback list (2026-08-27).
 
 1. **Phase 1 — Foundation** must finish first. Done.
 2. **Phase 2 — Homepage sections + case study pages** were mutually independent. Done.
 3. **Phase 3 — Final pass** came last for v1. Done.
-4. **Phase 4 — Cinematic restyle** is sequential: one task per session, no parallel work.
+4. **Phase 4 — Cinematic restyle** is sequential: one task per session, no parallel work. Done.
+5. **Phase 5 — Performance pass, extra polish & ship** — sequential. Open leftovers stay in Phase 5 (do not mix into Phase 7).
+6. **Phase 6 — Lighthouse follow-up** — sequential. Open leftovers stay in Phase 6.
+7. **Phase 7 — Feedback pass** is sequential: one task per session, no parallel work. Personal / out-of-repo items live in `personal-backlog.md` (not here) and must not be implemented as product tasks.
 
 Per `.cursor/rules/git-conventions.mdc`: one branch per task below, commit at logical checkpoints within a task, merge into `main` with `--no-ff`.
 
@@ -491,3 +494,112 @@ Parked. Always-on Lenis + multiple `ScrollTrigger` instances can cost TBT on mob
 - [x] Cheapened the one legitimate finding: `SmoothScroll` started the Lenis instance + `gsap.ticker` loop synchronously in the mount effect, competing with hydration for main-thread time right when TBT/LCP render-delay is measured. Deferred that start to `requestIdleCallback` (200 ms timeout fallback via `setTimeout`) in `src/components/motion/SmoothScroll.tsx`. Local before/after `next build` + `next start` + mobile Lighthouse runs (noisy dev machine, not comparable in absolute terms to the production numbers) moved in the right direction: TBT 1593 ms → 1225 ms, Performance score 0.55 → 0.60. No visual/behavioral change — reduced-motion path and scroll behavior unaffected.
 - [ ] Not done: did not remove/restructure any `ScrollTrigger` instance, did not skip Lenis on case-study routes, did not touch `SplitHeadline` letters/words logic — none of those were implicated by the trace, and doing them "just in case" would be exactly the invasive, unjustified rewrite this task warns against. Re-run Lighthouse on production after this merges and deploys; if still below 90, the next real lever is largely infra-side (LCP's 719 ms TTFB), not more motion trimming.
 - [x] Did not add another animation library. Did not rewrite the motion stack — one function changed in one file.
+
+---
+
+## Phase 7 — Feedback pass (post-Vercel)
+
+Generated from Amar’s feedback list (2026-08-27) after the live Vercel deploy. **Sequential, one task at a time**, per `.cursor/rules/git-conventions.mdc`: new branch off `main` per task, commit only when explicitly told, merge `--no-ff` into `main` when a task is confirmed done.
+
+Personal / out-of-repo work is **not** in this phase — see `personal-backlog.md` (delete that file when the portfolio is done). Do not start a personal item as a product task. Do not mix leftover Phase 5/6 items into this phase.
+
+**Locked decisions (do not re-litigate):**
+- Contact is three actions: Email + WhatsApp + View CV. No contact-form backend.
+- Dedicated homepage `#cv` section is removed (Task 7.7). CV lives at `/cv` as a branded HTML page + PDF download (Task 7.6).
+- WhatsApp is now a public contact action (spec exception: phone was CV-only). Number `01014140935` → `https://wa.me/201014140935`.
+- Hero gets a “See all projects” control that goes to `/projects` (grid archive). Homepage Work stays on vertical `StickyStack`.
+- Areej is **production / Live** at `https://areej-store-kappa.vercel.app/`. Incoming hero screenshot: `docs/sources/areej/hero.jpg`.
+
+Build order: **7.0 → 7.1 → 7.2 → 7.3 → 7.4 → 7.5 → 7.6 → 7.7**. Do not skip. Do not start a later task until the previous checkbox list is done.
+
+### Task 7.0 — Write the task files
+
+Branch: none (docs only — no product code)
+
+- [x] Append this Phase 7 section to `tasks.md`.
+- [x] Add `personal-backlog.md` at the repo root for personal / out-of-repo items.
+- [x] Save the Areej production hero screenshot Amar supplied as `docs/sources/areej/hero.jpg` (source for Task 7.1 — do not convert or wire it in this task).
+- [x] Do not change `src/`, `public/images/` (except the docs source above), or site copy.
+
+### Task 7.1 — Areej + profile content (and Areej hero screenshot)
+
+Branch: `feat/content-areej-profile`
+
+Depends on 7.0. Content only plus swapping the Areej screenshot. Do not restyle Work cards (crop CSS is Task 7.3). Do not add `/projects` or `/cv`.
+
+Sources — extract, do not invent:
+- Areej: `docs/README.md`, `docs/portfolio-writeup.md`, live URL `https://areej-store-kappa.vercel.app/`, screenshot `docs/sources/areej/hero.jpg`.
+- Profile: `src/content/profile.ts` + `portfolio-spec.md`. About still says “Right now I'm building Areej” — update so Areej is shipped. Draft English copy in the task chat and wait for Amar to confirm before merge.
+
+- [x] `src/content/projects.ts` Areej: `status: "live"`, `statusLabel: "Live"`, `liveUrl: "https://areej-store-kappa.vercel.app/"`. Replace tagline + bullets + `tech` from the Areej README / writeup (shipped COD storefront, RLS/RPC, Arabic RTL — not the old “in active development” bullets).
+- [x] Amar supplied `docs/sources/areej/hero.jpg` as JPEG (not WebP). Convert it to WebP **without a visible quality drop**: high quality / near-lossless (e.g. `cwebp -q 90` or equivalent; if the file balloons past ~400KB, try `-q 85` and compare side-by-side with Amar before keeping the smaller one). Do not downscale unless the source is larger than the largest `next/image` render. Replace `public/images/projects/areej/home.webp`, keep the jpg in `docs/sources/areej/` as the master. Update the screenshot `alt` to match this hero (Arabic storefront hero: bottle left, “تسوقي المنتجات” right). Keep `next/image`. This same asset is what Hero collage + Work card + case study already read from `projects.ts`.
+- [x] `src/content/profile.ts`: update `aboutRows` so they match the shipped-Areej reality. Do not invent a new bio voice.
+- [x] Update the Work table in `README.md` (Areej Live + demo link).
+- [x] Move the copied Areej docs out of the portfolio docs root so they are not mistaken for this repo’s README: `docs/README.md` + `docs/portfolio-writeup.md` → `docs/sources/areej/`. Keep `docs/screenshots/` where it is.
+- [x] Stop for Amar’s copy review. Do not merge invented case-study prose. Confirmed 2026-08-27: drop “MVP” from the tagline (reads as unfinished); keep the rest of the drafted About / bullets / tech.
+
+### Task 7.2 — Navbar: smooth hash scroll, active section, close on outside click
+
+Branch: `feat/nav-scroll-active`
+
+Depends on 7.1. File: `src/components/shared/Navbar.tsx`. Logo already uses `scrollPageToTop` + Lenis; section hashes (`/#about`, `/#stack`, `/#work`, `/#contact`, and `/#cv` until 7.7) currently jump.
+
+- [ ] Shared hash helper in `src/lib/scroll.ts`: intercept in-page hash clicks and `lenis.scrollTo` the target. Reduced-motion / no Lenis → native jump. Cover Navbar links and the Hero “Work” `/#work` link.
+- [ ] Active nav link for the section currently in view (`IntersectionObserver` or ScrollTrigger). On `/projects` highlight Work; on `/cv` highlight Contact (or none — pick one and stay consistent). Mustard/cream contrast must stay readable.
+- [ ] Mobile menu closes on click outside the `<nav>` (Escape already closes). No new animation library.
+- [ ] Do not restyle the island. Do not add a JS cursor-follow.
+
+### Task 7.3 — Work cards: tech chips + Areej crop
+
+Branch: `feat/work-cards-tech-crop`
+
+Depends on 7.1 (new Areej hero is a wide landscape: bottle left, Arabic copy + CTA right — `object-cover` + `aspect-[16/10]` in `ProjectPeak` will clip one side).
+
+- [ ] Render `project.tech` on homepage Work cards in `src/components/sections/Projects.tsx` (chips from existing data; cap the count if the sticky card gets crowded on mobile).
+- [ ] Fix the Areej Work-card crop so the bottle **and** the hero copy/CTA stay readable. Allowed: `object-contain`, a different `object-position`, a dedicated `cardScreenshot`, or a slightly different frame — not a new screenshot unless Amar supplies one. Do not break Exam.io / Bookstore peaks.
+- [ ] Do not rebuild StickyStack. Do not add a 4th project.
+
+### Task 7.4 — New portrait as WebP
+
+Branch: `feat/portrait-webp`
+
+Depends on 7.3 only for sequence (independent otherwise). Source photo: untracked `public/images/amar.jpg`. If Amar has already approved a Gemini brand-tinted version from `personal-backlog.md`, use that file instead — ask in the task chat before converting.
+
+- [ ] Convert the chosen portrait to WebP, point `profile.photo` at it, delete leftover jpg / unused old `amar.webp`.
+- [ ] `next/image` + existing `PortraitFrame` treatment. No new photo-editing library.
+- [ ] Quick audit: product screenshots under `public/images/` stay WebP.
+
+### Task 7.5 — `/projects` archive + “See all projects” + case-study Back
+
+Branch: `feat/projects-index`
+
+Depends on 7.1 (live Areej URL + copy).
+
+- [ ] `src/app/projects/page.tsx`: grid of **all** projects from `content/projects.ts` (Exam.io, Areej, Bookstore). Not StickyStack. Bookstore stays without a case-study route. Metadata + canonical.
+- [ ] Hero: add a “See all projects” control (label lives in `content/`, English, reviewed with Amar) linking to `/projects`. Keep the existing Work jump if it still earns its place; do not invent extra Hero copy.
+- [ ] Case-study Back: replace the quiet “Projects” breadcrumb in `src/components/sections/CaseStudy.tsx` with a clear Back control to `/projects`.
+- [ ] Thin route file — page composes a section component, no copy inline.
+
+### Task 7.6 — In-site HTML CV page
+
+Branch: `feat/cv-page`
+
+Depends on 7.5 only for sequence. Source facts from `public/cv/Amar-Ibrahim-CV.pdf` into `src/content/cv.ts`. English. Do not invent jobs, dates, or skills.
+
+- [ ] `src/app/cv/page.tsx`: branded HTML resume (forest/cream/mustard, Fraunces headings). Back control (home or `#contact`) + “Download PDF” to the existing file. No Google/Drive, no raw PDF tab as the primary view.
+- [ ] Hero “My CV” button goes to `/cv` (not `target="_blank"` PDF).
+- [ ] Metadata + canonical. Reduced-motion: no extra motion beyond existing primitives if any are used.
+- [ ] Stop for Amar’s copy review against the PDF before merge.
+
+### Task 7.7 — Contact merge: Email + WhatsApp + View CV
+
+Branch: `feat/contact-merge`
+
+Depends on 7.6 so “View CV” does not 404.
+
+- [ ] Remove `src/components/sections/Cv.tsx` from `src/app/page.tsx` (delete the section component if nothing else imports it). Drop `{ href: "/#cv", label: "CV" }` from `navLinks`.
+- [ ] `src/content/profile.ts`: add `whatsappHref: "https://wa.me/201014140935"`. Do not invent a second phone display.
+- [ ] `src/components/sections/Contact.tsx`: three primary actions — Email (`mailto:`), WhatsApp (`wa.me`), View CV (`/cv`). Keep LinkedIn + GitHub as secondary socials. No form fields, no backend, no Resend.
+- [ ] Update Footer only if a CV/contact link there would otherwise 404 or still point at the old `#cv` section (today Footer is email + socials only).
+- [ ] Confirm keyboard + mobile: three CTAs wrap, focus rings stay visible.
+
