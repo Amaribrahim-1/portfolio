@@ -32,8 +32,38 @@ const PROJECT_CARD_TONES = [
 
 const PEAK_ROTATIONS = ["rotate-3", "-rotate-2", "rotate-2"] as const;
 
+const TECH_CHIP_CLASS_NAME =
+  "rounded-md border border-current/20 px-2.5 py-1 font-mono text-xs tracking-wide text-current/75";
+const TECH_CHIP_MOBILE_CAP = 4;
+const TECH_CHIP_DESKTOP_CAP = 6;
+
+const DEFAULT_PEAK_ASPECT_CLASS = "aspect-[16/10]";
+const DEFAULT_PEAK_IMAGE_CLASS = "object-cover object-top";
+/** Areej hero is 16:9 (bottle left, Arabic CTA right); 16/10 cover crop clips both. */
+const LANDSCAPE_PEAK_ASPECT_CLASS = "aspect-video";
+const LANDSCAPE_PEAK_IMAGE_CLASS = "object-contain object-center";
+
 function cardIndexLabel(index: number): string {
   return String(index + 1).padStart(2, "0");
+}
+
+type PeakFit = {
+  aspectClassName: string;
+  imageClassName: string;
+};
+
+function workPeakFit(slug: string): PeakFit {
+  if (slug === "areej") {
+    return {
+      aspectClassName: LANDSCAPE_PEAK_ASPECT_CLASS,
+      imageClassName: LANDSCAPE_PEAK_IMAGE_CLASS,
+    };
+  }
+
+  return {
+    aspectClassName: DEFAULT_PEAK_ASPECT_CLASS,
+    imageClassName: DEFAULT_PEAK_IMAGE_CLASS,
+  };
 }
 
 function ProjectLinks({ project }: { project: Project }) {
@@ -85,12 +115,63 @@ function ProjectLinks({ project }: { project: Project }) {
   );
 }
 
+function TechOverflowChip({
+  extra,
+  className,
+}: {
+  extra: number;
+  className: string;
+}) {
+  if (extra <= 0) {
+    return null;
+  }
+
+  return (
+    <li
+      className={cn(TECH_CHIP_CLASS_NAME, className)}
+      aria-label={`${extra} more`}
+    >
+      +{extra}
+    </li>
+  );
+}
+
+function ProjectTech({ names }: { names: readonly string[] }) {
+  const shown = names.slice(0, TECH_CHIP_DESKTOP_CAP);
+
+  return (
+    <ul className="mt-5 flex flex-wrap gap-2" aria-label="Tech stack">
+      {shown.map((name, index) => (
+        <li
+          key={name}
+          className={cn(
+            TECH_CHIP_CLASS_NAME,
+            index >= TECH_CHIP_MOBILE_CAP && "max-md:hidden",
+          )}
+        >
+          {name}
+        </li>
+      ))}
+      <TechOverflowChip
+        extra={names.length - TECH_CHIP_MOBILE_CAP}
+        className="md:hidden"
+      />
+      <TechOverflowChip
+        extra={names.length - TECH_CHIP_DESKTOP_CAP}
+        className="max-md:hidden"
+      />
+    </ul>
+  );
+}
+
 function ProjectPeak({
   screenshot,
   rotateClassName,
+  peakFit,
 }: {
   screenshot: ProjectScreenshot;
   rotateClassName: string;
+  peakFit: PeakFit;
 }) {
   return (
     <div
@@ -99,14 +180,14 @@ function ProjectPeak({
         rotateClassName,
       )}
     >
-      <div className="relative aspect-[16/10]">
+      <div className={cn("relative", peakFit.aspectClassName)}>
         <Image
           src={screenshot.src}
           alt={screenshot.alt}
           fill
           sizes="(max-width: 40rem) 92vw, (max-width: 48rem) 36rem, (max-width: 64rem) 50vw, 34rem"
           placeholder="blur"
-          className="object-cover object-top"
+          className={peakFit.imageClassName}
         />
       </div>
     </div>
@@ -145,6 +226,7 @@ function ProjectCard({
         <p className="mt-6 max-w-md text-lg text-pretty text-current/75 md:text-xl">
           {project.tagline}
         </p>
+        <ProjectTech names={project.tech} />
         <ProjectLinks project={project} />
       </div>
 
@@ -152,6 +234,7 @@ function ProjectCard({
         <ProjectPeak
           screenshot={screenshot}
           rotateClassName={PEAK_ROTATIONS[index % PEAK_ROTATIONS.length]}
+          peakFit={workPeakFit(project.slug)}
         />
       ) : null}
     </article>

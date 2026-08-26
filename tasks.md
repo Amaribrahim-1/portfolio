@@ -555,9 +555,9 @@ Branch: `feat/work-cards-tech-crop`
 
 Depends on 7.1 (new Areej hero is a wide landscape: bottle left, Arabic copy + CTA right — `object-cover` + `aspect-[16/10]` in `ProjectPeak` will clip one side).
 
-- [ ] Render `project.tech` on homepage Work cards in `src/components/sections/Projects.tsx` (chips from existing data; cap the count if the sticky card gets crowded on mobile).
-- [ ] Fix the Areej Work-card crop so the bottle **and** the hero copy/CTA stay readable. Allowed: `object-contain`, a different `object-position`, a dedicated `cardScreenshot`, or a slightly different frame — not a new screenshot unless Amar supplies one. Do not break Exam.io / Bookstore peaks.
-- [ ] Do not rebuild StickyStack. Do not add a 4th project.
+- [x] Render `project.tech` on homepage Work cards in `src/components/sections/Projects.tsx` (chips from existing data; cap the count if the sticky card gets crowded on mobile).
+- [x] Fix the Areej Work-card crop so the bottle **and** the hero copy/CTA stay readable. Allowed: `object-contain`, a different `object-position`, a dedicated `cardScreenshot`, or a slightly different frame — not a new screenshot unless Amar supplies one. Do not break Exam.io / Bookstore peaks.
+- [x] Do not rebuild StickyStack. Do not add a 4th project.
 
 ### Task 7.4 — New portrait as WebP
 
