@@ -16,7 +16,9 @@ const GSAP_LAG_SMOOTHING_ADJUSTED_MS = 33;
 const IDLE_START_TIMEOUT_MS = 200;
 
 function startSyncedLenis() {
-  const lenis = new Lenis({ anchors: true });
+  // Anchors stay off: Next.js Link swallows `/#section` clicks, so in-page
+  // hash scrolling is owned by `src/lib/scroll.ts` instead of Lenis.
+  const lenis = new Lenis();
   setLenisInstance(lenis);
 
   lenis.on("scroll", ScrollTrigger.update);

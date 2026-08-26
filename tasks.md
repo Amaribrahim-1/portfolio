@@ -544,10 +544,10 @@ Branch: `feat/nav-scroll-active`
 
 Depends on 7.1. File: `src/components/shared/Navbar.tsx`. Logo already uses `scrollPageToTop` + Lenis; section hashes (`/#about`, `/#stack`, `/#work`, `/#contact`, and `/#cv` until 7.7) currently jump.
 
-- [ ] Shared hash helper in `src/lib/scroll.ts`: intercept in-page hash clicks and `lenis.scrollTo` the target. Reduced-motion / no Lenis → native jump. Cover Navbar links and the Hero “Work” `/#work` link.
-- [ ] Active nav link for the section currently in view (`IntersectionObserver` or ScrollTrigger). On `/projects` highlight Work; on `/cv` highlight Contact (or none — pick one and stay consistent). Mustard/cream contrast must stay readable.
-- [ ] Mobile menu closes on click outside the `<nav>` (Escape already closes). No new animation library.
-- [ ] Do not restyle the island. Do not add a JS cursor-follow.
+- [x] Shared hash helper in `src/lib/scroll.ts`: intercept in-page hash clicks and `lenis.scrollTo` the target. Reduced-motion / no Lenis → native jump. Cover Navbar links and the Hero “Work” `/#work` link.
+- [x] Active nav link for the section currently in view (`IntersectionObserver` or ScrollTrigger). On `/projects` highlight Work; on `/cv` highlight Contact (or none — pick one and stay consistent). Mustard/cream contrast must stay readable.
+- [x] Mobile menu closes on click outside the `<nav>` (Escape already closes). No new animation library.
+- [x] Do not restyle the island. Do not add a JS cursor-follow.
 
 ### Task 7.3 — Work cards: tech chips + Areej crop
 
