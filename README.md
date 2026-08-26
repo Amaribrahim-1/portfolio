@@ -41,7 +41,7 @@ Personal site for [Amar Ibrahim Fawzy](https://github.com/Amaribrahim-1), a fron
 | Project | Status | Links |
 | --- | --- | --- |
 | **Exam.io** — full-stack exam platform with real-time anti-cheat, built solo | Live | [Case study](https://portfolio-amaribrahim-1s-projects.vercel.app/projects/exam-io) · [Demo](https://exam-platform-7r4y.vercel.app) · [Repo](https://github.com/Amaribrahim-1/exam_platform) |
-| **Areej** — e-commerce store for a paying client | In active development | [Case study](https://portfolio-amaribrahim-1s-projects.vercel.app/projects/areej) · [Repo](https://github.com/Amaribrahim-1/areej-store) |
+| **Areej** — Arabic/RTL e-commerce store for a paying client | Live | [Case study](https://portfolio-amaribrahim-1s-projects.vercel.app/projects/areej) · [Demo](https://areej-store-kappa.vercel.app/) · [Repo](https://github.com/Amaribrahim-1/areej-store) |
 | **Online Bookstore** — storefront with role-based access, search, and cart | Live | [Demo](https://book-store-bay-phi.vercel.app) · [Repo](https://github.com/Amaribrahim-1/Book-Store) |
 
 Bookstore is homepage-only (no case-study route).
