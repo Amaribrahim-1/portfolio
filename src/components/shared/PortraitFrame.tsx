@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 type PortraitFrameProps = {
   className?: string;
+  imageClassName?: string;
   priority?: boolean;
   sizes?: string;
 };
@@ -14,6 +15,7 @@ const DEFAULT_SIZES =
 
 export function PortraitFrame({
   className,
+  imageClassName,
   priority = false,
   sizes = DEFAULT_SIZES,
 }: PortraitFrameProps) {
@@ -31,7 +33,7 @@ export function PortraitFrame({
         sizes={sizes}
         placeholder="blur"
         priority={priority}
-        className="photo-frame-media object-top"
+        className={cn("photo-frame-media object-top", imageClassName)}
       />
     </div>
   );

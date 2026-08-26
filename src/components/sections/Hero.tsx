@@ -23,7 +23,7 @@ const WORK_LINK_CLASS_NAME =
   "group/work inline-flex items-center gap-1.5 text-sm font-medium text-cream/85 duration-200 hover:text-mustard focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none";
 const HERO_SCREENSHOT_FRAME =
   "overflow-hidden rounded-xl border border-cream/20 shadow-[0_28px_70px_color-mix(in_oklab,black_45%,transparent)]";
-const HERO_EXAM_FRAME =
+const HERO_GLOW_FRAME =
   "border-mustard/45 shadow-[0_28px_70px_color-mix(in_oklab,black_50%,transparent),0_0_36px_color-mix(in_oklab,var(--mustard)_16%,transparent)]";
 
 function screenshotFor(slug: string): ProjectScreenshot {
@@ -98,14 +98,20 @@ function HeroCopy() {
             <span className="sr-only"> (PDF, opens in a new tab)</span>
             <ArrowRight
               aria-hidden
-              className={cn(ARROW_CLASS_NAME, "group-hover/button:translate-x-0.5")}
+              className={cn(
+                ARROW_CLASS_NAME,
+                "group-hover/button:translate-x-0.5",
+              )}
             />
           </a>
           <Link href="/#work" className={WORK_LINK_CLASS_NAME}>
             Work
             <ArrowRight
               aria-hidden
-              className={cn(ARROW_CLASS_NAME, "group-hover/work:translate-x-0.5")}
+              className={cn(
+                ARROW_CLASS_NAME,
+                "group-hover/work:translate-x-0.5",
+              )}
             />
           </Link>
         </div>
@@ -128,7 +134,7 @@ function HeroCollage() {
               sizes="(max-width: 40rem) 15rem, (max-width: 48rem) 18rem, 22rem"
               priority
               imageClassName="object-cover object-center"
-              className={HERO_EXAM_FRAME}
+              className={HERO_GLOW_FRAME}
             />
           </div>
         </ParallaxLayer>
@@ -141,6 +147,7 @@ function HeroCollage() {
             <HeroScreenshot
               screenshot={areejScreenshot}
               sizes="(max-width: 40rem) 14rem, (max-width: 48rem) 16rem, 20rem"
+              className={HERO_GLOW_FRAME}
             />
           </div>
         </ParallaxLayer>
@@ -152,8 +159,9 @@ function HeroCollage() {
           <div className="pointer-events-auto origin-center transition-transform duration-200 hover:scale-[1.03]">
             <PortraitFrame
               priority
-              className="aspect-[4/5] w-52 sm:w-64 md:w-72 lg:w-80"
-              sizes="(max-width: 40rem) 13rem, (max-width: 48rem) 16rem, (max-width: 64rem) 18rem, 20rem"
+              className="aspect-[5/7] w-36 bg-forest sm:w-48 md:w-56 lg:w-62"
+              imageClassName="origin-center scale-[0.96]"
+              sizes="(max-width: 40rem) 9rem, (max-width: 48rem) 12rem, (max-width: 64rem) 14rem, 15rem"
             />
           </div>
         </ParallaxLayer>
