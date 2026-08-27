@@ -6,6 +6,7 @@ import { ParallaxLayer, ParallaxRoot } from "@/components/motion/ParallaxLayer";
 import { SplitHeadline } from "@/components/motion/SplitHeadline";
 import { PortraitFrame } from "@/components/shared/PortraitFrame";
 import { buttonVariants } from "@/components/ui/button";
+import { cvPage } from "@/content/cv";
 import { profile } from "@/content/profile";
 import {
   examIoCollageScreenshot,
@@ -85,17 +86,14 @@ function HeroCopy() {
           </SplitHeadline>
         </ParallaxLayer>
         <div className="mt-8 flex flex-wrap items-center gap-5">
-          <a
-            href={profile.cvHref}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href={cvPage.href}
             className={buttonVariants({
               size: "lg",
               className: CV_CTA_CLASS_NAME,
             })}
           >
-            My CV
-            <span className="sr-only"> (PDF, opens in a new tab)</span>
+            {cvPage.heroLabel}
             <ArrowRight
               aria-hidden
               className={cn(
@@ -103,7 +101,7 @@ function HeroCopy() {
                 "group-hover/button:translate-x-0.5",
               )}
             />
-          </a>
+          </Link>
           <Link href="/#work" className={WORK_LINK_CLASS_NAME}>
             Work
             <ArrowRight

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { cvPage } from "@/content/cv";
 import { getCaseStudyProjects, projectsArchive } from "@/content/projects";
 import { getSiteUrl } from "@/lib/site";
 
@@ -14,6 +15,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${siteUrl}${projectsArchive.seeAllHref}`,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}${cvPage.href}`,
       changeFrequency: "monthly",
       priority: 0.9,
     },
