@@ -31,7 +31,7 @@ export type Profile = {
 };
 
 const aboutRows = [
-  "I'm Amar, a frontend developer and final-year Computer Science student based in Egypt.",
+  "I'm Amar, a frontend developer and final-year Computer Science student (GPA 3.45/4.0) based in Egypt.",
   "I specialize in React and Next.js, and I care as much about how a product is built as how it looks — clear architecture, real security, and code that holds up in production, not just a nice UI.",
   "My strongest project so far is Exam.io, a full-stack exam platform with a custom anti-cheat engine and multi-role dashboards.",
   "I shipped Areej, a real e-commerce store for a paying client, from database security to the storefront UI.",

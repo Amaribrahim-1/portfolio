@@ -76,10 +76,11 @@ export const projects: Project[] = [
     statusLabel: "Live",
     hasCaseStudy: true,
     bullets: [
-      "Shipped a full COD storefront and server-guarded admin for a live client: catalog, persisted guest cart, checkout, order history, and reviews. Arabic-only, RTL.",
+      "Shipped a full COD storefront and server-guarded admin for a live client: catalog, persisted guest cart, checkout, order history, reviews, and a contact inbox. Arabic-only, RTL.",
       "Order totals are never trusted from the client — a Postgres place_order RPC re-reads variant prices and is the only writer; the client sends variant and quantity, no price.",
       "RLS plus column grants: customers cannot update profiles.role; admins can update orders.status only. Admin checks go through a private is_admin() helper.",
       "Server data lives in TanStack Query; cart and UI state in Zustand. Forms are React Hook Form + Zod, re-validated before every write.",
+      "Compresses product images to WebP client-side to stay under Supabase's 1GB free-tier storage cap, and notifies the store owner via WhatsApp/email on each order — without blocking checkout if the notification itself fails.",
     ],
     tech: [
       "Next.js 16 (App Router)",
