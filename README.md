@@ -75,9 +75,9 @@ npm run lint
 
 ```
 src/
-  app/                 homepage (`/`) and case studies (`/projects/[slug]`)
+  app/                 homepage (`/`), projects archive (`/projects`), case studies (`/projects/[slug]`)
   components/
-    sections/          Hero, About, TechStack, Projects, CaseStudy, Cv, Contact
+    sections/          Hero, About, TechStack, Projects, ProjectsIndex, CaseStudy, Cv, Contact
     shared/            Navbar, Footer, and other non-motion UI
     motion/            Lenis + GSAP ScrollTrigger primitives
     ui/                shadcn primitives
@@ -88,7 +88,7 @@ public/
   images/              portrait and project screenshots
 ```
 
-Case-study slugs come from `src/content/projects.ts` (`hasCaseStudy: true`). Today that is `/projects/exam-io` and `/projects/areej`.
+The `/projects` archive lists every project from `src/content/projects.ts`. Case-study slugs come from `hasCaseStudy: true`. Today that is `/projects/exam-io` and `/projects/areej`.
 
 To change copy, projects, or contact links, edit `src/content/*.ts` and redeploy.
 

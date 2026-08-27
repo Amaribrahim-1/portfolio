@@ -16,9 +16,10 @@ alwaysApply: true
 src/
   app/
     page.tsx              → the one-page homepage, composes section components
+    projects/page.tsx     → projects archive grid
     projects/[slug]/page.tsx  → case study route (areej, exam-io)
   components/
-    sections/               → Hero, About, TechStack, Projects, Cv, Contact
+    sections/               → Hero, About, TechStack, Projects, ProjectsIndex, Cv, Contact
     shared/                 → Navbar, Footer, and non-motion primitives
     motion/                 → SmoothScroll, SplitHeadline, StickyStack, ScrollPath, ParallaxLayer, StaggerIn, IconStrip
     ui/                     → shadcn primitives, untouched/generated

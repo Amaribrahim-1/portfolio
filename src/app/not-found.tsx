@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
+import { projectsArchive } from "@/content/projects";
 
 export default function NotFound() {
   return (
@@ -17,7 +18,7 @@ export default function NotFound() {
           and Areej.
         </p>
         <Link
-          href="/#work"
+          href={projectsArchive.seeAllHref}
           className={buttonVariants({
             size: "lg",
             className: "mt-10 h-11 w-fit px-5 duration-200",

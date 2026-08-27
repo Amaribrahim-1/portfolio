@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -5,6 +6,7 @@ import { StickyStack } from "@/components/motion/StickyStack";
 import { buttonVariants } from "@/components/ui/button";
 import {
   projects,
+  projectsArchive,
   type Project,
   type ProjectScreenshot,
 } from "@/content/projects";
@@ -249,12 +251,24 @@ export function Projects() {
       className="bg-forest text-cream"
     >
       <div className="mx-auto max-w-5xl px-gutter py-section-lg">
-        <h2
-          id="work-heading"
-          className="font-mono text-xs tracking-[0.2em] text-mustard uppercase"
-        >
-          Projects
-        </h2>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <h2
+            id="work-heading"
+            className="font-mono text-xs tracking-[0.2em] text-mustard uppercase"
+          >
+            Projects
+          </h2>
+          <Link
+            href={projectsArchive.seeAllHref}
+            className="group/seeall inline-flex items-center gap-1.5 text-sm font-medium text-cream/85 duration-200 hover:text-mustard focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+          >
+            {projectsArchive.seeAllLabel}
+            <ArrowRight
+              aria-hidden
+              className="size-4 transition-transform duration-200 group-hover/seeall:translate-x-0.5"
+            />
+          </Link>
+        </div>
 
         <StickyStack className="mt-10">
           {projects.map((project, index) => (

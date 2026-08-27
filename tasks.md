@@ -565,9 +565,9 @@ Branch: `feat/portrait-webp`
 
 Depends on 7.3 only for sequence (independent otherwise). Source photo: untracked `public/images/amar.jpg`. If Amar has already approved a Gemini brand-tinted version from `personal-backlog.md`, use that file instead — ask in the task chat before converting.
 
-- [ ] Convert the chosen portrait to WebP, point `profile.photo` at it, delete leftover jpg / unused old `amar.webp`.
-- [ ] `next/image` + existing `PortraitFrame` treatment. No new photo-editing library.
-- [ ] Quick audit: product screenshots under `public/images/` stay WebP.
+- [x] Convert the chosen portrait to WebP, point `profile.photo` at it, delete leftover jpg / unused old `amar.webp`.
+- [x] `next/image` + existing `PortraitFrame` treatment. No new photo-editing library.
+- [x] Quick audit: product screenshots under `public/images/` stay WebP.
 
 ### Task 7.5 — `/projects` archive + “See all projects” + case-study Back
 
@@ -575,10 +575,10 @@ Branch: `feat/projects-index`
 
 Depends on 7.1 (live Areej URL + copy).
 
-- [ ] `src/app/projects/page.tsx`: grid of **all** projects from `content/projects.ts` (Exam.io, Areej, Bookstore). Not StickyStack. Bookstore stays without a case-study route. Metadata + canonical.
-- [ ] Hero: add a “See all projects” control (label lives in `content/`, English, reviewed with Amar) linking to `/projects`. Keep the existing Work jump if it still earns its place; do not invent extra Hero copy.
-- [ ] Case-study Back: replace the quiet “Projects” breadcrumb in `src/components/sections/CaseStudy.tsx` with a clear Back control to `/projects`.
-- [ ] Thin route file — page composes a section component, no copy inline.
+- [x] `src/app/projects/page.tsx`: grid of **all** projects from `content/projects.ts` (Exam.io, Areej, Bookstore). Not StickyStack. Bookstore stays without a case-study route. Metadata + canonical.
+- [x] Hero: add a “See all projects” control (label lives in `content/`, English, reviewed with Amar) linking to `/projects`. Keep the existing Work jump if it still earns its place; do not invent extra Hero copy.
+- [x] Case-study Back: replace the quiet “Projects” breadcrumb in `src/components/sections/CaseStudy.tsx` with a clear Back control to `/projects`.
+- [x] Thin route file — page composes a section component, no copy inline.
 
 ### Task 7.6 — In-site HTML CV page
 

@@ -1,9 +1,14 @@
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 import { SplitHeadline } from "@/components/motion/SplitHeadline";
 import { DeviceFrame } from "@/components/shared/DeviceFrame";
 import { buttonVariants } from "@/components/ui/button";
-import type { Project, ProjectScreenshot } from "@/content/projects";
+import {
+  projectsArchive,
+  type Project,
+  type ProjectScreenshot,
+} from "@/content/projects";
 import { cn, focusRingClassName } from "@/lib/utils";
 
 const CTA_CLASS_NAME = "h-11 px-5 duration-200";
@@ -30,18 +35,20 @@ function cardIndexLabel(index: number): string {
 
 function CaseStudyBackLink() {
   return (
-    <nav aria-label="Breadcrumb">
-      <Link
-        href="/#work"
-        className={cn(
-          "font-mono text-xs tracking-[0.15em] text-sage uppercase transition-colors duration-200 hover:text-mustard",
-          focusRingClassName,
-          "focus-visible:text-mustard",
-        )}
-      >
-        Projects
-      </Link>
-    </nav>
+    <Link
+      href={projectsArchive.seeAllHref}
+      className={cn(
+        "group/back inline-flex items-center gap-1.5 text-sm font-medium text-cream/85 transition-colors duration-200 hover:text-mustard",
+        focusRingClassName,
+        "focus-visible:text-mustard",
+      )}
+    >
+      <ArrowLeft
+        aria-hidden
+        className="size-4 transition-transform duration-200 group-hover/back:-translate-x-0.5"
+      />
+      {projectsArchive.backLabel}
+    </Link>
   );
 }
 

@@ -134,6 +134,19 @@ export const projects: Project[] = [
   },
 ];
 
+function projectArchiveDescription(list: readonly Project[]): string {
+  const names = list.map((project) => project.name);
+  return `${names.slice(0, -1).join(", ")}, and ${names.slice(-1).join("")}.`;
+}
+
+export const projectsArchive = {
+  heading: "Projects",
+  seeAllLabel: "See all projects",
+  seeAllHref: "/projects",
+  backLabel: "Back",
+  description: projectArchiveDescription(projects),
+} as const;
+
 export function getCaseStudyProjects(): Project[] {
   return projects.filter((project) => project.hasCaseStudy);
 }
