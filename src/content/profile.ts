@@ -24,6 +24,7 @@ export type Profile = {
   about: string;
   aboutRows: readonly string[];
   email: string;
+  whatsappHref: string;
   cvHref: string;
   photo: ProfilePhoto;
   socials: SocialLink[];
@@ -43,9 +44,16 @@ export const navLinks: readonly NavLink[] = [
   { href: "/#about", label: "About" },
   { href: "/#stack", label: "Stack" },
   { href: "/#work", label: "Work" },
-  { href: "/#cv", label: "CV" },
   { href: "/#contact", label: "Contact" },
 ];
+
+export const contactActions = {
+  inviteLead: "Let's build something",
+  inviteAccent: "together",
+  emailLabel: "Email",
+  whatsappLabel: "WhatsApp",
+  viewCvLabel: "View CV",
+} as const;
 
 export const profile: Profile = {
   name: "Amar Ibrahim Fawzy",
@@ -55,6 +63,7 @@ export const profile: Profile = {
   about: aboutRows.join(" "),
   aboutRows,
   email: "amaribrahimforwork1@gmail.com",
+  whatsappHref: "https://wa.me/201014140935",
   cvHref: "/cv/Amar-Ibrahim-CV.pdf",
   photo: {
     src: portrait,

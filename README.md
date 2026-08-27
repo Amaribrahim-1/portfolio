@@ -77,7 +77,7 @@ npm run lint
 src/
   app/                 homepage (`/`), projects archive (`/projects`), case studies (`/projects/[slug]`)
   components/
-    sections/          Hero, About, TechStack, Projects, ProjectsIndex, CaseStudy, Cv, Contact
+    sections/          Hero, About, TechStack, Projects, ProjectsIndex, CaseStudy, CvPage, Contact
     shared/            Navbar, Footer, and other non-motion UI
     motion/            Lenis + GSAP ScrollTrigger primitives
     ui/                shadcn primitives
