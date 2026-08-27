@@ -144,6 +144,7 @@ export const projectsArchive = {
   seeAllLabel: "See all projects",
   seeAllHref: "/projects",
   backLabel: "Back",
+  backHref: "/#work",
   description: projectArchiveDescription(projects),
 } as const;
 

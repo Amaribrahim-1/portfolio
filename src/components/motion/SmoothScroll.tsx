@@ -18,7 +18,9 @@ const IDLE_START_TIMEOUT_MS = 200;
 function startSyncedLenis() {
   // Anchors stay off: Next.js Link swallows `/#section` clicks, so in-page
   // hash scrolling is owned by `src/lib/scroll.ts` instead of Lenis.
-  const lenis = new Lenis();
+  const lenis = new Lenis({ stopInertiaOnNavigate: true });
+  lenis.resize();
+  lenis.scrollTo(window.scrollY, { immediate: true, force: true });
   setLenisInstance(lenis);
 
   lenis.on("scroll", ScrollTrigger.update);

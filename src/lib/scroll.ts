@@ -40,6 +40,17 @@ export function scrollToHash(hash: string): void {
   syncLocationHash(hash);
 }
 
+export function jumpToTop(): void {
+  const lenis = getLenisInstance();
+  if (lenis) {
+    lenis.resize();
+    lenis.scrollTo(0, { immediate: true, force: true });
+    return;
+  }
+
+  window.scrollTo(0, 0);
+}
+
 export function jumpToHash(hash: string): void {
   const target = elementForHash(hash);
   if (!target) return;
@@ -87,7 +98,8 @@ function smoothScrollTo(target: HTMLElement): void {
 function instantScrollTo(target: HTMLElement): void {
   const lenis = getLenisInstance();
   if (lenis) {
-    lenis.scrollTo(target, { immediate: true });
+    lenis.resize();
+    lenis.scrollTo(target, { immediate: true, force: true });
     return;
   }
 
