@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { StaggerIn } from "@/components/motion/StaggerIn";
+import { BackLink } from "@/components/shared/BackLink";
 import { buttonVariants } from "@/components/ui/button";
 import {
   projects,
@@ -11,7 +12,7 @@ import {
 } from "@/content/projects";
 import { cn } from "@/lib/utils";
 
-const CTA_CLASS_NAME = "h-11 px-5 duration-200";
+const CTA_CLASS_NAME = "h-11 px-4 duration-200";
 const PRIMARY_CTA_CLASS_NAME = buttonVariants({
   size: "lg",
   className: CTA_CLASS_NAME,
@@ -35,7 +36,7 @@ const TECH_CHIP_CLASS_NAME =
   "rounded-md border border-current/20 px-2.5 py-1 font-mono text-xs tracking-wide text-current/75";
 const TECH_CHIP_CAP = 4;
 const ARCHIVE_IMAGE_SIZES =
-  "(max-width: 48rem) 92vw, (max-width: 80rem) 46vw, 34rem";
+  "(max-width: 48rem) 92vw, (max-width: 80rem) 46vw, 30rem";
 
 function cardIndexLabel(index: number): string {
   return String(index + 1).padStart(2, "0");
@@ -56,7 +57,7 @@ function ArchiveLinks({ project }: { project: Project }) {
   const primaryIsCaseStudy = caseStudyHref != null;
 
   return (
-    <ul className="mt-auto flex flex-wrap gap-3 pt-8">
+    <ul className="mt-auto flex flex-wrap gap-2.5 pt-6">
       {caseStudyHref ? (
         <li>
           <Link href={caseStudyHref} className={PRIMARY_CTA_CLASS_NAME}>
@@ -103,7 +104,7 @@ function ArchiveTech({ names }: { names: readonly string[] }) {
   const extra = names.length - shown.length;
 
   return (
-    <ul className="mt-5 flex flex-wrap gap-2" aria-label="Tech stack">
+    <ul className="mt-4 flex flex-wrap gap-2" aria-label="Tech stack">
       {shown.map((name) => (
         <li key={name} className={TECH_CHIP_CLASS_NAME}>
           {name}
@@ -156,7 +157,7 @@ function ArchiveCard({
   return (
     <article
       className={cn(
-        "grid items-center gap-6 rounded-[1.75rem] p-6 md:grid-cols-2 md:gap-10 md:p-10 lg:gap-14 lg:p-12",
+        "flex h-full flex-col rounded-[1.75rem] p-6 md:p-7",
         ARCHIVE_CARD_TONES[index % ARCHIVE_CARD_TONES.length],
       )}
     >
@@ -167,20 +168,20 @@ function ArchiveCard({
           priority={index === 0}
         />
       ) : null}
-      <div className="flex min-w-0 flex-col">
+      <div className="mt-6 flex min-w-0 flex-1 flex-col">
         <p
           aria-hidden="true"
-          className="font-display text-4xl font-semibold tracking-tight text-mustard md:text-5xl"
+          className="font-display text-3xl font-semibold tracking-tight text-mustard"
         >
           {cardIndexLabel(index)}
         </p>
-        <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-pretty md:text-4xl lg:text-5xl">
+        <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-pretty md:text-3xl">
           {project.name}
         </h2>
         <p className="mt-2 font-mono text-xs tracking-[0.2em] text-mustard uppercase">
           {project.statusLabel}
         </p>
-        <p className="mt-4 max-w-xl text-base text-pretty text-current/75 md:text-lg">
+        <p className="mt-3 text-base text-pretty text-current/75">
           {project.tagline}
         </p>
         <ArchiveTech names={project.tech} />
@@ -196,15 +197,19 @@ export function ProjectsIndex() {
       aria-labelledby="projects-heading"
       className="bg-forest text-cream"
     >
-      <div className="mx-auto max-w-7xl px-gutter pt-28 pb-section md:pb-section-lg">
+      <div className="mx-auto w-full max-w-[100rem] px-gutter pt-28 pb-section md:pb-section-lg">
+        <BackLink
+          href={projectsArchive.backHref}
+          label={projectsArchive.backLabel}
+        />
         <h1
           id="projects-heading"
-          className="font-display text-4xl font-semibold tracking-tight text-pretty md:text-6xl lg:text-7xl"
+          className="mt-10 font-display text-4xl font-semibold tracking-tight text-pretty md:text-6xl lg:text-7xl"
         >
           {projectsArchive.heading}
         </h1>
 
-        <StaggerIn className="mt-10 grid gap-6 md:gap-8">
+        <StaggerIn className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-7 xl:grid-cols-3 xl:gap-8">
           {projects.map((project, index) => (
             <ArchiveCard
               key={project.slug}

@@ -1,7 +1,5 @@
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-
 import { SplitHeadline } from "@/components/motion/SplitHeadline";
+import { BackLink } from "@/components/shared/BackLink";
 import { DeviceFrame } from "@/components/shared/DeviceFrame";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -9,7 +7,7 @@ import {
   type Project,
   type ProjectScreenshot,
 } from "@/content/projects";
-import { cn, focusRingClassName } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 const CTA_CLASS_NAME = "h-11 px-5 duration-200";
 const PRIMARY_CTA_CLASS_NAME = buttonVariants({
@@ -33,30 +31,14 @@ function cardIndexLabel(index: number): string {
   return String(index + 1).padStart(2, "0");
 }
 
-function CaseStudyBackLink() {
-  return (
-    <Link
-      href={projectsArchive.seeAllHref}
-      className={cn(
-        "group/back inline-flex items-center gap-1.5 text-sm font-medium text-cream/85 transition-colors duration-200 hover:text-mustard",
-        focusRingClassName,
-        "focus-visible:text-mustard",
-      )}
-    >
-      <ArrowLeft
-        aria-hidden
-        className="size-4 transition-transform duration-200 group-hover/back:-translate-x-0.5"
-      />
-      {projectsArchive.backLabel}
-    </Link>
-  );
-}
-
 function CaseStudyHeader({ project }: { project: Project }) {
   return (
     <header className="bg-forest text-cream">
       <div className="mx-auto max-w-5xl px-gutter pt-28 pb-16 md:pb-20">
-        <CaseStudyBackLink />
+        <BackLink
+          href={projectsArchive.backHref}
+          label={projectsArchive.backLabel}
+        />
         <p className="mt-10 font-mono text-xs tracking-[0.2em] text-mustard uppercase">
           Case study
         </p>

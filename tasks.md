@@ -510,7 +510,7 @@ Personal / out-of-repo work is **not** in this phase — see `personal-backlog.m
 - Hero gets a “See all projects” control that goes to `/projects` (grid archive). Homepage Work stays on vertical `StickyStack`.
 - Areej is **production / Live** at `https://areej-store-kappa.vercel.app/`. Incoming hero screenshot: `docs/sources/areej/hero.jpg`.
 
-Build order: **7.0 → 7.1 → 7.2 → 7.3 → 7.4 → 7.5 → 7.6 → 7.7**. Do not skip. Do not start a later task until the previous checkbox list is done.
+Build order: **7.0 → 7.1 → 7.2 → 7.3 → 7.4 → 7.5 → 7.6 → 7.7 → 7.8**. Do not skip. Do not start a later task until the previous checkbox list is done.
 
 ### Task 7.0 — Write the task files
 
@@ -604,4 +604,16 @@ Depends on 7.6 so “View CV” does not 404.
 - [x] `src/components/sections/Contact.tsx`: three primary actions — Email (`mailto:`), WhatsApp (`wa.me`), View CV (`/cv`). Keep LinkedIn + GitHub as secondary socials. No form fields, no backend, no Resend.
 - [x] Update Footer only if a CV/contact link there would otherwise 404 or still point at the old `#cv` section (today Footer is email + socials only).
 - [x] Confirm keyboard + mobile: three CTAs wrap, focus rings stay visible.
+
+### Task 7.8 — Archive back + 3-col grid + Hero Areej glow
+
+Branch: `feat/archive-grid-back`
+
+Depends on 7.5 (`/projects` archive + case-study Back). Feedback after using the live archive.
+
+- [x] Case-study Back stays on `/projects` (already Task 7.5). Do not retarget it to home.
+- [x] `/projects` gets a Back control to `/`, same chrome as case study / CV (arrow + “Back”, mustard hover). Label + href live in `content/projects.ts`.
+- [x] Restyle `/projects` as a card grid: 1 col mobile, 2 col tablet, **3 col on large screens**. Container takes most of the page width (`max-w-7xl` is too tight — cards go skinny). Vertical cards (screenshot on top, copy below) so three columns stay readable. Not StickyStack.
+- [x] Hero collage: Areej screenshot needs a visible mustard glow/border like the portrait (`photo-frame`) and the Exam.io tile. The current shared glow is too faint on Areej’s light hero. Do not restyle the portrait or rebuild the collage layout.
+- [x] Thin route file stays thin. Reduced-motion: no extra tweening.
 

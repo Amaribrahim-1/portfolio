@@ -5,7 +5,7 @@ export const cvPage = {
   href: "/cv",
   heroLabel: "My CV",
   backLabel: "Back",
-  backHref: "/",
+  backHref: "/#contact",
   downloadLabel: "Download PDF",
   pdfHref: profile.cvHref,
   pdfFileName: "Amar-Ibrahim-CV.pdf",
