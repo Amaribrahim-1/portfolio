@@ -6,20 +6,23 @@ import { cvPage } from "@/content/cv";
 import { contactActions, contactIntent, profile } from "@/content/profile";
 import { cn } from "@/lib/utils";
 
-const CTA_CLASS_NAME = "h-11 px-5 duration-200";
+const PRIMARY_CTA_CLASS_NAME =
+  "h-11 w-full min-w-0 shrink px-2 duration-200 sm:w-auto sm:shrink-0 sm:px-5";
+const SECONDARY_CTA_CLASS_NAME = "h-11 px-5 duration-200";
+const PRIMARY_ACTION_ITEM_CLASS_NAME = "min-w-0 flex-1 sm:flex-none";
 const CONTACT_ACCENT = "freelance";
 const INVITE_CARD_CLASS_NAME =
   "mt-10 w-full max-w-3xl rounded-[1.75rem] bg-cream p-8 text-forest shadow-[0_24px_60px_color-mix(in_oklab,black_12%,transparent)] ring-1 ring-forest/15 md:p-10";
 
 const primaryCtaClassName = buttonVariants({
   size: "lg",
-  className: CTA_CLASS_NAME,
+  className: PRIMARY_CTA_CLASS_NAME,
 });
 
 const secondaryCtaClassName = cn(
   buttonVariants({
     size: "lg",
-    className: CTA_CLASS_NAME,
+    className: SECONDARY_CTA_CLASS_NAME,
   }),
   "border-forest/40 bg-transparent text-forest hover:bg-forest/10 hover:text-forest",
 );
@@ -31,13 +34,13 @@ function ContactInviteCard() {
         {contactActions.inviteLead}{" "}
         <em className="italic text-mustard">{contactActions.inviteAccent}</em>.
       </p>
-      <ul className="mt-8 flex flex-wrap gap-3">
-        <li>
+      <ul className="mt-8 flex gap-2 sm:flex-wrap sm:gap-3">
+        <li className={PRIMARY_ACTION_ITEM_CLASS_NAME}>
           <a href={`mailto:${profile.email}`} className={primaryCtaClassName}>
             {contactActions.emailLabel}
           </a>
         </li>
-        <li>
+        <li className={PRIMARY_ACTION_ITEM_CLASS_NAME}>
           <a
             href={profile.whatsappHref}
             target="_blank"
@@ -48,7 +51,7 @@ function ContactInviteCard() {
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </li>
-        <li>
+        <li className={PRIMARY_ACTION_ITEM_CLASS_NAME}>
           <Link href={cvPage.href} className={primaryCtaClassName}>
             {contactActions.viewCvLabel}
           </Link>

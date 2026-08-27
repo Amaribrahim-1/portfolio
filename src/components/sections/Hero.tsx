@@ -177,11 +177,11 @@ export function Hero() {
     >
       <ParallaxLayer
         offset={48}
-        className="pointer-events-none absolute inset-0 z-0 flex items-center justify-start overflow-hidden pl-[6vw]"
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 flex h-[52svh] min-h-64 items-end justify-start overflow-hidden pb-1 pl-[2vw] md:inset-0 md:h-auto md:min-h-0 md:items-center md:pb-0 md:pl-[6vw]"
       >
         <p
           aria-hidden="true"
-          className="max-w-none font-display text-[28vw] leading-none font-semibold tracking-tighter whitespace-nowrap text-cream/10 select-none md:text-[32vw]"
+          className="max-w-none font-display text-[40vw] leading-[0.8] font-semibold tracking-tighter whitespace-nowrap text-cream/25 select-none md:text-[32vw] md:leading-none md:text-cream/10 translate-y-[0.3cm] md:translate-y-0"
         >
           {WATERMARK_NAME}
         </p>
