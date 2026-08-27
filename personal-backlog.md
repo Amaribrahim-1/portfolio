@@ -8,15 +8,7 @@ Agents: do not start these in a Phase 7 product chat. If a personal item produce
 
 ## Brand color system
 
-Extract a reusable personal brand palette from the live tokens — **do not restyle the site**.
-
-- Forest `#0E2A26`
-- Cream `#F3EEE4`
-- Mustard `#E4B52A`
-- Sage `#9BB3A0`
-- Fonts: Fraunces (display), Geist (body), JetBrains Mono (tags)
-
-Deliverable for Amar: tints/shades, what each color is for (background, text, accent, hover), and a short usage note he can reuse later. Keep it out of `src/` unless he later asks to wire extra tokens.
+Done — `docs/color-system.md`. Tints/shades, roles, contrast, hover, and a paste-ready `:root`. Not wired into `src/`.
 
 ## Gemini portrait
 
