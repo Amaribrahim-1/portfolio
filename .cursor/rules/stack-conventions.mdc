@@ -8,7 +8,7 @@ alwaysApply: true
 - Motion: GSAP 3 + ScrollTrigger + `@gsap/react` + Lenis. Custom split-text helper — no Club GSAP plugin. Do not add `motion`, Framer Motion, or a fourth animation library.
 - Palette: forest `#0E2A26`, cream `#F3EEE4`, mustard `#E4B52A`, sage `#9BB3A0`. Display font: Fraunces. Body: Geist. Tags: JetBrains Mono.
 - Content lives in local TypeScript files under `content/` — no CMS, no database, no auth. Real content comes from `portfolio-spec.md`, not invented.
-- Contact: mailto/social links by default; no backend unless explicitly requested.
+- Contact: Email + WhatsApp + View CV as primary actions; LinkedIn/GitHub as secondary socials. No contact-form backend.
 - Deploy target: Vercel.
 
 # Folder Structure
@@ -20,7 +20,7 @@ src/
     projects/[slug]/page.tsx  → case study route (areej, exam-io)
     cv/page.tsx           → branded in-site PDF viewer
   components/
-    sections/               → Hero, About, TechStack, Projects, ProjectsIndex, Cv, CvPage, Contact
+    sections/               → Hero, About, TechStack, Projects, ProjectsIndex, CvPage, Contact
     shared/                 → Navbar, Footer, and non-motion primitives
     motion/                 → SmoothScroll, SplitHeadline, StickyStack, ScrollPath, ParallaxLayer, StaggerIn, IconStrip
     ui/                     → shadcn primitives, untouched/generated

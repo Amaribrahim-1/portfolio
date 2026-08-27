@@ -599,9 +599,9 @@ Branch: `feat/contact-merge`
 
 Depends on 7.6 so “View CV” does not 404.
 
-- [ ] Remove `src/components/sections/Cv.tsx` from `src/app/page.tsx` (delete the section component if nothing else imports it). Drop `{ href: "/#cv", label: "CV" }` from `navLinks`.
-- [ ] `src/content/profile.ts`: add `whatsappHref: "https://wa.me/201014140935"`. Do not invent a second phone display.
-- [ ] `src/components/sections/Contact.tsx`: three primary actions — Email (`mailto:`), WhatsApp (`wa.me`), View CV (`/cv`). Keep LinkedIn + GitHub as secondary socials. No form fields, no backend, no Resend.
-- [ ] Update Footer only if a CV/contact link there would otherwise 404 or still point at the old `#cv` section (today Footer is email + socials only).
-- [ ] Confirm keyboard + mobile: three CTAs wrap, focus rings stay visible.
+- [x] Remove `src/components/sections/Cv.tsx` from `src/app/page.tsx` (delete the section component if nothing else imports it). Drop `{ href: "/#cv", label: "CV" }` from `navLinks`.
+- [x] `src/content/profile.ts`: add `whatsappHref: "https://wa.me/201014140935"`. Do not invent a second phone display.
+- [x] `src/components/sections/Contact.tsx`: three primary actions — Email (`mailto:`), WhatsApp (`wa.me`), View CV (`/cv`). Keep LinkedIn + GitHub as secondary socials. No form fields, no backend, no Resend.
+- [x] Update Footer only if a CV/contact link there would otherwise 404 or still point at the old `#cv` section (today Footer is email + socials only).
+- [x] Confirm keyboard + mobile: three CTAs wrap, focus rings stay visible.
 

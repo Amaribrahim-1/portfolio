@@ -1,10 +1,77 @@
+import Link from "next/link";
+
 import { SplitHeadline } from "@/components/motion/SplitHeadline";
 import { buttonVariants } from "@/components/ui/button";
-import { contactIntent, profile } from "@/content/profile";
-import { cn, focusRingClassName } from "@/lib/utils";
+import { cvPage } from "@/content/cv";
+import { contactActions, contactIntent, profile } from "@/content/profile";
+import { cn } from "@/lib/utils";
 
 const CTA_CLASS_NAME = "h-11 px-5 duration-200";
 const CONTACT_ACCENT = "freelance";
+const INVITE_CARD_CLASS_NAME =
+  "mt-10 w-full max-w-3xl rounded-[1.75rem] bg-cream p-8 text-forest shadow-[0_24px_60px_color-mix(in_oklab,black_12%,transparent)] ring-1 ring-forest/15 md:p-10";
+
+const primaryCtaClassName = buttonVariants({
+  size: "lg",
+  className: CTA_CLASS_NAME,
+});
+
+const secondaryCtaClassName = cn(
+  buttonVariants({
+    size: "lg",
+    className: CTA_CLASS_NAME,
+  }),
+  "border-forest/40 bg-transparent text-forest hover:bg-forest/10 hover:text-forest",
+);
+
+function ContactInviteCard() {
+  return (
+    <article className={INVITE_CARD_CLASS_NAME}>
+      <p className="font-display text-2xl font-semibold tracking-tight text-pretty md:text-3xl lg:text-4xl">
+        {contactActions.inviteLead}{" "}
+        <em className="italic text-mustard">{contactActions.inviteAccent}</em>.
+      </p>
+      <ul className="mt-8 flex flex-wrap gap-3">
+        <li>
+          <a href={`mailto:${profile.email}`} className={primaryCtaClassName}>
+            {contactActions.emailLabel}
+          </a>
+        </li>
+        <li>
+          <a
+            href={profile.whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={primaryCtaClassName}
+          >
+            {contactActions.whatsappLabel}
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        </li>
+        <li>
+          <Link href={cvPage.href} className={primaryCtaClassName}>
+            {contactActions.viewCvLabel}
+          </Link>
+        </li>
+      </ul>
+      <ul className="mt-4 flex flex-wrap gap-3">
+        {profile.socials.map((social) => (
+          <li key={social.href}>
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={secondaryCtaClassName}
+            >
+              {social.label}
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+}
 
 export function Contact() {
   return (
@@ -23,39 +90,7 @@ export function Contact() {
           {contactIntent}
         </SplitHeadline>
 
-        <a
-          href={`mailto:${profile.email}`}
-          className={cn(
-            "mt-10 font-display text-xl font-semibold tracking-tight break-all text-cream transition-colors duration-200 hover:text-mustard sm:text-2xl md:text-3xl",
-            focusRingClassName,
-            "focus-visible:text-mustard",
-          )}
-        >
-          {profile.email}
-        </a>
-
-        <ul className="mt-8 flex flex-wrap gap-3">
-          {profile.socials.map((social) => (
-            <li key={social.href}>
-              <a
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  buttonVariants({
-                    variant: "outline",
-                    size: "lg",
-                    className: CTA_CLASS_NAME,
-                  }),
-                  "border-cream/45 bg-transparent text-cream hover:bg-cream/10 hover:text-cream",
-                )}
-              >
-                {social.label}
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <ContactInviteCard />
       </div>
     </section>
   );
