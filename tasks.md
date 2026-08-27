@@ -505,7 +505,7 @@ Personal / out-of-repo work is **not** in this phase — see `personal-backlog.m
 
 **Locked decisions (do not re-litigate):**
 - Contact is three actions: Email + WhatsApp + View CV. No contact-form backend.
-- Dedicated homepage `#cv` section is removed (Task 7.7). CV lives at `/cv` as a branded HTML page + PDF download (Task 7.6).
+- Dedicated homepage `#cv` section is removed (Task 7.7). CV lives at `/cv` as a branded in-site viewer of the real PDF (Drive-like frame, our chrome — not Google) + download (Task 7.6).
 - WhatsApp is now a public contact action (spec exception: phone was CV-only). Number `01014140935` → `https://wa.me/201014140935`.
 - Hero gets a “See all projects” control that goes to `/projects` (grid archive). Homepage Work stays on vertical `StickyStack`.
 - Areej is **production / Live** at `https://areej-store-kappa.vercel.app/`. Incoming hero screenshot: `docs/sources/areej/hero.jpg`.
@@ -580,16 +580,18 @@ Depends on 7.1 (live Areej URL + copy).
 - [x] Case-study Back: replace the quiet “Projects” breadcrumb in `src/components/sections/CaseStudy.tsx` with a clear Back control to `/projects`.
 - [x] Thin route file — page composes a section component, no copy inline.
 
-### Task 7.6 — In-site HTML CV page
+### Task 7.6 — In-site CV viewer (real PDF in a branded frame)
 
 Branch: `feat/cv-page`
 
-Depends on 7.5 only for sequence. Source facts from `public/cv/Amar-Ibrahim-CV.pdf` into `src/content/cv.ts`. English. Do not invent jobs, dates, or skills.
+Depends on 7.5 only for sequence. Show `public/cv/Amar-Ibrahim-CV.pdf` itself on `/cv`. Do **not** transcribe jobs, dates, or skills into HTML.
 
-- [ ] `src/app/cv/page.tsx`: branded HTML resume (forest/cream/mustard, Fraunces headings). Back control (home or `#contact`) + “Download PDF” to the existing file. No Google/Drive, no raw PDF tab as the primary view.
-- [ ] Hero “My CV” button goes to `/cv` (not `target="_blank"` PDF).
-- [ ] Metadata + canonical. Reduced-motion: no extra motion beyond existing primitives if any are used.
-- [ ] Stop for Amar’s copy review against the PDF before merge.
+Dropped 2026-08-27: an HTML restyle of the CV copy (`src/content/cv.ts` + `CvPage`) — Amar rejected it (not the real document). Do not revive that approach.
+
+- [x] `src/app/cv/page.tsx`: branded viewer of the existing PDF (forest/cream/mustard chrome). Google Drive–style preview: the real document sits in a frame on our page. Back control (home or `#contact`) + “Download PDF” to the same file. No Google/Drive embed, no raw PDF tab as the primary view, no HTML resume.
+- [x] Hero “My CV” button goes to `/cv` (not `target="_blank"` PDF).
+- [x] Metadata + canonical. Reduced-motion: no extra motion beyond existing primitives if any are used.
+- [x] Stop for Amar’s review of the viewer (frame, desktop + mobile) before merge. The PDF is the content — do not invent CV copy.
 
 ### Task 7.7 — Contact merge: Email + WhatsApp + View CV
 

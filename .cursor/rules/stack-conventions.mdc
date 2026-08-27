@@ -18,8 +18,9 @@ src/
     page.tsx              → the one-page homepage, composes section components
     projects/page.tsx     → projects archive grid
     projects/[slug]/page.tsx  → case study route (areej, exam-io)
+    cv/page.tsx           → branded in-site PDF viewer
   components/
-    sections/               → Hero, About, TechStack, Projects, ProjectsIndex, Cv, Contact
+    sections/               → Hero, About, TechStack, Projects, ProjectsIndex, Cv, CvPage, Contact
     shared/                 → Navbar, Footer, and non-motion primitives
     motion/                 → SmoothScroll, SplitHeadline, StickyStack, ScrollPath, ParallaxLayer, StaggerIn, IconStrip
     ui/                     → shadcn primitives, untouched/generated
@@ -27,9 +28,10 @@ src/
     profile.ts                → bio, tagline, contact links
     skills.ts                  → tech stack groups
     projects.ts                 → project + case-study data (Areej, Exam.io)
+    cv.ts                      → CV viewer chrome (route, labels, PDF + preview image)
   lib/                        → utils, gsap register, split-text helper
 public/
-  cv/                          → Amar-Ibrahim-CV.pdf
+  cv/                          → Amar-Ibrahim-CV.pdf + preview.jpg
 ```
 Route files in `app/` stay thin — they compose section components, no content or business logic inline.
 
